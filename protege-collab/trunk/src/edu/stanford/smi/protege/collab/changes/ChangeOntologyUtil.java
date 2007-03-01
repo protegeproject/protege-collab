@@ -48,7 +48,8 @@ public class ChangeOntologyUtil {
 	
 	//The includOldValues should not be implemented here, but in the change ontology!!!
 	//This is just a temporary implementation, until the changes ontology will solve this
-	public static Collection<Frame> getAnnotationInstances(KnowledgeBase changesKb, String frameName, Cls typeFilter, boolean includeOldValues) {
+	@SuppressWarnings("unchecked")
+    public static Collection<Frame> getAnnotationInstances(KnowledgeBase changesKb, String frameName, Cls typeFilter, boolean includeOldValues) {
 		//not efficient implementation. Maybe find a better one
 
 		if (changesKb == null) {
@@ -67,7 +68,7 @@ public class ChangeOntologyUtil {
 			if (typeFilter == null) {
 				return new ArrayList<Frame>();
 			} else {
-				annotationInstances = typeFilter.getInstances();
+				annotationInstances = (Collection) typeFilter.getInstances();
 			}
 		}
 		
