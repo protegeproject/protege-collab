@@ -36,6 +36,7 @@ import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -156,7 +157,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		}
 		
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase());		
-		Slot associatedAnnotation = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot associatedAnnotation = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 		Slot voteAnnotationSlot = changesKb.getSlot(ChangeOntologyUtil.SLOT_NAME_VOTE_VALUE);
 		Cls voteCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_VOTE_5_STAR);
 		
@@ -275,9 +276,9 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase());
 		
-		Slot associatedAnnotation = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot associatedAnnotation = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 
-		Cls annotationCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
+		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
 				
 		//rename instance
 		Instance instDiscussionThread = pickedAnnotationCls.createDirectInstance(null);

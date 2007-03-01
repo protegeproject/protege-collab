@@ -11,7 +11,8 @@ import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.ui.LazyTreeNodeFrameComparator;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
-import edu.stanford.smi.protegex.changes.InstanceDateComparator;
+import edu.stanford.smi.protegex.server_changes.model.Model;
+
 
 
 /**
@@ -89,7 +90,7 @@ public class AnnotationsTreeNode extends LazyTreeNode {
 	//move this to a utility class
 	private Collection getChildObjectsAnnotations() {
 		
-		Slot assocAnnot = ((Frame)getUserObject()).getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot assocAnnot = ((Frame)getUserObject()).getKnowledgeBase().getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 						
 		return getValuesOnSlot(assocAnnot);
 	}
@@ -97,7 +98,7 @@ public class AnnotationsTreeNode extends LazyTreeNode {
 	
 	//move this to a utility class	
 	private Collection getChildObjectsChanges() {
-		Slot changesSlot =  ((Frame)getUserObject()).getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_CHANGES);
+		Slot changesSlot =  ((Frame)getUserObject()).getKnowledgeBase().getSlot(Model.SLOT_NAME_CHANGES);
 		
 		return getValuesOnSlot(changesSlot);
 	}

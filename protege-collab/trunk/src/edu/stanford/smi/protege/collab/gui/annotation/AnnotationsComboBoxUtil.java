@@ -6,6 +6,7 @@ import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -29,7 +30,7 @@ public class AnnotationsComboBoxUtil {
 	}
 	
 	public Collection getAllowableAnnotations(Instance annotationInstance) {
-		Cls annotationCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
+		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
 		
 		return annotationCls.getSubclasses();
 	}

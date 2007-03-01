@@ -13,6 +13,7 @@ import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -64,7 +65,7 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 			parentAnnotation = (Frame) CollectionUtilities.getFirstItem(selection);
 		}
 		
-		Slot associatedAnnotation = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot associatedAnnotation = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 		
 		Instance instDiscussionThread = pickedAnnotationCls.createDirectInstance(null);
 		

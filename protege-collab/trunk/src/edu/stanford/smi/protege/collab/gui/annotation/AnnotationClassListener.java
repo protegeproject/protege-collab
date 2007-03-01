@@ -11,6 +11,7 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -39,17 +40,17 @@ public class AnnotationClassListener extends KnowledgeBaseAdapter {
 		Instance instance = (Instance) frame;
 					
 		KnowledgeBase changesKb = ChangesProject.getChangesKB(kb);
-		Cls annotationCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
+		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
 		
 		if (!instance.hasType(annotationCls)) {
 			return;
 		}
 		
-		Slot authorSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_AUTHOR);
+		Slot authorSlot = changesKb.getSlot(Model.SLOT_NAME_AUTHOR);
 				
 		instance.setOwnSlotValue(authorSlot, kb.getUserName());
 		
-		Slot creationDateSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_CREATED);
+		Slot creationDateSlot = changesKb.getSlot(Model.SLOT_NAME_CREATED);
 		instance.setOwnSlotValue(creationDateSlot, (new Date()).toString());
 		
 	}
