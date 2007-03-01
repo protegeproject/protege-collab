@@ -8,6 +8,7 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -22,8 +23,8 @@ public class AnnotationsRenderer extends FrameRenderer {
 		KnowledgeBase changesKb = instance.getKnowledgeBase();
 		
 		//cache this later
-		Cls annotationCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
-		Cls changeCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_CHANGE);
+		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
+		Cls changeCls = changesKb.getCls(Model.CLS_NAME_CHANGE);
 		Cls ontologyCompCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_ONTOLOGY_COMPONENT);
 		Cls voteCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_VOTE);
 		Cls proposalCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_PROPOSAL);

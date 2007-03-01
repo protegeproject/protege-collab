@@ -12,6 +12,7 @@ import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -54,7 +55,7 @@ public class ChangeOntologyUtil {
 			return null;
 		}
 
-		Slot applyToSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_APPLYTO);
+		Slot applyToSlot = changesKb.getSlot(Model.SLOT_NAME_APPLYTO);
 
 		//Or browsing text?
 		Collection<Frame> annotationInstances; 
@@ -111,9 +112,9 @@ public class ChangeOntologyUtil {
 			return null;
 		}
 
-		Cls transactionCls = changesKb.getCls(ChangeCreateUtil.CHANGETYPE_TRANS_CHANGE);
-		Slot changesSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_CHANGES);
-		Slot assocAnnotSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Cls transactionCls = changesKb.getCls(Model.CHANGETYPE_TRANS_CHANGE);
+		Slot changesSlot = changesKb.getSlot(Model.SLOT_NAME_CHANGES);
+		Slot assocAnnotSlot = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 
 		if (transactionCls == null || changesSlot == null) {
 			return allAnnotations;
@@ -142,10 +143,10 @@ public class ChangeOntologyUtil {
 			return new ArrayList<String>();
 		}
 	
-		Slot newNameSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_NEWNAME);
+		Slot newNameSlot = changesKb.getSlot(Model.SLOT_NAME_NEWNAME);
 		Collection<Frame> nameChangeInstances = changesKb.getMatchingFrames(newNameSlot, null, false, frameName, 1000);  
 
-		Slot oldNameSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_OLDNAME);
+		Slot oldNameSlot = changesKb.getSlot(Model.SLOT_NAME_OLDNAME);
 
 		ArrayList<String> oldValues = new ArrayList<String>();
 
@@ -206,9 +207,9 @@ public class ChangeOntologyUtil {
 		ArrayList annotatations = new ArrayList();
 
 
-		Slot associatedAnnotationSlot = changeInst.getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot associatedAnnotationSlot = changeInst.getKnowledgeBase().getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 
-		Slot bodySlot = changeInst.getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_BODY);
+		Slot bodySlot = changeInst.getKnowledgeBase().getSlot(Model.SLOT_NAME_BODY);
 
 		for (Object annotInstance : changeInst.getOwnSlotValues(associatedAnnotationSlot)) {
 			annotatations.addAll(((Instance)annotInstance).getOwnSlotValues(bodySlot));
@@ -241,7 +242,7 @@ public class ChangeOntologyUtil {
 		Instance ontoCompInst = ontologyComponentCls.createDirectInstance(null);
 
 		if (appliedToName != null) {
-			Slot appliedToSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_APPLYTO);
+			Slot appliedToSlot = changesKb.getSlot(Model.SLOT_NAME_APPLYTO);
 
 			if (appliedToSlot != null) {
 				ontoCompInst.setOwnSlotValue(appliedToSlot, appliedToName);
@@ -252,17 +253,17 @@ public class ChangeOntologyUtil {
 			annotationCls = changesKb.getCls(CLS_NAME_COMMENT);
 		}
 
-		Cls annotationParentCls =changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
+		Cls annotationParentCls =changesKb.getCls(Model.CLS_NAME_ANNOTATE);
 
 		if (annotationCls.hasSuperclass(annotationParentCls)) {
 			Instance annotationInstance = annotationCls.createDirectInstance(null);
-			Slot descriptionSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_BODY);
+			Slot descriptionSlot = changesKb.getSlot(Model.SLOT_NAME_BODY);
 
 			if (annotationBody != null) {
 				annotationInstance.addOwnSlotValue(descriptionSlot, annotationBody);
 			}
 
-			Slot assocAnnotSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+			Slot assocAnnotSlot = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 
 			ontoCompInst.addOwnSlotValue(assocAnnotSlot, annotationInstance);
 		}
@@ -279,7 +280,7 @@ public class ChangeOntologyUtil {
 		//check why this is invoked twice
 		Collection<Frame> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(changesKb, frameName, ontologyCompCls);
 
-		Slot assocAnnotSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS);
+		Slot assocAnnotSlot = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 		
 		Collection<Frame> ontologyComponentAnnotations = new ArrayList<Frame>();
 		
@@ -288,8 +289,8 @@ public class ChangeOntologyUtil {
 		}
 		
 		
-		Cls transactionCls = changesKb.getCls(ChangeCreateUtil.CHANGETYPE_TRANS_CHANGE);
-		Slot changesSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_CHANGES);
+		Cls transactionCls = changesKb.getCls(Model.CHANGETYPE_TRANS_CHANGE);
+		Slot changesSlot = changesKb.getSlot(Model.SLOT_NAME_CHANGES);
 
 
 		Collection toRemove = new ArrayList<Frame>();
@@ -325,8 +326,8 @@ public class ChangeOntologyUtil {
 	public static Collection getDiscussionThreadAnnotations(KnowledgeBase kb) {
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(kb);
 		
-		Cls annCls = changesKb.getCls(ChangeCreateUtil.CLS_NAME_ANNOTATE);
-		Slot annotationSlot = changesKb.getSlot(ChangeCreateUtil.SLOT_NAME_ANNOTATES);
+		Cls annCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
+		Slot annotationSlot = changesKb.getSlot(Model.SLOT_NAME_ANNOTATES);
 		
 		ArrayList<Instance> discThreadAnns = new ArrayList<Instance>();
 		

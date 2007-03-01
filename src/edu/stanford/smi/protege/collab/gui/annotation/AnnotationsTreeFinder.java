@@ -12,6 +12,7 @@ import edu.stanford.smi.protege.ui.FrameTreeFinder;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.LazyTreeRoot;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
+import edu.stanford.smi.protegex.server_changes.model.Model;
 
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class AnnotationsTreeFinder extends FrameTreeFinder {
 	@Override
 	protected Collection getAncestors(Frame frame) {
 		//return frame.getOwnSlotValues(getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_ASSOC_ANNOTATIONS));
-		return getKnowledgeBase().getDirectOwnSlotValuesClosure(frame, getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_ANNOTATES));
+		return getKnowledgeBase().getDirectOwnSlotValuesClosure(frame, getKnowledgeBase().getSlot(Model.SLOT_NAME_ANNOTATES));
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class AnnotationsTreeFinder extends FrameTreeFinder {
 
 	@Override
 	protected Collection getParents(Frame frame) {
-		return frame.getOwnSlotValues(getKnowledgeBase().getSlot(ChangeCreateUtil.SLOT_NAME_ANNOTATES));
+		return frame.getOwnSlotValues(getKnowledgeBase().getSlot(Model.SLOT_NAME_ANNOTATES));
 	}
 
 	@Override
