@@ -23,7 +23,7 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
 	protected void loadCls(final Cls cls) {
 		super.loadCls(cls);
 			
-		if (!ChangeOntologyUtil.hasAnnotations(changesKb, cls.getName())) {
+		if (!ChangeOntologyUtil.hasAnnotations(cls)) {
 			return;
 		}
 		
@@ -35,7 +35,7 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
 	protected void loadSlot(Slot slot) {
 		super.loadSlot(slot);
 		
-		if (!ChangeOntologyUtil.hasAnnotations(changesKb, slot.getName())) {
+		if (!ChangeOntologyUtil.hasAnnotations(slot)) {
 			return;
 		}
 		
@@ -48,7 +48,7 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
 	protected void loadInstance(Instance instance) {	
 		super.loadInstance(instance);
 		
-		if (!ChangeOntologyUtil.hasAnnotations(changesKb, instance.getName())) {
+		if (!ChangeOntologyUtil.hasAnnotations(instance)) {
 			return;
 		}
 		

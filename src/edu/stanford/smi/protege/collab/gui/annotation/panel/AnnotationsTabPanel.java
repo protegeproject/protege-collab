@@ -36,7 +36,10 @@ import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
-import edu.stanford.smi.protegex.server_changes.model.Model;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
+import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
+
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -117,7 +120,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		labeledComponent.setHeaderComponent(littlePanel);
 			
 		//change this
-		labeledComponent.setFooterComponent(new AnnotationsTreeFinder(ChangeOntologyUtil.getChangesKB(kb), annotationsTree));
+		labeledComponent.setFooterComponent(new AnnotationsTreeFinder(ChangeOntologyUtil.getChangesKb(kb), annotationsTree));
 	
 		annotationsTree.addTreeSelectionListener(new TreeSelectionListener() {
 
@@ -156,14 +159,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			return;
 		}
 		
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase());		
-		Slot associatedAnnotation = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
-		Slot voteAnnotationSlot = changesKb.getSlot(ChangeOntologyUtil.SLOT_NAME_VOTE_VALUE);
-		Cls voteCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_VOTE_5_STAR);
-		
-		Instance instVote = voteCls.createDirectInstance(null);
-		instVote.setOwnSlotValue(voteAnnotationSlot, rating);
-		parentAnnotation.addOwnSlotValue(associatedAnnotation, instVote);
+		Vote instVote = (Vote) ChangeOntologyUtil.createAnnotationOnAnnotation(currentInstance.getKnowledgeBase(), parentAnnotation, AnnotationCls.FiveStarsVote);
+		instVote.setVoteValue(rating);
 		
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
 		selectedNode.childAdded(instVote);	
@@ -172,7 +169,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 
 	protected void onAnnotationTypeChange() {
-		Cls annotationType = getSelectedAnnotationType();
+		AnnotationCls annotationType = getSelectedAnnotationType();
 		
 		createAction.setAllowed(annotationType != null);		
 	}
@@ -189,11 +186,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		
 		annotationsComboBox.addItem("Select annotation type ...");
 		
-		for (Iterator iter = AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotations(selection).iterator(); iter.hasNext();) {
-			Cls annCls = (Cls) iter.next();
-			annotationsComboBox.addItem(annCls);
+		for (AnnotationCls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(selection)) {
+			annotationsComboBox.addItem(annotCls);
 		}
-		
+				
 	}
 
 
@@ -260,7 +256,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	
 	
 	protected void onReplyAnnotation() {
-		Cls pickedAnnotationCls = getSelectedAnnotationType(); 
+		AnnotationCls pickedAnnotationCls = getSelectedAnnotationType(); 
 		
 		if (pickedAnnotationCls == null) {
 			return;
@@ -273,23 +269,12 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		if (selection != null && selection.size() > 0) {
 			parentAnnotation = (Frame) CollectionUtilities.getFirstItem(selection);
 		}
-	
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase());
-		
-		Slot associatedAnnotation = changesKb.getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
 
-		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
-				
-		//rename instance
-		Instance instDiscussionThread = pickedAnnotationCls.createDirectInstance(null);
-		
-		if (parentAnnotation != null) {
-			parentAnnotation.addOwnSlotValue(associatedAnnotation, instDiscussionThread);
-		}
+		Annotation annotInst = ChangeOntologyUtil.createAnnotationOnAnnotation(currentInstance.getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
 		
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
-		selectedNode.childAdded(instDiscussionThread);	
-		ComponentUtilities.extendSelection(getAnnotationsTree(), instDiscussionThread);
+		selectedNode.childAdded(annotInst);	
+		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInst);
 	}
 	
 	
@@ -308,9 +293,6 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		
 		return createAction;
 	}
-	
-	
-	
 	
 	
 	protected abstract void onCreateAnnotation();
@@ -344,10 +326,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		return kb;
 	}
 	
-	public Cls getSelectedAnnotationType(){
+	public AnnotationCls getSelectedAnnotationType(){
 		Object selection = annotationsComboBox.getSelectedItem();
 		
-		return ((selection instanceof Cls) ? (Cls) selection : null);
+		return ((selection instanceof AnnotationCls) ? (AnnotationCls) selection : null);
 	}
 
 }

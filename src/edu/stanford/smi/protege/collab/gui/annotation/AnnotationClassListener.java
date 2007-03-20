@@ -1,17 +1,12 @@
 package edu.stanford.smi.protege.collab.gui.annotation;
 
-import java.util.Date;
-
 import edu.stanford.smi.protege.event.KnowledgeBaseAdapter;
 import edu.stanford.smi.protege.event.KnowledgeBaseEvent;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
-import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.model.Slot;
-import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
-import edu.stanford.smi.protegex.server_changes.model.Model;
+import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Timestamp;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -33,25 +28,15 @@ public class AnnotationClassListener extends KnowledgeBaseAdapter {
 	private void fillAutoValue(KnowledgeBaseEvent event) {
 		Frame frame = event.getFrame();
 		
-		if (!(frame instanceof Instance)) {
+		if (!(frame instanceof Annotation)) {
 			return;
 		}
 		
-		Instance instance = (Instance) frame;
-					
-		KnowledgeBase changesKb = ChangesProject.getChangesKB(kb);
-		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
-		
-		if (!instance.hasType(annotationCls)) {
-			return;
-		}
-		
-		Slot authorSlot = changesKb.getSlot(Model.SLOT_NAME_AUTHOR);
+		Annotation annotation = (Annotation) frame;
+		        
+		//annotation.setAnnotates(annotatables);
+		annotation.setCreated(Timestamp.getTimestamp(ChangesProject.getChangesDb(kb).getModel()));
+		annotation.setAuthor(kb.getUserName());
 				
-		instance.setOwnSlotValue(authorSlot, kb.getUserName());
-		
-		Slot creationDateSlot = changesKb.getSlot(Model.SLOT_NAME_CREATED);
-		instance.setOwnSlotValue(creationDateSlot, (new Date()).toString());
-		
 	}
 }

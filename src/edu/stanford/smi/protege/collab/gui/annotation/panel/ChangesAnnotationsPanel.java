@@ -4,16 +4,14 @@ import java.util.Collection;
 
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.gui.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
-import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.LazyTreeNode;
-import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
-import edu.stanford.smi.protegex.server_changes.model.Model;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
+import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -35,21 +33,17 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 			repaint();
 			return;
 		}
-		
-		Cls changesCls = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getCls(Model.CLS_NAME_CHANGE);
-	
-		Collection<Frame> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()), getCurrentInstance().getName(), changesCls);
+			
+		Collection<Change> annotationsRoots = ChangeOntologyUtil.getTopLevelChangeInstances(getCurrentInstance());
 				
-		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));
-		
-		getAnnotationsTree().setSelectionRow(0);
-		
+		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));		
+		getAnnotationsTree().setSelectionRow(0);		
 		repaint();
 	}
 	
 	@Override
 	protected void onCreateAnnotation() {
-		Cls pickedAnnotationCls = getSelectedAnnotationType(); 
+		AnnotationCls pickedAnnotationCls = getSelectedAnnotationType(); 
 		
 		if (pickedAnnotationCls == null) {
 			return;
@@ -63,17 +57,11 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 			parentAnnotation = (Frame) CollectionUtilities.getFirstItem(selection);
 		}
 		
-		Slot associatedAnnotation = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getSlot(Model.SLOT_NAME_ASSOC_ANNOTATIONS);
-		
-		Instance instDiscussionThread = pickedAnnotationCls.createDirectInstance(null);
-		
-		if (parentAnnotation != null) {
-			parentAnnotation.addOwnSlotValue(associatedAnnotation, instDiscussionThread);
-		}
-	
+		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
+			
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
-		selectedNode.childAdded(instDiscussionThread);		
-		ComponentUtilities.extendSelection(getAnnotationsTree(), instDiscussionThread);
+		selectedNode.childAdded(annotInstance);		
+		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInstance);
 			
 	}
 		

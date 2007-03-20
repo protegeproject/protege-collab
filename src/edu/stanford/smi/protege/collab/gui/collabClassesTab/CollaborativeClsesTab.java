@@ -84,7 +84,7 @@ public class CollaborativeClsesTab extends ClsesTab {
 			return changesKB;
 		}
 		
-		return ChangeOntologyUtil.getChangesKB(getKnowledgeBase());
+		return ChangeOntologyUtil.getChangesKb(getKnowledgeBase());
 	}
 	
 	public void setChangesKB(KnowledgeBase changesKB) {

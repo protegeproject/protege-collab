@@ -5,21 +5,22 @@ import java.util.Collection;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.gui.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.gui.collabClassesTab.CollaborativeClsesTab;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentUtilities;
+import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
+import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
 public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
-	//private AllowableAction replyAction;
-	
+		
 	public OntologyComponentAnnotationsPanel(KnowledgeBase kb) {
 		super(kb, "Ontology Components");
 	}	
@@ -32,17 +33,23 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 			return;
 		}
 		
+		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(getCurrentInstance());
+		
+		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));		
+		getAnnotationsTree().setSelectionRow(0);	
+		/*
 		Cls ontologyCompCls = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getCls(ChangeOntologyUtil.CLS_NAME_ONTOLOGY_COMPONENT);
 		
 		Collection<Frame> annotationsRoots = ChangeOntologyUtil.getTopLevelOntologyComponentAnnotations(getCurrentInstance().getKnowledgeBase(), getCurrentInstance().getName());
 		
 		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));
+		*/
 		
 	}	
 	
 	@Override
 	protected void onCreateAnnotation() {
-		Cls pickedAnnotationCls = getSelectedAnnotationType(); 
+		AnnotationCls pickedAnnotationCls = getSelectedAnnotationType(); 
 		
 		if (pickedAnnotationCls == null) {
 			return;
@@ -62,10 +69,9 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 		} else {
 			applyToValue = firstSelection.toString();
 		}
-		
-						
-		Instance ontoCompInst = ChangeOntologyUtil.createOntologyComponentInstance(getCurrentInstance().getKnowledgeBase(), applyToValue, "(Empty)");
 					
+		Instance ontoCompInst = ChangesProject.getChangesDb(getCurrentInstance().getKnowledgeBase()).getModel().createInstance(pickedAnnotationCls); 
+			
 		refreshDisplay();
 		
 		ComponentUtilities.extendSelection(getAnnotationsTree(), ontoCompInst);
