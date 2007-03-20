@@ -1,14 +1,15 @@
 package edu.stanford.smi.protege.collab.gui.annotation.renderer;
 
-import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsIcons;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
-import edu.stanford.smi.protegex.server_changes.model.Model;
+import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Change;
+import edu.stanford.smi.protegex.server_changes.model.generated.Ontology_Component;
+import edu.stanford.smi.protegex.server_changes.model.generated.Proposal;
+import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -22,26 +23,18 @@ public class AnnotationsRenderer extends FrameRenderer {
 		
 		KnowledgeBase changesKb = instance.getKnowledgeBase();
 		
-		//cache this later
-		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
-		Cls changeCls = changesKb.getCls(Model.CLS_NAME_CHANGE);
-		Cls ontologyCompCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_ONTOLOGY_COMPONENT);
-		Cls voteCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_VOTE);
-		Cls proposalCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_PROPOSAL);
-		
-		if (instance.hasType(changeCls)) {
+		if (instance instanceof Change) {
 			setMainIcon(AnnotationsIcons.getChangeAnnotationIcon());
-		} else if (instance.hasType(ontologyCompCls)) {
+		} else if (instance instanceof Ontology_Component) {
 			setMainIcon(AnnotationsIcons.getOntologyAnnotationIcon());
-		}else if (instance.hasType(voteCls)) {
+		}else if (instance instanceof Vote) {
 			setMainIcon(Icons.getYesIcon());
-		}else if (instance.hasType(proposalCls)) {
+		}else if (instance instanceof Proposal) {
 			setMainIcon(Icons.getCopyIcon());
-		}else if (instance.hasType(annotationCls)) {
+		}else if (instance instanceof Annotation) {
 			setMainIcon(AnnotationsIcons.getCommentIcon());
 		} 
 		
-	}
-	
+	}	
 	
 }

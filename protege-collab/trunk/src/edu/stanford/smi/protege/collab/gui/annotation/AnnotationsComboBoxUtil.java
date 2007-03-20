@@ -1,12 +1,13 @@
 package edu.stanford.smi.protege.collab.gui.annotation;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
-import edu.stanford.smi.protegex.server_changes.model.Model;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -29,10 +30,16 @@ public class AnnotationsComboBoxUtil {
 		return annotationsComboBoxUtil;
 	}
 	
-	public Collection getAllowableAnnotations(Instance annotationInstance) {
-		Cls annotationCls = changesKb.getCls(Model.CLS_NAME_ANNOTATE);
+	
+	//TT: probably we should cache this
+	public Collection<AnnotationCls> getAllowableAnnotationTypes(Instance annotationInstance) {
+		ArrayList<AnnotationCls> allowableAnnotations = new ArrayList<AnnotationCls>();
 		
-		return annotationCls.getSubclasses();
+		for (int i = 0; i < AnnotationCls.values().length; i++) {
+			allowableAnnotations.add(AnnotationCls.values()[i]);
+		}
+		
+		return allowableAnnotations;
 	}
 	
 	
