@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.annotation;
+package edu.stanford.smi.protege.collab.annotation.gui;
 
 import java.awt.Dimension;
 import java.util.Collection;
@@ -8,9 +8,9 @@ import javax.swing.JSplitPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
-import edu.stanford.smi.protege.collab.gui.annotation.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;

@@ -1,10 +1,10 @@
-package edu.stanford.smi.protege.collab.gui.annotation.panel;
+package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.util.Collection;
 
+import edu.stanford.smi.protege.collab.annotation.gui.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.collab.gui.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.collab.gui.collabClassesTab.CollaborativeClsesTab;
+import edu.stanford.smi.protege.collab.collabClassesTab.CollaborativeClsesTab;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;

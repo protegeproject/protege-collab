@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.annotation;
+package edu.stanford.smi.protege.collab.annotation.gui;
 
 import edu.stanford.smi.protege.event.KnowledgeBaseAdapter;
 import edu.stanford.smi.protege.event.KnowledgeBaseEvent;

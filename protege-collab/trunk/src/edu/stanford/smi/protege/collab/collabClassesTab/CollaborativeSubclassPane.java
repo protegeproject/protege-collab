@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.collabClassesTab;
+package edu.stanford.smi.protege.collab.collabClassesTab;
 
 import javax.swing.Action;
 import javax.swing.JPopupMenu;

@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.annotation;
+package edu.stanford.smi.protege.collab.annotation.gui;
 
 import java.util.ArrayList;
 import java.util.Collection;

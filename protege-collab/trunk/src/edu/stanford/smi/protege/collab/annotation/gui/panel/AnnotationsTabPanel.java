@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.annotation.panel;
+package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsTreeFinder;
+import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationsRenderer;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsComboBoxUtil;
-import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsIcons;
-import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsTreeFinder;
-import edu.stanford.smi.protege.collab.gui.annotation.renderer.AnnotationsRenderer;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;

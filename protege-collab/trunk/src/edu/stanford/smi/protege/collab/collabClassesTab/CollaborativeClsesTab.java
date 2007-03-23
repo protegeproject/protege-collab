@@ -1,13 +1,13 @@
-package edu.stanford.smi.protege.collab.gui.collabClassesTab;
+package edu.stanford.smi.protege.collab.collabClassesTab;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
+import edu.stanford.smi.protege.collab.annotation.gui.renderer.FramesWithAnnotationsRenderer;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsDisplayComponent;
-import edu.stanford.smi.protege.collab.gui.annotation.renderer.FramesWithAnnotationsRenderer;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.ResourceKey;
 import edu.stanford.smi.protege.ui.ClsesPanel;
