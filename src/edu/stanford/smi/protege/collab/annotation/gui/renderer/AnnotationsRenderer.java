@@ -1,6 +1,6 @@
-package edu.stanford.smi.protege.collab.gui.annotation.renderer;
+package edu.stanford.smi.protege.collab.annotation.gui.renderer;
 
-import edu.stanford.smi.protege.collab.gui.annotation.AnnotationsIcons;
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.Icons;

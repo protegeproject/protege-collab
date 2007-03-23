@@ -1,4 +1,4 @@
-package edu.stanford.smi.protege.collab.gui.annotation.tree;
+package edu.stanford.smi.protege.collab.annotation.gui.tree;
 
 import java.util.Collection;
 import java.util.Comparator;

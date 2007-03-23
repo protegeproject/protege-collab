@@ -1,15 +1,15 @@
-package edu.stanford.smi.protege.collab.gui.annotation;
+package edu.stanford.smi.protege.collab.annotation.gui;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JTabbedPane;
 
-import edu.stanford.smi.protege.collab.gui.annotation.panel.AllAnnotationsPanel;
-import edu.stanford.smi.protege.collab.gui.annotation.panel.AnnotationsTabPanel;
-import edu.stanford.smi.protege.collab.gui.annotation.panel.ChangesAnnotationsPanel;
-import edu.stanford.smi.protege.collab.gui.annotation.panel.DiscussionThreadPanel;
-import edu.stanford.smi.protege.collab.gui.annotation.panel.OntologyComponentAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.CollectionUtilities;
