@@ -100,7 +100,7 @@ public class CollaborativeClsesTab extends ClsesTab {
 			Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
 			annotationDisplayComponent = null;
 		} else {		
-			annotationDisplayComponent = new AnnotationsDisplayComponent(getProject());
+			annotationDisplayComponent = new AnnotationsDisplayComponent(getKnowledgeBase(), null);
 		}
 		
 		JSplitPane pane = ComponentFactory.createLeftRightSplitPane(instanceDisplay,annotationDisplayComponent, true);
