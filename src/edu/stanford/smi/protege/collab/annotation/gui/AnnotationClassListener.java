@@ -1,5 +1,6 @@
 package edu.stanford.smi.protege.collab.annotation.gui;
 
+import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.event.KnowledgeBaseAdapter;
 import edu.stanford.smi.protege.event.KnowledgeBaseEvent;
 import edu.stanford.smi.protege.model.Frame;
@@ -35,7 +36,7 @@ public class AnnotationClassListener extends KnowledgeBaseAdapter {
 		Annotation annotation = (Annotation) frame;
 		        
 		//annotation.setAnnotates(annotatables);
-		annotation.setCreated(Timestamp.getTimestamp(ChangesProject.getChangesDb(kb).getModel()));
+		annotation.setCreated(Timestamp.getTimestamp(ChangeOntologyUtil.getChangeModel(kb)));
 		annotation.setAuthor(kb.getUserName());
 				
 	}

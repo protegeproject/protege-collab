@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,17 +15,20 @@ import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.ui.ProjectManager;
+import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.Log;
+import edu.stanford.smi.protege.util.Selectable;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protege.util.SelectionEvent;
 import edu.stanford.smi.protege.util.SelectionListener;
-import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protege.widget.AbstractTabWidget;
+import edu.stanford.smi.protege.widget.InstancesTab;
+import edu.stanford.smi.protege.widget.TabWidget;
 
 
 /**
@@ -36,6 +40,8 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 	private Instance currentInstance;
 	
+	private Selectable selectable;
+	
 	private JComponent annotationBodyTextComponent;
 	
 	private AnnotationsTabHolder annotationsTabHolder;
@@ -44,9 +50,12 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 	private AnnotationClassListener annotationsListener;
 	
+	private SelectionListener clsTreeSelectionListener;
 	
-	public AnnotationsDisplayComponent(Project project) {
-		kb = project.getKnowledgeBase();
+		
+	public AnnotationsDisplayComponent(KnowledgeBase kb, final Selectable selectable) {
+		this.kb = kb;
+		this.selectable = selectable;		
 		
 		annotationsTabHolder = createAnnotationsTabHolder();
 		annotationBodyTextComponent = createAnnotationBodyComponent();
@@ -57,19 +66,19 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		LabeledComponent labeledComponentText = new LabeledComponent("Annotation body", annotationBodyTextComponent, true);
 		
 		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText);
-		labeledComponentText.setMinimumSize(new Dimension(0, 100));
+		//labeledComponentText.setMinimumSize(new Dimension(0, 100));
 		labeledComponentText.setPreferredSize(new Dimension(100, 200));
 		topBottomSplitPane.setDividerLocation(150 + topBottomSplitPane.getInsets().bottom);
 		
-		labeledComponentText.setMinimumSize(new Dimension(0, 100));
+		//labeledComponentText.setMinimumSize(new Dimension(0, 100));
 		
-		attachTreeSelectionListener();	
+		attachAnnotationTreeSelectionListener();	
 		
 		classChangeListener = new ClassChangeListener() {
 			@Override
 			public void refreshClassDisplay(FrameEvent event) {
 				refreshAllTabs();				
-			}
+			}			
 		};
 		
 		
@@ -94,13 +103,25 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 		
 		annotationsListener = new AnnotationClassListener(kb);
-		ChangesProject.getChangesKB(kb).addKnowledgeBaseListener(annotationsListener);
-						
+		ChangeOntologyUtil.getChangesKb(kb).addKnowledgeBaseListener(annotationsListener);
+	
+		clsTreeSelectionListener = new SelectionListener() {
+
+			public void selectionChanged(SelectionEvent event) {				
+				setInstances(event.getSelectable().getSelection());
+			}
+			
+		};
+		
+		if (selectable == null) {
+			attachTabChangeListener();
+		}
+		
 		add(topBottomSplitPane);
 	}
 	
 
-	protected void attachTreeSelectionListener() {
+	protected void attachAnnotationTreeSelectionListener() {
 		for (AnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
 			annotationPanel.addSelectionListener(new SelectionListener() {
 
@@ -112,6 +133,52 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		}		
 	}
 
+	
+	private void attachTabChangeListener() {
+		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
+		
+		//just for the init
+		TabWidget currentTab = view.getSelectedTab();
+		if (currentTab != null && currentTab instanceof AbstractTabWidget) {
+			selectable = (Selectable) ((AbstractTabWidget)currentTab).getClsTree();	
+			if (selectable != null) {
+				selectable.addSelectionListener(clsTreeSelectionListener);
+				setInstances(selectable.getSelection());
+			}
+		}
+		
+		view.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent e) {			
+									
+				if (selectable != null) {					
+					selectable.removeSelectionListener(clsTreeSelectionListener);
+				}
+					
+				TabWidget tabWidget = (TabWidget) ((JTabbedPane)e.getSource()).getSelectedComponent();
+				if (tabWidget == null){
+					selectable = null;
+					return;
+				}
+				
+				//this is a particular case. How should it be treated?
+				if (tabWidget instanceof InstancesTab) {
+					selectable = ((InstancesTab)tabWidget).getDirectInstancesList();
+				} else {
+					selectable = (Selectable) ((AbstractTabWidget)tabWidget).getClsTree();
+				}
+				
+				//do I need this here?
+				setInstances(selectable == null ? null : selectable.getSelection());
+
+				if (selectable != null) {					
+					selectable.addSelectionListener(clsTreeSelectionListener);
+				}
+			}			
+			
+		});
+	}
+	
 
 	protected AnnotationsTabHolder createAnnotationsTabHolder() {
 		annotationsTabHolder = new AnnotationsTabHolder(kb);
@@ -138,17 +205,17 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		
 		currentInstance = instance;
 		
-		currentInstance.addFrameListener(classChangeListener);
+		if (currentInstance != null) {
+			currentInstance.addFrameListener(classChangeListener);
+		}
 		
 		annotationsTabHolder.setInstance(currentInstance);
 		refreshDisplay();	
 	}
 	
-	public void setInstances(Collection instances) {
+	public void setInstances(Collection instances) {		
 		//reimplement this
-		setInstance((Instance) CollectionUtilities.getFirstItem(instances));
-		
-		refreshDisplay();
+		setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
 	}
 
 
@@ -168,6 +235,5 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		
 		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
 	}
-	
 	
 }
