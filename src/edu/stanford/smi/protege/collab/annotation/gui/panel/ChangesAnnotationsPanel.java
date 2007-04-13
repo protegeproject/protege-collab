@@ -2,7 +2,9 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.util.Collection;
 
-import edu.stanford.smi.protege.collab.annotation.gui.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -20,7 +22,7 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 	
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Changes");
+		super(kb, "Changes (C)");
 		
 		//just a guess
 		getLabeledComponent().removeHeaderButton(1);
@@ -36,9 +38,21 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 			
 		Collection<Change> annotationsRoots = ChangeOntologyUtil.getTopLevelChangeInstances(getCurrentInstance());
 				
-		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));		
-		getAnnotationsTree().setSelectionRow(0);		
-		repaint();
+		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
+		
+		//hack, reimplement later
+		TreeFilter filter = getTreeFilter();
+		
+		if (filter != null) {
+			filter = new UnsatisfiableFilter();
+		}
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
+		
+		getAnnotationsTree().setRoot(root);
+		
+		root.reload();
+		
+		getAnnotationsTree().setSelectionRow(0);
 	}
 	
 	@Override
@@ -58,6 +72,7 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 		}
 		
 		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
+		annotInstance.setBody("(Enter the annotation text here)");
 			
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
 		selectedNode.childAdded(annotInstance);		

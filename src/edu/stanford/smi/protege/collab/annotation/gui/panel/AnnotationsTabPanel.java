@@ -1,23 +1,44 @@
 package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Collection;
-import java.util.Iterator;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+import com.sun.org.apache.xpath.internal.compiler.Keywords;
+
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
-import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsTreeFinder;
+import edu.stanford.smi.protege.collab.annotation.gui.FilterTypeComboBoxUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationsRenderer;
+import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeFinder;
+import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.SlotValueFilter;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
+import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterComponentUtil;
+import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterValueComponent;
+import edu.stanford.smi.protege.collab.annotation.tree.gui.StringFilterComponent;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -30,14 +51,17 @@ import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.CreateAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
+import edu.stanford.smi.protege.util.LazyTreeModel;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
-import edu.stanford.smi.protegex.changes.ChangeCreateUtil;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.ChangeCls;
+import edu.stanford.smi.protegex.server_changes.model.ChangeModel.ChangeSlot;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
 
 
@@ -46,11 +70,20 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
  *
  */
 public abstract class AnnotationsTabPanel extends SelectableContainer {
+	private final static String FILTER_COMBOBOX_DEFAULT_TEXT = "Add filter value...";
+	
 	private SelectableTree annotationsTree;
 	private LabeledComponent labeledComponent;
+	private JToolBar toolbar;
 	private JComboBox annotationsComboBox;
 	private JComboBox ratingComboBox;
 	private JComboBox filterComboBox;
+	private FilterValueComponent filterValueComponent;
+	private JComponent filterValueComponentComponent;
+	
+	private JButton filterButton;
+	
+	private TreeFilter treeFilter;
 	
 	private AllowableAction viewAction;
 	private AllowableAction createAction;
@@ -61,7 +94,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	
 	
 	public AnnotationsTabPanel(KnowledgeBase kb) {
-		this(kb, "Annotations Tree");
+		this(kb, "Annotation Tab");
 	}
 	
 	
@@ -78,64 +111,159 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		labeledComponent.addHeaderButton(getReplyAction());
 		labeledComponent.addHeaderButton(getCreateAction());
 		
-		getCreateAction().setAllowed(false);
+		getCreateAction().setAllowed(true);
 		labeledComponent.addHeaderButton(getViewAction());
 								
 		annotationsComboBox = new JComboBox();		
 		annotationsComboBox.setRenderer(new FrameRenderer());
 		updateAnnotationsComboBoxItems();
 		
-		ratingComboBox = new JComboBox(new String[]{"Rate this ..." , "*****", "****", "***", "**", "*"});
+		//ratingComboBox = new JComboBox(new String[]{"Rate this ..." , "*****", "****", "***", "**", "*"});
+				
+		filterComboBox = new JComboBox(FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil().getTypeFilterComboboxItems());
+		//TT: handle this more elegantly
+		filterComboBox.setSelectedIndex(1);
 		
-		filterComboBox = new JComboBox(new String[]{"Filter ..." , "By author ...", "By annotation type ...", "By date ...", "Complex filter ..."});
+		//TT change this!!!
+		treeFilter = null;
+		filterValueComponent = new StringFilterComponent();
+		filterValueComponentComponent = filterValueComponent.getValueComponent();
 		
-		JPanel littlePanel = new JPanel(new BorderLayout());
-		
+		/*
+		filterValueComponent.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					onFilterTree();
+				}
+			}			
+		});
+		*/
+				
 		JPanel smallerPanel = new JPanel(new BorderLayout());
-		smallerPanel.add(ratingComboBox, BorderLayout.WEST);
-		smallerPanel.add(filterComboBox, BorderLayout.EAST);
+		JPanel filterComboPanel = new JPanel();
+		filterComboPanel.setLayout(new BoxLayout(filterComboPanel, BoxLayout.X_AXIS));
+		filterComboPanel.setBorder(BorderFactory.createEmptyBorder());
+				
+		filterComboPanel.add(new JLabel("Filter "));
+		filterComboPanel.add(filterComboBox);
+		smallerPanel.add(filterComboPanel, BorderLayout.WEST);
 		
-			
-		littlePanel.add(smallerPanel, BorderLayout.WEST);
-		littlePanel.add(annotationsComboBox, BorderLayout.EAST);
+		smallerPanel.add(filterValueComponentComponent, BorderLayout.CENTER);
 		
-		annotationsComboBox.addActionListener(new ActionListener(){
+		filterButton = new JButton("Go");		
+		smallerPanel.add(filterButton, BorderLayout.EAST);
+		
+		filterComboBox.addActionListener(new ActionListener() {
 
+			public void actionPerformed(ActionEvent e) {
+				onFilterTypeChange();
+			}			
+		});
+		
+		filterButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				onFilterTree();				
+			}
+			
+		});
+						
+		annotationsComboBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				onAnnotationTypeChange();				
-			}
-			
+			}			
 		});
-
 		
+		/*
 		ratingComboBox.addActionListener(new ActionListener(){
-
 			public void actionPerformed(ActionEvent e) {
 				onAnnotationRatingChange();				
-			}
-			
+			}			
 		});
-
+		*/
 		
-		labeledComponent.setHeaderComponent(littlePanel);
-			
+		JPanel annotationsTypeHeaderPanel = new JPanel(new BorderLayout());
+		annotationsTypeHeaderPanel.add(annotationsComboBox, BorderLayout.EAST);
+		labeledComponent.setHeaderComponent(annotationsTypeHeaderPanel);
+							
 		//change this
-		labeledComponent.setFooterComponent(new AnnotationsTreeFinder(ChangeOntologyUtil.getChangesKb(kb), annotationsTree));
+		Slot annotatesSlot = ChangeOntologyUtil.getChangeModel(kb).getSlot(ChangeSlot.annotates);
+		labeledComponent.setFooterComponent(new AnnotationsTreeFinder(ChangeOntologyUtil.getChangesKb(kb), annotationsTree, annotatesSlot));
 	
 		annotationsTree.addTreeSelectionListener(new TreeSelectionListener() {
-
 			public void valueChanged(TreeSelectionEvent arg0) {
 				onAnnotationTreeSelectionChange();			
 			}			
 		});
 				
+		toolbar = new JToolBar(JToolBar.HORIZONTAL);
+		toolbar.add(smallerPanel);
 		
-		add(labeledComponent);
+		add(toolbar, BorderLayout.NORTH);
+		add(labeledComponent, BorderLayout.CENTER);
 	}
 	
+	
+	protected void onFilterTree() {
+		
+		Object value = filterValueComponent.getValue();
+		
+		if (value == null) {
+			treeFilter = null;
+		} else {
+			
+			if (treeFilter == null) {
+				int selectedIndex = filterComboBox.getSelectedIndex();				
+				treeFilter = FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil().getTreeFilter(selectedIndex);				
+			}
+			
+			if (treeFilter != null) {
+				treeFilter.setFilterValue(value);
+			}
+			
+			//move this to some utility
+			if (treeFilter instanceof SlotValueFilter) {
+				int selectedIndex = filterComboBox.getSelectedIndex();
+				Slot filterSlot = ChangeOntologyUtil.getChangeModel(kb).getSlot(FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil().getAssociatedChangeSlot(selectedIndex));
+				
+				((SlotValueFilter)treeFilter).setSlot(filterSlot);
+			}						
+		}
+		
+		if (treeFilter != null) {
+			filterValueComponentComponent.setBackground(Color.YELLOW);
+		} else {
+			filterValueComponentComponent.setBackground(Color.WHITE);
+		}
+		
+		refreshDisplay();		
+	}
+
+
+	protected void onFilterTypeChange() {
+		int selectedIndex = filterComboBox.getSelectedIndex();
+				
+		treeFilter = null;
+		//reimplement this!
+		TreeFilter filter = FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil().getTreeFilter(selectedIndex);
+	
+		if (filterValueComponentComponent != null) {
+			JComponent parent = (JComponent) filterValueComponentComponent.getParent();			
+			parent.remove(filterValueComponentComponent);		
+			filterValueComponent = FilterComponentUtil.getFilterValueComponent(filter, kb);		
+			filterValueComponentComponent = filterValueComponent.getValueComponent();		
+			parent.add(filterValueComponentComponent, BorderLayout.CENTER);
+		}
+		
+		repaint();
+		revalidate();
+		
+		refreshDisplay();
+	}
+
+
 	protected void onAnnotationTreeSelectionChange() {
-		updateAnnotationsComboBoxItems();
-		ratingComboBox.setSelectedIndex(0);		
+		updateAnnotationsComboBoxItems();		
 	}
 
 
@@ -176,7 +304,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 
 	protected void updateAnnotationsComboBoxItems() {
-		KnowledgeBase changesKb = ChangesProject.getChangesKB(getKnowledgeBase()); 
+		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(getKnowledgeBase()); 
 		
 		Collection selectionColl = getAnnotationsTree().getSelection();
 		
@@ -184,19 +312,14 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		
 		annotationsComboBox.removeAllItems();
 		
-		annotationsComboBox.addItem("Select annotation type ...");
+		//annotationsComboBox.addItem("Select annotation type ...");
 		
 		for (AnnotationCls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(selection)) {
 			annotationsComboBox.addItem(annotCls);
 		}
+		
+		annotationsComboBox.setSelectedItem(AnnotationCls.Comment);
 				
-	}
-
-
-	@Override
-	public void setEnabled(boolean enabled) {
-		System.out.println(enabled);
-		super.setEnabled(enabled);
 	}
 
 	
@@ -209,12 +332,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		annotationsTree.setSelectionRow(0);
 	
 		annotationsTree.setAutoscrolls(true);
-		annotationsTree.setShowsRootHandles(true);
-    
+		annotationsTree.setShowsRootHandles(true);    
 		annotationsTree.setCellRenderer(new AnnotationsRenderer());    
 		
-		return annotationsTree;
-    
+		return annotationsTree;    
 	}
 	
 	
@@ -223,7 +344,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			return replyAction;
 		}
 		
-		replyAction = new AllowableAction("reply", AnnotationsIcons.getCommentIcon(), getAnnotationsTree()) {
+		replyAction = new AllowableAction("Reply", AnnotationsIcons.getCommentIcon(), getAnnotationsTree()) {
 
 			public void actionPerformed(ActionEvent arg0) {
 				onReplyAnnotation();				
@@ -271,6 +392,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		}
 
 		Annotation annotInst = ChangeOntologyUtil.createAnnotationOnAnnotation(currentInstance.getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
+		//put this in a constant sometimes
+		annotInst.setBody("(Enter the annotation text here)");
 		
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
 		selectedNode.childAdded(annotInst);	
@@ -297,26 +420,20 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	
 	protected abstract void onCreateAnnotation();
 
-
-	public void setInstance(Instance instance) {
-		
+	public void setInstance(Instance instance) {		
 		if (currentInstance != instance) {
 			currentInstance = instance;
 			refreshDisplay();
-		}
-		
-	}
-	
+		}		
+	}	
 
 	public SelectableTree getAnnotationsTree() {
 		return annotationsTree;
 	}
 
-
 	public Instance getCurrentInstance() {
 		return currentInstance;
 	}
-
 
 	public LabeledComponent getLabeledComponent() {
 		return labeledComponent;
@@ -327,9 +444,16 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	}
 	
 	public AnnotationCls getSelectedAnnotationType(){
-		Object selection = annotationsComboBox.getSelectedItem();
-		
+		Object selection = annotationsComboBox.getSelectedItem();		
 		return ((selection instanceof AnnotationCls) ? (AnnotationCls) selection : null);
 	}
+	
+	public TreeFilter getTreeFilter() {
+		return treeFilter;
+	}
 
+	public JToolBar getToolbar() {
+		return toolbar;
+	}
+	
 }

@@ -1,11 +1,15 @@
 package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import edu.stanford.smi.protege.collab.annotation.gui.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
+import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -14,7 +18,7 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
 public class AllAnnotationsPanel extends AnnotationsTabPanel {
 	
 	public AllAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "All");
+		super(kb, "All (C & OC)");
 	}
 	
 
@@ -25,26 +29,28 @@ public class AllAnnotationsPanel extends AnnotationsTabPanel {
 			return;
 		}
 		
-		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(getCurrentInstance());
-		/*
-		Cls changesCls = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()).getCls(Model.CLS_NAME_CHANGE);
+		Collection<Change> changeAnnotationsRoots = ChangeOntologyUtil.getTopLevelChangeInstances(getCurrentInstance());
+		Collection<Annotation> ontologyCompAnnotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(getCurrentInstance());
 		
-		Collection<Frame> changesAnnotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()), getCurrentInstance().getName(), changesCls);
-			
-		Collection<Frame> ontologyCompAnnotationsRoots = ChangeOntologyUtil.getTopLevelOntologyComponentAnnotations(getCurrentInstance().getKnowledgeBase(), getCurrentInstance().getName());
-		
-		//Collection<Frame> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase()), getCurrentInstance().getName());
-		
-		
-		Collection<Frame> annotationsRoots = new ArrayList<Frame>();
-		annotationsRoots.addAll(changesAnnotationsRoots);
+		Collection annotationsRoots = new ArrayList();
+		annotationsRoots.addAll(changeAnnotationsRoots);
 		annotationsRoots.addAll(ontologyCompAnnotationsRoots);
-		*/
-		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));
 		
-		getAnnotationsTree().setSelectionRow(0);
+		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 		
-		repaint();
+		//hack, reimplement later
+		TreeFilter filter = getTreeFilter();
+		
+		if (filter != null) {
+			filter = new UnsatisfiableFilter();
+		}
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
+		
+		getAnnotationsTree().setRoot(root);
+		
+		root.reload();
+		
+		getAnnotationsTree().setSelectionRow(0);		
 	}	
 	
 	@Override
