@@ -2,7 +2,9 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.util.Collection;
 
-import edu.stanford.smi.protege.collab.annotation.gui.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
+import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -32,17 +34,21 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 			return;
 		}
 	
-		//KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKB(getCurrentInstance().getKnowledgeBase());
+		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelDiscussionThreads(getCurrentInstance().getKnowledgeBase());
 		
-		//Cls discussionThreadCls = changesKb.getCls(ChangeOntologyUtil.CLS_NAME_DISCUSSION_THREAD);
-		//check why this is invoked twice
-		//Collection<Frame> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(changesKb, null, discussionThreadCls, false);
-			
-		//Collection annotationRoots = ChangeOntologyUtil.getDiscussionThreadAnnotations(getCurrentInstance().getKnowledgeBase());
+		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 		
-		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(getCurrentInstance());
-			
-		getAnnotationsTree().setRoot(new AnnotationsTreeRoot(annotationsRoots));
+		//hack, reimplement later
+		TreeFilter filter = getTreeFilter();
+		
+		if (filter != null) {
+			filter = new UnsatisfiableFilter();
+		}
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
+		
+		getAnnotationsTree().setRoot(root);
+		
+		root.reload();
 		
 		getAnnotationsTree().setSelectionRow(0);
 		
@@ -56,13 +62,10 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 			return;
 		}
 				
-		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), getCurrentInstance(), pickedAnnotationCls);
-			
-		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent(); 
-		if (selectedNode != null) {
-			selectedNode.childAdded(annotInstance);
-		}
-		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInstance);
+		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), null, pickedAnnotationCls);
+		annotInstance.setBody("(Enter the annotation text here)");
+		
+		refreshDisplay();
 	}
 	
 	
