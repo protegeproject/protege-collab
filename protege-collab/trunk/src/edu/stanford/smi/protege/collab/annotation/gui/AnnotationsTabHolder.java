@@ -10,6 +10,7 @@ import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.CollectionUtilities;
@@ -59,11 +60,12 @@ public class AnnotationsTabHolder extends SelectableContainer{
 	
 	protected Collection<AnnotationsTabPanel> createTabs() {
 		tabs = new ArrayList<AnnotationsTabPanel>();
-		
-		tabs.add(new ChangesAnnotationsPanel(kb));
+				
 		tabs.add(new OntologyComponentAnnotationsPanel(kb));
+		tabs.add(new ChangesAnnotationsPanel(kb));
 		tabs.add(new AllAnnotationsPanel(kb));
 		tabs.add(new DiscussionThreadPanel(kb));
+		tabs.add(new SearchPanel(kb));
 				
 		return tabs; 
 	}
