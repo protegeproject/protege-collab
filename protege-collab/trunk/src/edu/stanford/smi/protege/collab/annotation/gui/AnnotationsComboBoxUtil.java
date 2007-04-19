@@ -9,6 +9,9 @@ import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
+import edu.stanford.smi.protegex.server_changes.model.generated.AgreeDisagreeVote;
+import edu.stanford.smi.protegex.server_changes.model.generated.AgreeDisagreeVoteProposal;
+import edu.stanford.smi.protegex.server_changes.model.generated.FiveStarsVoteProposal;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -45,11 +48,11 @@ public class AnnotationsComboBoxUtil {
 
 	private void filterOutUnneededAnnotationTypes() {
 		//do this in a more general way, later
-		filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVote);
-		filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVote);
+		//filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVote);
+		//filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVote);
 		filteredOutAnnotationTypes.add(AnnotationCls.SimpleProposal);
-		filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVoteProposal);
-		filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVoteProposal);
+		//filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVoteProposal);
+		//filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVoteProposal);
 		
 		allAnnotationTypes.removeAll(filteredOutAnnotationTypes);
 	}
@@ -66,9 +69,28 @@ public class AnnotationsComboBoxUtil {
 	
 	//TT: probably we should cache this
 	public Collection<AnnotationCls> getAllowableAnnotationTypes(Instance annotationInstance) {
-		//ArrayList<AnnotationCls> allowableAnnotations = new ArrayList<AnnotationCls>(allAnnotationTypes);
-		//return allowableAnnotations;
-		return allAnnotationTypes;
+		if (annotationInstance == null) {
+			return allAnnotationTypes;
+		}
+		
+		ArrayList<AnnotationCls> allowableAnnotations = new ArrayList<AnnotationCls>(allAnnotationTypes);
+		
+		if (annotationInstance instanceof FiveStarsVoteProposal) {
+			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVote);			
+			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
+			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
+		} else if (annotationInstance instanceof AgreeDisagreeVoteProposal) {			
+			allowableAnnotations.remove(AnnotationCls.FiveStarsVote);
+			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
+			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
+		} else if (annotationInstance instanceof AgreeDisagreeVote || annotationInstance instanceof FiveStarsVoteProposal) {
+			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVote);
+			allowableAnnotations.remove(AnnotationCls.FiveStarsVote);
+			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
+			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
+		}
+		
+		return allowableAnnotations;	
 	}
 	
 }
