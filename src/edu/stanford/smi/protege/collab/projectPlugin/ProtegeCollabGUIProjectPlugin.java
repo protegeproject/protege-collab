@@ -142,6 +142,11 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		}
 		
 		if (p.isMultiUserClient() && isChangesOntologyPresent(p.getKnowledgeBase())) {
+			
+			if (annotationsDisplayComponent != null) {
+				annotationsDisplayComponent.dispose();
+			}
+			
 //			dispose also the changes project
 			KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(p.getKnowledgeBase(), false);
 			
@@ -156,7 +161,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 			}
 			
 			ChangeOntologyUtil.clearKb2ChangesKbMap();
-		}
+		}	
 	}
 	
 }
