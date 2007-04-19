@@ -8,6 +8,7 @@ import javax.swing.JTabbedPane;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel;
@@ -49,7 +50,7 @@ public class AnnotationsTabHolder extends SelectableContainer{
 		tabs = createTabs();
 		
 		for (AnnotationsTabPanel annotTabPanel : tabs) {
-			tabbedPane.addTab(annotTabPanel.getName(), annotTabPanel);
+			tabbedPane.addTab(annotTabPanel.getName(), annotTabPanel.getIcon(), annotTabPanel);
 		}
 			
 		tabbedPane.setSelectedIndex(0);
@@ -66,6 +67,7 @@ public class AnnotationsTabHolder extends SelectableContainer{
 		tabs.add(new AllAnnotationsPanel(kb));
 		tabs.add(new DiscussionThreadPanel(kb));
 		tabs.add(new SearchPanel(kb));
+		tabs.add(new ChatPanel(kb));
 				
 		return tabs; 
 	}
@@ -77,7 +79,7 @@ public class AnnotationsTabHolder extends SelectableContainer{
 		AnnotationsTabPanel annotTabPanel = getSelectedTab();		
 		annotTabPanel.setInstance(currentInstance);
 		
-		refreshDisplay();
+		//refreshDisplay();
 	}
 	
 	public void setInstances(Collection instances) {
