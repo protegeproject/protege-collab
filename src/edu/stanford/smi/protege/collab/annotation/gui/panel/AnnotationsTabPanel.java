@@ -2,66 +2,61 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
-import com.sun.org.apache.xpath.internal.compiler.Keywords;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.gui.FilterTypeComboBoxUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationsRenderer;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeFinder;
-import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.SlotValueFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterComponentUtil;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterValueComponent;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.StringFilterComponent;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
+import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.CreateAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
-import edu.stanford.smi.protege.util.LazyTreeModel;
 import edu.stanford.smi.protege.util.LazyTreeNode;
+import edu.stanford.smi.protege.util.ModalDialog;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
-import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protege.widget.AbstractSlotWidget;
+import edu.stanford.smi.protege.widget.ClsWidget;
+import edu.stanford.smi.protege.widget.FormWidget;
+import edu.stanford.smi.protege.widget.SlotWidget;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
-import edu.stanford.smi.protegex.server_changes.model.ChangeModel.ChangeCls;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.ChangeSlot;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
-import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
 
 
@@ -70,7 +65,7 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
  *
  */
 public abstract class AnnotationsTabPanel extends SelectableContainer {
-	private final static String FILTER_COMBOBOX_DEFAULT_TEXT = "Add filter value...";
+	public final static String NEW_ANNOTATION_DEFAULT_BODY_TEXT = "(Enter text here)";
 	
 	private SelectableTree annotationsTree;
 	private LabeledComponent labeledComponent;
@@ -80,6 +75,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	private JComboBox filterComboBox;
 	private FilterValueComponent filterValueComponent;
 	private JComponent filterValueComponentComponent;
+	
+	private InstanceDisplay newAnnotationsInstanceDisplay;
 	
 	private JButton filterButton;
 	
@@ -181,6 +178,9 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			}			
 		});
 		*/
+		
+		Project changesPrj = ChangeOntologyUtil.getChangesKb(kb).getProject();
+		newAnnotationsInstanceDisplay = new InstanceDisplay(changesPrj);
 		
 		JPanel annotationsTypeHeaderPanel = new JPanel(new BorderLayout());
 		annotationsTypeHeaderPanel.add(annotationsComboBox, BorderLayout.EAST);
@@ -393,13 +393,21 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 		Annotation annotInst = ChangeOntologyUtil.createAnnotationOnAnnotation(currentInstance.getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
 		//put this in a constant sometimes
-		annotInst.setBody("(Enter the annotation text here)");
+		annotInst.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 		
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
 		selectedNode.childAdded(annotInst);	
 		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInst);
+		
 	}
+
 	
+	
+	private void setReadOnlySlotWidget(SlotWidget sw, boolean readOnly) {
+		if (sw != null) {
+			((AbstractSlotWidget)sw).setReadOnlyWidget(readOnly);
+		}		
+	}
 	
 	
 	protected AllowableAction getCreateAction() {
@@ -423,6 +431,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	public void setInstance(Instance instance) {		
 		if (currentInstance != instance) {
 			currentInstance = instance;
+				
 			refreshDisplay();
 		}		
 	}	
@@ -454,6 +463,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 	public JToolBar getToolbar() {
 		return toolbar;
+	}
+	
+	public Icon getIcon() {
+		return null;
 	}
 	
 }
