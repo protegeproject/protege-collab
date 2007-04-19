@@ -56,5 +56,9 @@ public class AnnotationsIcons {
 		return getIcon("instance_note_ontology_icon");
 	}
 
+	public static Icon getOntologyAnnotationAndChangeIcon() {
+		return getIcon("instance_note_and_change_icon");
+	}
+
 	
 }
