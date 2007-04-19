@@ -2,6 +2,9 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.util.Collection;
 
+import javax.swing.Icon;
+
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
@@ -22,7 +25,7 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 	
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Changes (C)");
+		super(kb, "Changes");
 		
 		//just a guess
 		getLabeledComponent().removeHeaderButton(1);
@@ -31,11 +34,14 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 
 	public void refreshDisplay() {
 		if (getCurrentInstance() == null) {
+			getLabeledComponent().setHeaderLabel("Changes (nothing selected)");
 			getAnnotationsTree().setRoot(null);
 			repaint();
 			return;
 		}
 			
+		getLabeledComponent().setHeaderLabel("Changes for " + getCurrentInstance().getBrowserText());
+		
 		Collection<Change> annotationsRoots = ChangeOntologyUtil.getTopLevelChangeInstances(getCurrentInstance());
 				
 		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
@@ -49,10 +55,7 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
 		
 		getAnnotationsTree().setRoot(root);
-		
-		root.reload();
-		
-		getAnnotationsTree().setSelectionRow(0);
+
 	}
 	
 	@Override
@@ -78,6 +81,11 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 		selectedNode.childAdded(annotInstance);		
 		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInstance);
 			
+	}
+	
+	@Override
+	public Icon getIcon() {	
+		return AnnotationsIcons.getChangeAnnotationIcon();
 	}
 		
 }
