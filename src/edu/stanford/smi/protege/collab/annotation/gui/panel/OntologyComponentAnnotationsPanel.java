@@ -3,8 +3,10 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Icon;
 import javax.swing.text.TabExpander;
 
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
@@ -37,16 +39,19 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Ontology_Compone
 public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 		
 	public OntologyComponentAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Ontology Components (OC)");
+		super(kb, "Annotations");
 	}	
 
 
 	public void refreshDisplay() {
 		if (getCurrentInstance() == null) {
+			getLabeledComponent().setHeaderLabel("Annotations (nothing selected)");
 			getAnnotationsTree().setRoot(null);
 			repaint();
 			return;
 		}
+		
+		getLabeledComponent().setHeaderLabel("Annotations on " + getCurrentInstance().getBrowserText());
 		
 		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelAnnotationInstances(getCurrentInstance());
 		
@@ -61,10 +66,6 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
 		
 		getAnnotationsTree().setRoot(root);
-		
-		root.reload();
-		//((LazyTreeModel)getAnnotationsTree().getModel()).reload();
-		getAnnotationsTree().setSelectionRow(0);
 	}	
 	
 	@Override
@@ -130,4 +131,9 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 		
 		return null;		
 	}	
+	
+	@Override
+	public Icon getIcon() {
+		return AnnotationsIcons.getOntologyAnnotationIcon();
+	}
 }
