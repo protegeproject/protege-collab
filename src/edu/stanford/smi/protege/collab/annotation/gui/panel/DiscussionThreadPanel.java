@@ -2,6 +2,9 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 
 import java.util.Collection;
 
+import javax.swing.Icon;
+
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
@@ -28,13 +31,8 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 	
 	@Override
 	public void refreshDisplay() {
-		if (getCurrentInstance() == null) {
-			getAnnotationsTree().setRoot(null);
-			repaint();
-			return;
-		}
 	
-		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelDiscussionThreads(getCurrentInstance().getKnowledgeBase());
+		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getTopLevelDiscussionThreads(getKnowledgeBase());
 		
 		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 		
@@ -46,12 +44,7 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		}
 		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
 		
-		getAnnotationsTree().setRoot(root);
-		
-		root.reload();
-		
-		getAnnotationsTree().setSelectionRow(0);
-		
+		getAnnotationsTree().setRoot(root);		
 	}
 
 	@Override
@@ -62,10 +55,15 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 			return;
 		}
 				
-		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), null, pickedAnnotationCls);
+		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getKnowledgeBase(), null, pickedAnnotationCls);
 		annotInstance.setBody("(Enter the annotation text here)");
 		
 		refreshDisplay();
+	}
+	
+	@Override
+	public Icon getIcon() {
+		return AnnotationsIcons.getCommentIcon();
 	}
 	
 	
