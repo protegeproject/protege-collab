@@ -10,8 +10,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
+import edu.stanford.smi.protege.collab.changes.AnnotationCreationKbListener;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
+import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
+import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -48,9 +52,11 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 	private ClassChangeListener classChangeListener;
 	
-	private AnnotationClassListener annotationsListener;
+	private AnnotationCreationKbListener annotationsKBListener;
 	
 	private SelectionListener clsTreeSelectionListener;
+		
+	private ChangesKbFrameListener changesKbFrameListener;
 	
 		
 	public AnnotationsDisplayComponent(KnowledgeBase kb, final Selectable selectable) {
@@ -65,12 +71,10 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Annotations", annotationsTabHolder, true);
 		LabeledComponent labeledComponentText = new LabeledComponent("Annotation body", annotationBodyTextComponent, true);
 		
-		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText);
-		//labeledComponentText.setMinimumSize(new Dimension(0, 100));
+		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText, true);	
 		labeledComponentText.setPreferredSize(new Dimension(100, 200));
-		topBottomSplitPane.setDividerLocation(150 + topBottomSplitPane.getInsets().bottom);
-		
-		//labeledComponentText.setMinimumSize(new Dimension(0, 100));
+		topBottomSplitPane.setResizeWeight(1);
+		topBottomSplitPane.setOneTouchExpandable(true);
 		
 		attachAnnotationTreeSelectionListener();	
 		
@@ -97,14 +101,12 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 				
 				Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotTabPanel.getSelection());
 				
-				((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);								
+				((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
 			}
 		});
 	
+		attachChangeKbListeners();
 		
-		annotationsListener = new AnnotationClassListener(kb);
-		ChangeOntologyUtil.getChangesKb(kb).addKnowledgeBaseListener(annotationsListener);
-	
 		clsTreeSelectionListener = new SelectionListener() {
 
 			public void selectionChanged(SelectionEvent event) {				
@@ -118,6 +120,17 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		}
 		
 		add(topBottomSplitPane);
+	}
+	
+
+	protected void attachChangeKbListeners() {
+		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb);
+		
+		annotationsKBListener = new AnnotationCreationKbListener(kb);
+		changesKb.addKnowledgeBaseListener(annotationsKBListener);
+		
+		changesKbFrameListener = new ChangesKbFrameListener();
+		changesKb.addFrameListener(changesKbFrameListener);		
 	}
 	
 
@@ -141,7 +154,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		TabWidget currentTab = view.getSelectedTab();
 		if (currentTab != null && currentTab instanceof AbstractTabWidget) {
 			selectable = (Selectable) ((AbstractTabWidget)currentTab).getClsTree();	
-			if (selectable != null) {
+			if (selectable != null) {				
 				selectable.addSelectionListener(clsTreeSelectionListener);
 				setInstances(selectable.getSelection());
 			}
@@ -210,7 +223,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		}
 		
 		annotationsTabHolder.setInstance(currentInstance);
-		refreshDisplay();	
+		//refreshDisplay();	
 	}
 	
 	public void setInstances(Collection instances) {		
@@ -234,6 +247,34 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
 		
 		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
+	}
+	
+	@Override
+	public void dispose() {
+		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb, false);
+		
+		if (changesKb == null) {
+			Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
+			return;
+		}
+		
+		try {
+			changesKb.removeKnowledgeBaseListener(annotationsKBListener);	
+		} catch (Exception e) {
+			Log.getLogger().warning("Error at disposing changes ontology kb listener");
+		}
+		
+		try {
+			changesKb.removeFrameListener(changesKbFrameListener);	
+		} catch (Exception e) {
+			Log.getLogger().warning("Error at disposing changes ontology kb listener");
+		}
+		
+		//clear caches		
+		OntologyComponentCache.getCache(changesKb).clearCache();
+		HasAnnotationCache.getCache(changesKb).clearCache();
+		
+		super.dispose();
 	}
 	
 }
