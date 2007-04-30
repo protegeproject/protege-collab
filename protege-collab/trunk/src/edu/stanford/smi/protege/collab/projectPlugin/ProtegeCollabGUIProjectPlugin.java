@@ -12,8 +12,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeCellRenderer;
 
-import sun.security.krb5.internal.an;
-
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.FramesWithAnnotationsRenderer;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
