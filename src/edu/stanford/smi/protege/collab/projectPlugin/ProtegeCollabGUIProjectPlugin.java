@@ -1,15 +1,11 @@
 package edu.stanford.smi.protege.collab.projectPlugin;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.util.Collection;
 
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeCellRenderer;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
@@ -19,7 +15,6 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.plugin.ProjectPluginAdapter;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.ui.ProjectMenuBar;
 import edu.stanford.smi.protege.ui.ProjectToolBar;
 import edu.stanford.smi.protege.ui.ProjectView;
@@ -29,7 +24,6 @@ import edu.stanford.smi.protege.widget.AbstractTabWidget;
 import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
-import edu.stanford.smi.protegex.server_changes.GetAnnotationProjectName;
 
 public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	AnnotationsDisplayComponent annotationsDisplayComponent;
@@ -38,7 +32,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
 		KnowledgeBase kb = view.getProject().getKnowledgeBase();
 		
-		if (ChangeOntologyUtil.getChangesKb(kb) == null) {		
+		if (!ChangesProject.isChangeTrackingEnabled(view.getProject()) || ChangeOntologyUtil.getChangesKb(kb) == null) {		
 			return;
 		}
 		
@@ -48,7 +42,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 
 	private boolean isChangesOntologyPresent(KnowledgeBase kb) {
-		return ChangeOntologyUtil.isChangesOntologyPresent(kb);		
+		return ChangeOntologyUtil.isChangesOntologyPresent(kb);
 	}
 
 
