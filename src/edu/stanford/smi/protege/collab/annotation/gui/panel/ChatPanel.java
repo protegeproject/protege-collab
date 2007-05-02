@@ -51,8 +51,7 @@ public class ChatPanel extends AnnotationsTabPanel {
 	}
 
 	@Override
-	public void refreshDisplay() {
-		System.out.println("pp");
+	public void refreshDisplay() {		
 		// TODO Auto-generated method stub		
 	}
 	
