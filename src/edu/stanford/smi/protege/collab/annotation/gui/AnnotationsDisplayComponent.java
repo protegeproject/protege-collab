@@ -204,7 +204,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 			Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
 			annotationBodyTextComponent = new InstanceDisplay(ProjectManager.getProjectManager().getCurrentProject());
 		} else {
-			annotationBodyTextComponent = new InstanceDisplay(ChangeOntologyUtil.getChangesKb(kb).getProject());
+			annotationBodyTextComponent = new InstanceDisplay(ChangeOntologyUtil.getChangesKb(kb).getProject(), false, false);
 		}
 		
 		return annotationBodyTextComponent;
