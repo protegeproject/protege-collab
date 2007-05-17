@@ -70,10 +70,8 @@ public class DiscussionThreadManager {
 	}
 
 	
-	private void initDiscussionThreadList() {
-		
-		
-		discussionThreads.addAll(annotationCls.getInstances());
+	private void initDiscussionThreadList() {		
+		//discussionThreads.addAll(annotationCls.getInstances());
 	}
 	
 	
