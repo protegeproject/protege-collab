@@ -141,14 +141,27 @@ public class ChangeOntologyUtil {
 	public static Collection<Annotation> getAnnotationInstances(KnowledgeBase kb) {
 		Cls annotationCls = ChangeOntologyUtil.getChangeModel(kb).getCls(AnnotationCls.Annotation);
 
-		return annotationCls.getInstances();
+		//is this really necessary?
+		ArrayList<Annotation> annotations = new ArrayList<Annotation>();
+		
+		for (Object annotation : annotationCls.getInstances()) {
+			annotations.add((Annotation) annotation);
+		}
+		
+		return annotations;
 	}
 
 
 	public static Collection<Change> getChangeInstances(KnowledgeBase kb) {
 		Cls changeCls = ChangeOntologyUtil.getChangeModel(kb).getCls(ChangeCls.Change);
+		
+		//is this really necessary?
+		ArrayList<Change> changes = new ArrayList<Change>();
+		for (Object change : changeCls.getInstances()) {
+			changes.add((Change)change);
+		}
 
-		return changeCls.getInstances();
+		return changes;
 	}
 	
 	//this should be cached in future
