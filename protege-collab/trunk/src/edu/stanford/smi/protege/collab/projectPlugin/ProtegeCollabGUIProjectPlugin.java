@@ -20,6 +20,8 @@ import edu.stanford.smi.protege.ui.ProjectToolBar;
 import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.Log;
+import edu.stanford.smi.protege.util.ProjectViewEvent;
+import edu.stanford.smi.protege.util.ProjectViewListener;
 import edu.stanford.smi.protege.widget.AbstractTabWidget;
 import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
@@ -27,6 +29,7 @@ import edu.stanford.smi.protegex.server_changes.ChangesProject;
 
 public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	AnnotationsDisplayComponent annotationsDisplayComponent;
+	ProjectViewListener projectViewListener;
 
 	@Override
 	public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
@@ -37,7 +40,32 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		}
 		
 		insertCollabPanel(view);
+		attachProjectViewListener(view);
 		adjustTreeFrameRenderers(view);
+	}
+
+
+	private void attachProjectViewListener(ProjectView view) {
+		projectViewListener = new ProjectViewListener() {
+
+			public void closed(ProjectViewEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void saved(ProjectViewEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void tabAdded(ProjectViewEvent event) {
+				adjustTreeFrameRenderer((TabWidget)event.getWidget());
+			}
+			
+		};
+		
+		view.addProjectViewListener(projectViewListener);
+		
 	}
 
 
@@ -47,7 +75,6 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 
 	private AnnotationsDisplayComponent insertCollabPanel(ProjectView view) {
-		//this is not working in owl
 		JComponent parent = (JComponent)view.getParent();		
 		parent.remove(view);		
 		
@@ -90,7 +117,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		TreeCellRenderer cellRenderer = clsTree.getCellRenderer();
 		
 		if (cellRenderer instanceof FrameRenderer) {
-			FramesWithAnnotationsRenderer treeRenderer = new FramesWithAnnotationsRenderer(ChangeOntologyUtil.getChangesKb(tabWidget.getKnowledgeBase())); 
+			FramesWithAnnotationsRenderer treeRenderer = new FramesWithAnnotationsRenderer((FrameRenderer) cellRenderer); 
 		
 			//replace the tree renderer
 			clsTree.setCellRenderer(treeRenderer);
@@ -123,7 +150,12 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 		if (parentOfParent != null && parent != null) {
 			parentOfParent.remove(parent);
-		}	
+		}
+		
+		//detach project view listener if present
+		if (projectViewListener != null) {
+			view.removeProjectViewListener(projectViewListener);
+		}
 	}
 	
 	
