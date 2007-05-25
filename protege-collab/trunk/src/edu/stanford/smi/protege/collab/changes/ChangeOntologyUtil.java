@@ -8,7 +8,6 @@ import java.util.HashSet;
 
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.util.CacheManager;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
 import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
 import edu.stanford.smi.protege.model.Cls;
@@ -138,30 +137,19 @@ public class ChangeOntologyUtil {
 		return allAnnotations;		
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Collection<Annotation> getAnnotationInstances(KnowledgeBase kb) {
 		Cls annotationCls = ChangeOntologyUtil.getChangeModel(kb).getCls(AnnotationCls.Annotation);
 
-		//is this really necessary?
-		ArrayList<Annotation> annotations = new ArrayList<Annotation>();
-		
-		for (Object annotation : annotationCls.getInstances()) {
-			annotations.add((Annotation) annotation);
-		}
-		
-		return annotations;
+		return (Collection) annotationCls.getInstances();		
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public static Collection<Change> getChangeInstances(KnowledgeBase kb) {
 		Cls changeCls = ChangeOntologyUtil.getChangeModel(kb).getCls(ChangeCls.Change);
-		
-		//is this really necessary?
-		ArrayList<Change> changes = new ArrayList<Change>();
-		for (Object change : changeCls.getInstances()) {
-			changes.add((Change)change);
-		}
 
-		return changes;
+		return (Collection) changeCls.getInstances();
 	}
 	
 	//this should be cached in future
