@@ -57,8 +57,7 @@ public class AllAnnotationsPanel extends AnnotationsTabPanel {
 	
 	@Override
 	protected void onCreateAnnotation() {
-		System.out.println("Create");
-		
+		//TODO
 	}
 	
 	@Override
