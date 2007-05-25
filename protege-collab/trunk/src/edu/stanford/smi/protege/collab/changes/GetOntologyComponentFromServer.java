@@ -3,6 +3,7 @@ package edu.stanford.smi.protege.collab.changes;
 import edu.stanford.smi.protege.exception.ProtegeException;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.util.LocalizeUtils;
 import edu.stanford.smi.protege.util.ProtegeJob;
 import edu.stanford.smi.protegex.server_changes.ChangesDb;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
@@ -24,6 +25,11 @@ public class GetOntologyComponentFromServer extends ProtegeJob {
 		ChangesDb changesDb = ChangesProject.getChangesDb(getKnowledgeBase());
 		Ontology_Component oc = changesDb.getOntologyComponent(frame, createOntologyComponent);		
 		return 	oc;
+	}
+	
+	public void localize(KnowledgeBase kb) {
+		super.localize(kb);
+		LocalizeUtils.localize(frame, kb);
 	}
 
 }
