@@ -2,6 +2,7 @@ package edu.stanford.smi.protege.collab.annotation.gui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
 
 import javax.swing.JTabbedPane;
 
@@ -16,6 +17,7 @@ import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
+import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.Selectable;
 import edu.stanford.smi.protege.util.SelectableContainer;
 
@@ -58,34 +60,40 @@ public class AnnotationsTabHolder extends SelectableContainer{
 		return tabbedPane;
 	}
 	
-	
+	//TT: make each add in a try catch, in case one of the tabs throws an exception
 	protected Collection<AnnotationsTabPanel> createTabs() {
 		tabs = new ArrayList<AnnotationsTabPanel>();
-				
-		tabs.add(new OntologyComponentAnnotationsPanel(kb));
-		tabs.add(new ChangesAnnotationsPanel(kb));
-		tabs.add(new AllAnnotationsPanel(kb));
-		tabs.add(new DiscussionThreadPanel(kb));
-		tabs.add(new SearchPanel(kb));
-		tabs.add(new ChatPanel(kb));
+	
+		addTab(new OntologyComponentAnnotationsPanel(kb));
+		addTab(new ChangesAnnotationsPanel(kb));
+		addTab(new AllAnnotationsPanel(kb));
+		addTab(new DiscussionThreadPanel(kb));
+		addTab(new SearchPanel(kb));
+		addTab(new ChatPanel(kb));
 				
 		return tabs; 
 	}
 	
+	
+	protected void addTab(AnnotationsTabPanel annotationsTabPanel) {
+		try {
+			tabs.add(annotationsTabPanel);
+		} catch (Exception e) {
+			Log.getLogger().log(Level.WARNING, "Error at adding annotations tab " + annotationsTabPanel, e);
+		}
+	}
 	
 	public void setInstance(Instance instance) {		
 		currentInstance = instance;
 		
 		AnnotationsTabPanel annotTabPanel = getSelectedTab();		
 		annotTabPanel.setInstance(currentInstance);
-		
-		//refreshDisplay();
+
 	}
 	
 	public void setInstances(Collection instances) {
 		//reimplement this		
-		setInstance((Instance) CollectionUtilities.getFirstItem(instances));
-		
+		setInstance((Instance) CollectionUtilities.getFirstItem(instances));		
 	}
 	
 
