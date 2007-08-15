@@ -11,6 +11,7 @@ import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
 import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 
@@ -57,7 +58,8 @@ public class AllAnnotationsPanel extends AnnotationsTabPanel {
 	
 	@Override
 	protected void onCreateAnnotation() {
-		//TODO
+		//TODO: Implement this.
+		Log.getLogger().info("Functionality not implemented yet");
 	}
 	
 	@Override
