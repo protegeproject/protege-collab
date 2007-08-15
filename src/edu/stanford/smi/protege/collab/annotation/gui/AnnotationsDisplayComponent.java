@@ -16,6 +16,7 @@ import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
 import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
+import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -24,6 +25,7 @@ import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
+import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.Selectable;
@@ -33,6 +35,8 @@ import edu.stanford.smi.protege.util.SelectionListener;
 import edu.stanford.smi.protege.widget.AbstractTabWidget;
 import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
+import edu.stanford.smi.protegex.owl.ui.individuals.OWLIndividualsTab;
+import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab;
 
 
 /**
@@ -58,16 +62,15 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		
 	private ChangesKbFrameListener changesKbFrameListener;
 	
+	private ChangeListener tabChangeListener;
+	
 		
-	public AnnotationsDisplayComponent(KnowledgeBase kb, final Selectable selectable) {
+	public AnnotationsDisplayComponent(KnowledgeBase kb) {
 		this.kb = kb;
-		this.selectable = selectable;		
-		
+				
 		annotationsTabHolder = createAnnotationsTabHolder();
 		annotationBodyTextComponent = createAnnotationBodyComponent();
-		
-		setSelectable(annotationsTabHolder);
-		
+				
 		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Annotations", annotationsTabHolder, true);
 		LabeledComponent labeledComponentText = new LabeledComponent("Annotation body", annotationBodyTextComponent, true);
 		
@@ -75,16 +78,30 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		labeledComponentText.setPreferredSize(new Dimension(100, 200));
 		topBottomSplitPane.setResizeWeight(1);
 		topBottomSplitPane.setOneTouchExpandable(true);
+
+		clsTreeSelectionListener = new SelectionListener() {
+
+			public void selectionChanged(SelectionEvent event) {				
+				setInstances(event.getSelectable().getSelection());
+			}
+			
+		};
+
 		
+		setSelectable(annotationsTabHolder);
+			
 		attachAnnotationTreeSelectionListener();	
 		
 		classChangeListener = new ClassChangeListener() {
 			@Override
 			public void refreshClassDisplay(FrameEvent event) {
 				refreshAllTabs();				
-			}			
+			}
 		};
 		
+		tabChangeListener = getTabChangeListener();
+
+		attachTabChangeListener();
 		
 		annotationsTabHolder.getTabbedPane().addChangeListener(new ChangeListener() {
 
@@ -106,19 +123,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		});
 	
 		attachChangeKbListeners();
-		
-		clsTreeSelectionListener = new SelectionListener() {
-
-			public void selectionChanged(SelectionEvent event) {				
-				setInstances(event.getSelectable().getSelection());
-			}
-			
-		};
-		
-		if (selectable == null) {
-			attachTabChangeListener();
-		}
-		
+				
 		add(topBottomSplitPane);
 	}
 	
@@ -151,45 +156,45 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
 		
 		//just for the init
+		
 		TabWidget currentTab = view.getSelectedTab();
-		if (currentTab != null && currentTab instanceof AbstractTabWidget) {
-			selectable = (Selectable) ((AbstractTabWidget)currentTab).getClsTree();	
-			if (selectable != null) {				
-				selectable.addSelectionListener(clsTreeSelectionListener);
-				setInstances(selectable.getSelection());
-			}
+		
+		selectable = UIUtil.getSelectableForTab(currentTab);	
+		if (selectable != null) {				
+			selectable.addSelectionListener(clsTreeSelectionListener);
+			setInstances(selectable.getSelection());
+		}
+				
+		init();		
+	}
+	
+	protected ChangeListener getTabChangeListener() {
+		if (tabChangeListener != null) {
+			return tabChangeListener;
 		}
 		
-		view.addChangeListener(new ChangeListener() {
+		tabChangeListener = new ChangeListener() {
 
-			public void stateChanged(ChangeEvent e) {			
-									
+			public void stateChanged(ChangeEvent e) {	
+				//System.out.println("Tab changed " + ((JTabbedPane)e.getSource()).getSelectedComponent()  + "\nselectable before = " + selectable);
 				if (selectable != null) {					
 					selectable.removeSelectionListener(clsTreeSelectionListener);
 				}
 					
 				TabWidget tabWidget = (TabWidget) ((JTabbedPane)e.getSource()).getSelectedComponent();
-				if (tabWidget == null){
-					selectable = null;
-					return;
-				}
-				
-				//this is a particular case. How should it be treated?
-				if (tabWidget instanceof InstancesTab) {
-					selectable = ((InstancesTab)tabWidget).getDirectInstancesList();
-				} else {
-					selectable = (Selectable) ((AbstractTabWidget)tabWidget).getClsTree();
-				}
+				selectable = UIUtil.getSelectableForTab(tabWidget);
 				
 				//do I need this here?
 				setInstances(selectable == null ? null : selectable.getSelection());
 
 				if (selectable != null) {					
 					selectable.addSelectionListener(clsTreeSelectionListener);
-				}
+				}					
 			}			
 			
-		});
+		};
+		
+		return tabChangeListener;
 	}
 	
 
@@ -223,7 +228,6 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		}
 		
 		annotationsTabHolder.setInstance(currentInstance);
-		//refreshDisplay();	
 	}
 	
 	public void setInstances(Collection instances) {		
@@ -231,7 +235,15 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
 	}
 
+	//TT: find a better solution
+	public void init() {
+		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
 
+		view.removeChangeListener(tabChangeListener);
+		view.addChangeListener(tabChangeListener);
+	}
+	
+	
 	protected void refreshDisplay() {
 				
 		annotationsTabHolder.refreshDisplay();
