@@ -11,6 +11,7 @@ import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.util.UIUtil;
 
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
@@ -26,6 +27,7 @@ import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.widget.AbstractTabWidget;
 import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
+import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
 import edu.stanford.smi.protegex.server_changes.model.generated.AnnotatableThing;
@@ -76,7 +78,7 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 			return;
 		}
 		
-		Collection clsTreeSelection = getClsTreeSelection();
+		Collection clsTreeSelection = UIUtil.getClsTreeSelection(ProjectManager.getProjectManager().getCurrentProjectView().getSelectedTab());
 		
 		if (clsTreeSelection == null || clsTreeSelection.size() == 0) {
 			return;
@@ -114,23 +116,6 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 		
 	}
 	
-	
-	private Collection getClsTreeSelection() {
-		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
-		
-		//just for the init
-		TabWidget tabWidget = view.getSelectedTab();
-		if (tabWidget != null && tabWidget instanceof AbstractTabWidget) {					
-			if (tabWidget instanceof InstancesTab) {
-				return ((InstancesTab)tabWidget).getSelectedInstances();
-			}
-			
-			Selectable selectable = (Selectable) ((AbstractTabWidget)tabWidget).getClsTree();
-			return (selectable == null ? null : selectable.getSelection());
-		}
-		
-		return null;		
-	}	
 	
 	@Override
 	public Icon getIcon() {
