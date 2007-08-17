@@ -77,7 +77,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
 		String currentName = ontoComp.getCurrentName();
 
 		if (currentName == null) {
-			Log.getLogger().warning("Cannot find current name for " + ontoComp);
+			//Log.getLogger().warning("Cannot find current name for " + ontoComp);
 			return;			
 		}
 
