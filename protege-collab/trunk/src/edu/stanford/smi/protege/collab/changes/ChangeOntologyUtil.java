@@ -185,6 +185,7 @@ public class ChangeOntologyUtil {
 	public static KnowledgeBase getChangesKb(KnowledgeBase kb, boolean create) {
 		KnowledgeBase changesKb = kb2changesKb.get(kb);
 
+		//Is it better to use here a three value cache? We could cache also the null value.
 		if (changesKb != null || !create) {
 			return changesKb;
 		}
@@ -197,10 +198,16 @@ public class ChangeOntologyUtil {
 			if (kb.getProject().isMultiUserClient()) {
 				changesKb = getServerSideChangeKb(kb);
 			}
-			else {
-				changesKb = ChangesProject.getChangesKB(kb);		
+			else {				
+				changesKb = ChangesProject.getChangesKB(kb);
+				
+				//TT - This is a temporary hack, that will be removed after refactoring the ChangesTab code				
+				if (changesKb == null) { // this might mean that the ChangesProject plugin has not been initialized yet
+					new ChangesProject().afterLoad(kb.getProject());
+					changesKb = ChangesProject.getChangesKB(kb);
+				}			
 			}
-
+			
 			kb2changesKb.put(kb, changesKb);
 
 		} catch(Throwable e) {
@@ -222,7 +229,9 @@ public class ChangeOntologyUtil {
 			changeModel = ChangesProject.getChangesDb(kb).getModel();		
 		} else {		
 			KnowledgeBase changeKb = getChangesKb(kb);
-			changeModel = new ChangeModel(changeKb);
+			if (changeKb != null) {				
+				changeModel = new ChangeModel(changeKb);
+			}
 		}
 
 		kb2changeModel.put(kb, changeModel);
