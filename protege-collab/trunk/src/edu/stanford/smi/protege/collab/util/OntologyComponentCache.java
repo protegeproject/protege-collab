@@ -22,9 +22,15 @@ public class OntologyComponentCache {
 	public static Ontology_Component getOntologyComponent(Frame frame) {
     	return getOntologyComponent(frame, false);
     }
-    
+  /*  
+   //TT: This was the previous implementation. I don't remember why I have changed it.
 	public static Ontology_Component getOntologyComponent_Good(Frame frame, boolean create) {
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(frame.getKnowledgeBase());		
+		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(frame.getKnowledgeBase());
+		
+		if (changesKb == null) {
+			return null;
+		}
+		
 		ThreeValueCache cache = getCache(changesKb);
 		String key = frame.getName();
 		
@@ -37,12 +43,17 @@ public class OntologyComponentCache {
 
 		return ontologyComp;
 	}
-	
+	*/
 	
 	public static Ontology_Component getOntologyComponent(Frame frame, boolean create) {
 		String key = frame.getName();
 		
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(frame.getKnowledgeBase());		
+		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(frame.getKnowledgeBase());
+		
+		if (changesKb == null) {
+			return null;
+		}
+		
 		ThreeValueCache cache = getCache(changesKb);
 		
 		if (cache.hasCacheValue(key) && !create) {
@@ -69,13 +80,11 @@ public class OntologyComponentCache {
 	}
 	
 	
-	
-	
 	private static Ontology_Component getOrCreateOntologyComponent(Frame frame, boolean create) {
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(frame.getKnowledgeBase());
 		
 		Slot currentNameSlot = changesKb.getSlot(ChangeSlot.currentName.name());
-		Collection ontologyComponents = changesKb.getMatchingFrames(currentNameSlot, null, false, frame.getName(), 2);
+		Collection<Frame> ontologyComponents = changesKb.getMatchingFrames(currentNameSlot, null, false, frame.getName(), 2);
 				
 		if (ontologyComponents.size() > 1) {
 			Log.getLogger().warning("Found more than one ontology component for frame " + frame + " Ontology components: " + ontologyComponents);				
