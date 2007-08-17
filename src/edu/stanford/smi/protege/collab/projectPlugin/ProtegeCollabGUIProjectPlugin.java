@@ -12,8 +12,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
-import com.sun.jndi.dns.ResourceRecord;
-
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.FramesWithAnnotationsRenderer;
@@ -35,7 +33,6 @@ import edu.stanford.smi.protege.util.SelectableList;
 import edu.stanford.smi.protege.widget.AbstractTabWidget;
 import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
-import edu.stanford.smi.protegex.changes.ui.ChangeMenu.SelectedChangeInfo;
 import edu.stanford.smi.protegex.owl.ui.ResourceRenderer;
 import edu.stanford.smi.protegex.owl.ui.individuals.OWLIndividualsTab;
 import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab;
