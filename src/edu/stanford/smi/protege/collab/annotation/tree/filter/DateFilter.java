@@ -139,12 +139,12 @@ public class DateFilter extends AbstractFilter {
         int month = dateCal.get(Calendar.MONTH);
         int day = dateCal.get(Calendar.DAY_OF_MONTH);
         
-        Calendar newDateCal = new GregorianCalendar();
-        newDateCal.set(year, month, day, 0, 0, 0);
-        
-        return newDateCal.getTime();	
+        Calendar newDateCal = new GregorianCalendar(year, month, day, 0, 0, 0);
+                
+        return newDateCal.getTime();
 	}
-	
+
+	//FIXME: optimize performance
 	private boolean equalSimpleDates(Date date1, Date date2) {
 		if (date1 == null && date2 == null) {
 			return true;
@@ -154,10 +154,7 @@ public class DateFilter extends AbstractFilter {
 			return false;
 		}
 		
-		//FIXME
-		return date1.getYear() == date2.getYear() &&
-				date1.getMonth() == date2.getMonth() &&
-				date1.getDay() == date2.getDay();
+		return date1.compareTo(date2) == 0;	
 	}
 	
 }
