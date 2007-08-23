@@ -58,7 +58,7 @@
 	<!-- Compile the source directory. -->
 	<!-- =================================================================== -->
 	<target name = "compile" depends = "prepare-src">
-		<javac srcdir = "${build.src}" destdir = "${build.dest}" deprecation = "on" debug = "off" optimize = "on" includeAntRuntime = "no">
+		<javac srcdir = "${build.src}" destdir = "${build.dest}" deprecation = "on" debug = "on" debuglevel = "lines" optimize = "on" includeAntRuntime = "no">
 			<classpath>
 				<pathelement path = "${protege.jar}"/>
 				<pathelement path = "${protege-owl.jar}"/>
