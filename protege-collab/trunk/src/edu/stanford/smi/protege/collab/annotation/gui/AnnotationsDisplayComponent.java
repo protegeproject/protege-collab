@@ -56,7 +56,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 	private ClassChangeListener classChangeListener;
 	
-	private AnnotationCreationKbListener annotationsKBListener;
+	//private AnnotationCreationKbListener annotationsKBListener;
 	
 	private SelectionListener clsTreeSelectionListener;
 		
@@ -131,8 +131,9 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	protected void attachChangeKbListeners() {
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb);
 		
-		annotationsKBListener = new AnnotationCreationKbListener(kb);
-		changesKb.addKnowledgeBaseListener(annotationsKBListener);
+		//Wrong!! Events are called on all clients!!
+		//annotationsKBListener = new AnnotationCreationKbListener(kb);
+		//changesKb.addKnowledgeBaseListener(annotationsKBListener);
 		
 		changesKbFrameListener = new ChangesKbFrameListener();
 		changesKb.addFrameListener(changesKbFrameListener);		
@@ -270,11 +271,13 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 			return;
 		}
 		
+		/*
 		try {
 			changesKb.removeKnowledgeBaseListener(annotationsKBListener);	
 		} catch (Exception e) {
 			Log.getLogger().warning("Error at disposing changes ontology kb listener");
 		}
+		*/
 		
 		try {
 			changesKb.removeFrameListener(changesKbFrameListener);	
