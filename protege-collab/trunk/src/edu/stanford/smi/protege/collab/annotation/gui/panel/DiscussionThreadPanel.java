@@ -56,7 +56,8 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		}
 				
 		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getKnowledgeBase(), null, pickedAnnotationCls);
-		annotInstance.setBody("(Enter the annotation text here)");
+		ChangeOntologyUtil.fillAnnotationSystemFields(getKnowledgeBase(), annotInstance);
+		annotInstance.setBody("(Enter the annotation text here)");		
 		
 		refreshDisplay();
 	}
