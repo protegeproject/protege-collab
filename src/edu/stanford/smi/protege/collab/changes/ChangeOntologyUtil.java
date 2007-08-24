@@ -35,6 +35,7 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
 import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 import edu.stanford.smi.protegex.server_changes.model.generated.Composite_Change;
 import edu.stanford.smi.protegex.server_changes.model.generated.Ontology_Component;
+import edu.stanford.smi.protegex.server_changes.model.generated.Timestamp;
 
 
 /**
@@ -328,6 +329,12 @@ public class ChangeOntologyUtil {
 		return filteredCollection;		
 	}
 
+	
+	public static void fillAnnotationSystemFields(KnowledgeBase kb, Annotation annotation) {
+		annotation.setCreated(Timestamp.getTimestamp(ChangeOntologyUtil.getChangeModel(kb)));
+		annotation.setAuthor(kb.getUserName());	
+	}
+	
 	public static void clearKb2ChangesKbMap() {
 		kb2changesKb.clear();
 		kb2changeModel.clear();
@@ -335,4 +342,6 @@ public class ChangeOntologyUtil {
 		//clear other caches
 	}
 
+	
+	
 }
