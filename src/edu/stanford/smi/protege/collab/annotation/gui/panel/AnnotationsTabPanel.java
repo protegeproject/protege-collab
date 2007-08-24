@@ -392,6 +392,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		}
 
 		Annotation annotInst = ChangeOntologyUtil.createAnnotationOnAnnotation(currentInstance.getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
+		ChangeOntologyUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annotInst);
 		//put this in a constant sometimes
 		annotInst.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 		
