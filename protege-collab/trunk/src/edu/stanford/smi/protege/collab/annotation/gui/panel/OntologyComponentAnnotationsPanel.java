@@ -91,7 +91,10 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 			return;
 		}
 		
-		Annotation annotation = (Annotation) ChangeOntologyUtil.getChangeModel(getCurrentInstance().getKnowledgeBase()).createInstance(pickedAnnotationCls);
+		KnowledgeBase kb = getCurrentInstance().getKnowledgeBase();
+		
+		Annotation annotation = (Annotation) ChangeOntologyUtil.getChangeModel(kb).createInstance(pickedAnnotationCls);
+		ChangeOntologyUtil.fillAnnotationSystemFields(kb, annotation);
 		annotation.setBody("(Enter the annotation text here)");
 
 		if (firstSelection instanceof AnnotatableThing) {
