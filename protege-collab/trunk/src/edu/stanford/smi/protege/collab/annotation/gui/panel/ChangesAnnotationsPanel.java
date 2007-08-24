@@ -74,7 +74,11 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 			parentAnnotation = (Frame) CollectionUtilities.getFirstItem(selection);
 		}
 		
-		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(getCurrentInstance().getKnowledgeBase(), parentAnnotation, pickedAnnotationCls);
+		KnowledgeBase kb = getCurrentInstance().getKnowledgeBase();
+		
+		Annotation annotInstance = ChangeOntologyUtil.createAnnotationOnAnnotation(kb, parentAnnotation, pickedAnnotationCls);
+		ChangeOntologyUtil.fillAnnotationSystemFields(kb, annotInstance);
+		
 		annotInstance.setBody("(Enter the annotation text here)");
 			
 		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();        
