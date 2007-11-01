@@ -3,23 +3,19 @@ package edu.stanford.smi.protege.collab.projectPlugin;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Collection;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JSplitPane;
-import javax.swing.JTree;
-import javax.swing.tree.TreeCellRenderer;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
-import edu.stanford.smi.protege.collab.annotation.gui.renderer.FramesWithAnnotationsRenderer;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.plugin.ProjectPluginAdapter;
-import edu.stanford.smi.protege.ui.FrameRenderer;
 import edu.stanford.smi.protege.ui.ProjectMenuBar;
 import edu.stanford.smi.protege.ui.ProjectToolBar;
 import edu.stanford.smi.protege.ui.ProjectView;
@@ -28,15 +24,7 @@ import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.ProjectViewEvent;
 import edu.stanford.smi.protege.util.ProjectViewListener;
-import edu.stanford.smi.protege.util.SelectableContainer;
-import edu.stanford.smi.protege.util.SelectableList;
-import edu.stanford.smi.protege.widget.AbstractTabWidget;
-import edu.stanford.smi.protege.widget.InstancesTab;
 import edu.stanford.smi.protege.widget.TabWidget;
-import edu.stanford.smi.protegex.owl.ui.ResourceRenderer;
-import edu.stanford.smi.protegex.owl.ui.individuals.OWLIndividualsTab;
-import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab;
-import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertyHierarchiesPanel;
 import edu.stanford.smi.protegex.server_changes.ChangesProject;
 
 
@@ -55,11 +43,13 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 			return;
 		}
 		
+		Log.getLogger().info("Started Collaborative Protege");
+		
 		//TT: Unfinished implementation. Uncomment later.
 		//insertCollabMenu(menuBar);
 		insertCollabPanel(view);
 		attachProjectViewListener(view);
-		adjustTreeFrameRenderers(view);
+		UIUtil.adjustTreeFrameRenderers(view);
 	}
 
 
@@ -82,7 +72,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 			public void tabAdded(ProjectViewEvent event) {
 				//System.out.println("Tab added " + event);
 				
-				adjustTreeFrameRenderer((TabWidget)event.getWidget());
+				UIUtil.adjustTreeFrameRenderer((TabWidget)event.getWidget());
 				annotationsDisplayComponent.init();
 			}
 			
@@ -97,7 +87,8 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		return ChangeOntologyUtil.isChangesOntologyPresent(kb);
 	}
 
-	
+	//TT - uncomment this later when menu support will be added
+	/*
 	private void insertCollabMenu(ProjectMenuBar menuBar) {
 		JMenu toolsMenu = ComponentUtilities.getMenu(menuBar, TOOLS_MENU, true, 3);
 				
@@ -111,7 +102,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		toolsMenu.insert(collabPanelMenuItem, 0);
 		toolsMenu.insertSeparator(1);			
 	}
-	
+	*/
 
 	private AnnotationsDisplayComponent insertCollabPanel(ProjectView view) {
 		JComponent parent = (JComponent)view.getParent();		
@@ -133,53 +124,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	}
 	
 	
-	private void adjustTreeFrameRenderers(ProjectView view) {
-		Collection<TabWidget> tabs = view.getTabs();
-		
-		for (TabWidget tabwidget : tabs) {
-			adjustTreeFrameRenderer(tabwidget);
-		}
-	}
 
-
-	private void adjustTreeFrameRenderer(TabWidget tabWidget) {
-		if (!(tabWidget instanceof AbstractTabWidget)) {
-			return;
-		}
-		
-		if (tabWidget instanceof OWLPropertiesTab) {
-			ResourceRenderer renderer  = new ResourceRenderer();
-			FramesWithAnnotationsRenderer treeRenderer = new FramesWithAnnotationsRenderer((FrameRenderer) renderer);
-			((OWLPropertyHierarchiesPanel)((OWLPropertiesTab)tabWidget).getNestedSelectable()).setHierarchyTreeRenderer(treeRenderer);
-			return;
-		}
-		
-		JTree clsTree = ((AbstractTabWidget)tabWidget).getClsTree();
-		
-		if (clsTree == null) {
-			return;
-		}
-		
-		TreeCellRenderer cellRenderer = clsTree.getCellRenderer();
-		
-		if (cellRenderer instanceof FrameRenderer) {
-			FramesWithAnnotationsRenderer treeRenderer = new FramesWithAnnotationsRenderer((FrameRenderer) cellRenderer); 
-			 try {
-					//replace the tree renderer
-					clsTree.setCellRenderer(treeRenderer);
-					
-					if (tabWidget instanceof InstancesTab) {
-						treeRenderer.setDisplayDirectInstanceCount(true);
-						((InstancesTab)tabWidget).getDirectInstancesList().setListRenderer(treeRenderer);
-					} else if (tabWidget instanceof OWLIndividualsTab) {
-						((SelectableList)((SelectableContainer)((OWLIndividualsTab)tabWidget).getNestedSelectable()).getSelectable()).setCellRenderer(treeRenderer);				
-					}
-			} catch (Exception e) {
-				Log.getLogger().warning("Errors at setting tree renderer for " + tabWidget);
-			}
-		}
-		
-	}
 	
 	@Override
 	public void beforeHide(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
