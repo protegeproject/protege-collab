@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
-import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
@@ -27,7 +26,6 @@ import edu.stanford.smi.protege.resource.ResourceKey;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
-import edu.stanford.smi.protegex.server_changes.model.generated.Change;
 
 public class SearchPanel extends AnnotationsTabPanel {
 	private ComplexFilterComponent complexFilterComp;
@@ -91,20 +89,22 @@ public class SearchPanel extends AnnotationsTabPanel {
 
 	@Override
 	protected void onCreateAnnotation() {
-		//	TODO Auto-generated method stub
+		//	not applicable
 	}
 
 	@Override
 	public void refreshDisplay() {
-		// TODO Auto-generated method stub		
+		// do nothing
 	}
 	
-	private void refreshDisplayAfterSearch() {		
+	private void refreshDisplayAfterSearch() {
+		//TODO: the search should be executed on the server		
 		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getAnnotationInstances(getKnowledgeBase());
-		Collection<Change> changeAnnotationsRoots = ChangeOntologyUtil.getChangeInstances(getKnowledgeBase());
+		//TT: Took out the search through the changes - it is too expensive to do on the client side
+		//Collection<Change> changeAnnotationsRoots = ChangeOntologyUtil.getChangeInstances(getKnowledgeBase());
 		
 		List allRoots = new ArrayList(annotationsRoots);
-		allRoots.addAll(changeAnnotationsRoots);
+		//allRoots.addAll(changeAnnotationsRoots);
 		
 		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(allRoots, complexFilter);
 		
