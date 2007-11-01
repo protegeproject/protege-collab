@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.collab.changes.GetOntologyComponentFromServer;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
