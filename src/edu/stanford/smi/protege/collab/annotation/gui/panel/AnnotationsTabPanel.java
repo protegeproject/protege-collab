@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
@@ -30,15 +31,12 @@ import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterComponentUtil;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.FilterValueComponent;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.StringFilterComponent;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
@@ -46,14 +44,9 @@ import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.CreateAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.LazyTreeNode;
-import edu.stanford.smi.protege.util.ModalDialog;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
-import edu.stanford.smi.protege.widget.AbstractSlotWidget;
-import edu.stanford.smi.protege.widget.ClsWidget;
-import edu.stanford.smi.protege.widget.FormWidget;
-import edu.stanford.smi.protege.widget.SlotWidget;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.ChangeSlot;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
@@ -74,12 +67,9 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	private JComboBox ratingComboBox;
 	private JComboBox filterComboBox;
 	private FilterValueComponent filterValueComponent;
-	private JComponent filterValueComponentComponent;
-	
-	private InstanceDisplay newAnnotationsInstanceDisplay;
-	
+	private JComponent filterValueComponentComponent;	
 	private JButton filterButton;
-	
+		
 	private TreeFilter treeFilter;
 	
 	private AllowableAction viewAction;
@@ -178,10 +168,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			}			
 		});
 		*/
-		
-		Project changesPrj = ChangeOntologyUtil.getChangesKb(kb).getProject();
-		newAnnotationsInstanceDisplay = new InstanceDisplay(changesPrj);
-		
+			
 		JPanel annotationsTypeHeaderPanel = new JPanel(new BorderLayout());
 		annotationsTypeHeaderPanel.add(annotationsComboBox, BorderLayout.EAST);
 		labeledComponent.setHeaderComponent(annotationsTypeHeaderPanel);
@@ -402,13 +389,6 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		
 	}
 
-	
-	
-	private void setReadOnlySlotWidget(SlotWidget sw, boolean readOnly) {
-		if (sw != null) {
-			((AbstractSlotWidget)sw).setReadOnlyWidget(readOnly);
-		}		
-	}
 	
 	
 	protected AllowableAction getCreateAction() {
