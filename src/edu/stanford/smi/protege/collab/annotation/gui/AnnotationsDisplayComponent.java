@@ -67,7 +67,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		annotationsTabHolder = createAnnotationsTabHolder();
 		annotationBodyTextComponent = createAnnotationBodyComponent();
 
-		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Annotations", annotationsTabHolder, true);
+		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Collaboration", annotationsTabHolder, true);
 		LabeledComponent labeledComponentText = new LabeledComponent("Details", annotationBodyTextComponent, true);
 
 		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText, true);	
@@ -282,6 +282,15 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
 	}
 
+	
+	public void reloadCollabTabs() {
+		annotationsTabHolder.reload();
+	}
+	
+	public KnowledgeBase getKnowledgeBase() {
+		return kb;
+	}
+	
 	@Override
 	public void dispose() {
 		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb, false);
