@@ -285,6 +285,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	
 	public void reloadCollabTabs() {
 		annotationsTabHolder.reload();
+		attachAnnotationTreeSelectionListener();
 	}
 	
 	public KnowledgeBase getKnowledgeBase() {
