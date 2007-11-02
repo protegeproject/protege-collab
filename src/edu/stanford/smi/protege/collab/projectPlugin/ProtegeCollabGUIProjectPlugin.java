@@ -7,15 +7,19 @@ import java.awt.event.ItemListener;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JSplitPane;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
+import edu.stanford.smi.protege.collab.annotation.gui.ConfigureCollabProtegeAction;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.plugin.ProjectPluginAdapter;
+import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.ui.ProjectMenuBar;
 import edu.stanford.smi.protege.ui.ProjectToolBar;
 import edu.stanford.smi.protege.ui.ProjectView;
@@ -31,9 +35,11 @@ import edu.stanford.smi.protegex.server_changes.ChangesProject;
 public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	
 	public final static String TOOLS_MENU = "Tools";
+		
+	private AnnotationsDisplayComponent annotationsDisplayComponent;
+	private ProjectViewListener projectViewListener;
+	private JMenu collabMenu;
 	
-	AnnotationsDisplayComponent annotationsDisplayComponent;
-	ProjectViewListener projectViewListener;
 
 	@Override
 	public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
@@ -44,12 +50,11 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		}
 		
 		Log.getLogger().info("Started Collaborative Protege");
-		
-		//TT: Unfinished implementation. Uncomment later.
-		//insertCollabMenu(menuBar);
+					
 		insertCollabPanel(view);
 		attachProjectViewListener(view);
 		UIUtil.adjustTreeFrameRenderers(view);
+		insertCollabMenu(menuBar);
 	}
 
 
@@ -86,23 +91,17 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	private boolean isChangesOntologyPresent(KnowledgeBase kb) {
 		return ChangeOntologyUtil.isChangesOntologyPresent(kb);
 	}
+	
 
-	//TT - uncomment this later when menu support will be added
-	/*
-	private void insertCollabMenu(ProjectMenuBar menuBar) {
-		JMenu toolsMenu = ComponentUtilities.getMenu(menuBar, TOOLS_MENU, true, 3);
-				
-		final JCheckBoxMenuItem collabPanelMenuItem = new JCheckBoxMenuItem("Enable collaborative panel", AnnotationsIcons.getCommentIcon());
-		collabPanelMenuItem.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				System.out.println(collabPanelMenuItem.isSelected());				
-			}			
-		});
+	private void insertCollabMenu(ProjectMenuBar menuBar) {		
+		collabMenu = new JMenu("Collaboration");
 		
-		toolsMenu.insert(collabPanelMenuItem, 0);
-		toolsMenu.insertSeparator(1);			
+		JMenuItem configureItem = new JMenuItem(new ConfigureCollabProtegeAction(annotationsDisplayComponent));
+		collabMenu.add(configureItem);
+		
+		menuBar.add(collabMenu);		
 	}
-	*/
+
 
 	private AnnotationsDisplayComponent insertCollabPanel(ProjectView view) {
 		JComponent parent = (JComponent)view.getParent();		
@@ -153,6 +152,10 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		if (projectViewListener != null) {
 			view.removeProjectViewListener(projectViewListener);
 		}
+		
+		//remove menu
+		JMenuBar mainMenuBar = ProjectManager.getProjectManager().getCurrentProjectMenuBar();
+		mainMenuBar.remove(collabMenu);
 	}
 	
 	
