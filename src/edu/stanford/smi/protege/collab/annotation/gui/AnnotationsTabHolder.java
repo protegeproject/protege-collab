@@ -1,9 +1,15 @@
 package edu.stanford.smi.protege.collab.annotation.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel;
@@ -13,19 +19,22 @@ import edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel;
+import edu.stanford.smi.protege.collab.util.CollabTabsConfiguration;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.Log;
+import edu.stanford.smi.protege.util.ModalDialog;
 import edu.stanford.smi.protege.util.Selectable;
 import edu.stanford.smi.protege.util.SelectableContainer;
+import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class AnnotationsTabHolder extends SelectableContainer{
+public class AnnotationsTabHolder extends SelectableContainer {
 	private Instance currentInstance = null;
 
 	private KnowledgeBase kb;
@@ -33,34 +42,57 @@ public class AnnotationsTabHolder extends SelectableContainer{
 	private JTabbedPane tabbedPane;
 	
 	private Collection<AnnotationsTabPanel> tabs;
+	private JPopupMenu configureTabPopupMenu;
+	
 	
 	public AnnotationsTabHolder(KnowledgeBase kb) {
 		this.kb = kb;
 				
 		tabbedPane = createTabbedPane();
-				
-		//TT: maybe this won't work
+		
 		setSelectable(getSelectedTab().getSelectable());
 		
 		add(tabbedPane);
 	}
 	
 	
+	private JPopupMenu getPopupMenu() {
+		JPopupMenu popup = new JPopupMenu();
+	    JMenuItem menuItem = new JMenuItem("Configure", OWLIcons.getPreferencesIcon());
+	    menuItem.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				ConfigureCollabProtegePanel configPanel = new ConfigureCollabProtegePanel(kb.getProject());
+				int sel = ModalDialog.showDialog(AnnotationsTabHolder.this, configPanel, "Configure Collaborative Protege", ModalDialog.MODE_OK_CANCEL);
+				
+				if (sel == ModalDialog.OPTION_OK) {
+					reload();
+				}
+			}	    	
+	    });
+	    popup.add(menuItem);
+	    return popup;
+	}
+	
+	
 	protected JTabbedPane createTabbedPane() {
 		tabbedPane = ComponentFactory.createTabbedPane(true);
-
-		tabs = createTabs();
+		addTabs();
 		
-		for (AnnotationsTabPanel annotTabPanel : tabs) {
-			tabbedPane.addTab(annotTabPanel.getName(), annotTabPanel.getIcon(), annotTabPanel);
-		}
-			
 		tabbedPane.setSelectedIndex(0);
 		
 		return tabbedPane;
 	}
 	
-	//TT: make each add in a try catch, in case one of the tabs throws an exception
+	
+	protected void addTabs() {
+		tabs = createTabs();
+		
+		for (AnnotationsTabPanel annotTabPanel : tabs) {
+			tabbedPane.addTab(annotTabPanel.getName(), annotTabPanel.getIcon(), annotTabPanel);
+		}		
+	}
+
 	protected Collection<AnnotationsTabPanel> createTabs() {
 		tabs = new ArrayList<AnnotationsTabPanel>();
 	
@@ -76,12 +108,25 @@ public class AnnotationsTabHolder extends SelectableContainer{
 	
 	
 	protected void addTab(AnnotationsTabPanel annotationsTabPanel) {
+		
+		if (!CollabTabsConfiguration.isTabEnabled(kb.getProject(), annotationsTabPanel.getClass())) {
+			return;
+		}
+		
 		try {
 			tabs.add(annotationsTabPanel);
 		} catch (Exception e) {
 			Log.getLogger().log(Level.WARNING, "Error at adding annotations tab " + annotationsTabPanel, e);
 		}
 	}
+	
+	protected void reload() {
+		disposeTabs();
+		addTabs();
+		
+		//tabbedPane.setSelectedIndex(0);
+	}
+	
 	
 	public void setInstance(Instance instance) {		
 		currentInstance = instance;
@@ -146,6 +191,24 @@ public class AnnotationsTabHolder extends SelectableContainer{
 	
 	public KnowledgeBase getKb() {
 		return kb;
+	}
+	
+	@Override
+	public void dispose() {
+		disposeTabs();
+		super.dispose();
+	}
+	
+	protected void disposeTabs() {
+		tabbedPane.removeAll();
+		
+		for (AnnotationsTabPanel tab : tabs) {
+			try {				
+				tab.dispose();
+			} catch (Exception e) {
+				Log.getLogger().warning("Error at disposing collaborative tab " + tab);
+			}
+		}		
 	}
 	
 	
