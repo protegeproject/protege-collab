@@ -101,7 +101,11 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		addTab(new AllAnnotationsPanel(kb));
 		addTab(new DiscussionThreadPanel(kb));
 		addTab(new SearchPanel(kb));
-		addTab(new ChatPanel(kb));
+		
+		//special treatment for chat because it initializes chat project on server - will be changed when the plugin infrastructure is avaialbe
+		if (CollabTabsConfiguration.isTabEnabled(kb.getProject(), ChatPanel.class)) {
+			addTab(new ChatPanel(kb));
+		}
 				
 		return tabs; 
 	}
