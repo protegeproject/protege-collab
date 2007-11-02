@@ -60,4 +60,10 @@ public class ChatPanel extends AnnotationsTabPanel {
 		return ChatIcons.getSmileyIcon();
 	}
 
+	@Override
+	public void dispose() {
+		chatComponent.dispose();
+		super.dispose();
+	}
+	
 }
