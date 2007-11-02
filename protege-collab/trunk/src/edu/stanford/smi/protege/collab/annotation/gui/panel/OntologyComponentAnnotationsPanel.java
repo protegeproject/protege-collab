@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.Icon;
-import javax.swing.text.TabExpander;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
@@ -12,23 +11,12 @@ import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
-
 import edu.stanford.smi.protege.model.Frame;
-import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.ui.ProjectManager;
-import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentUtilities;
-import edu.stanford.smi.protege.util.LazyTreeModel;
 import edu.stanford.smi.protege.util.LazyTreeRoot;
-import edu.stanford.smi.protege.util.Selectable;
-import edu.stanford.smi.protege.util.SelectableTree;
-import edu.stanford.smi.protege.widget.AbstractTabWidget;
-import edu.stanford.smi.protege.widget.InstancesTab;
-import edu.stanford.smi.protege.widget.TabWidget;
-import edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab;
-import edu.stanford.smi.protegex.server_changes.ChangesProject;
 import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
 import edu.stanford.smi.protegex.server_changes.model.generated.AnnotatableThing;
 import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
