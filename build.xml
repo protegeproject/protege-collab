@@ -148,6 +148,9 @@
       <unzip src="${build}/${pluginName}.zip" 
              dest = "${protege.home}/plugins"
              overwrite = "true"/>
+      <copy todir="${protege.home}/examples">
+          <fileset dir="./examples"/>
+      </copy>
    </target>
 
    <target name = "clean">
