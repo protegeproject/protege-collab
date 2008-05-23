@@ -1,72 +1,150 @@
-; Thu Aug 16 13:03:29 PDT 2007
+; Thu May 22 16:35:26 GMT-08:00 2008
 ; 
-;+ (version "3.3")
-;+ (build "Build 420")
+;+ (version "3.4")
+;+ (build "Build 138")
 
-([annotation_collaborativePizza.owl_ProjectKB_Instance_137] of  String
-
-	(name "Timestamp")
-	(string_value "date"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_138] of  String
-
-	(name "Annotation")
-	(string_value "body"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_139] of  String
-
-	(name "Vote")
-	(string_value "voteValue"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_140] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_141] of  String
+([annotation_collaborativePizza.owl_ProjectKB_Class10] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([annotation_collaborativePizza.owl_ProjectKB_Instance_142] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_143] of  String
-
-	(name "Change")
-	(string_value "context"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_144] of  String
-
-	(name "Proposal")
-	(string_value "subject"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_145] of  String
-
-	(name "Ontology_Component")
-	(string_value "currentName"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Instance_146] of  Map_Entry
+([annotation_collaborativePizza.owl_ProjectKB_Class11] of  Map_Entry
 
 	(key "annotation_proj_exists")
 	(key_class "java.lang.String")
 	(value "yes")
 	(value_class "java.lang.String"))
 
+([annotation_collaborativePizza.owl_ProjectKB_Class16] of  Property_List
+
+	(properties
+		[annotation_collaborativePizza.owl_ProjectKB_Class17]
+		[annotation_collaborativePizza.owl_ProjectKB_Class18]))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class17] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class18] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class19] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class2] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class20] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class21] of  Property_List
+
+	(properties
+		[annotation_collaborativePizza.owl_ProjectKB_Class22]
+		[annotation_collaborativePizza.owl_ProjectKB_Class23]))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class22] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Move up"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class23] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Move down"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class24] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class25] of  Property_List
+
+	(name "layout properties"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class26] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class27] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class28] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class29] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class3] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class30] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class31] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class32] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class33] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class34] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class35] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class36] of  Property_List
+)
+
+([annotation_collaborativePizza.owl_ProjectKB_Class4] of  String
+
+	(name "Change")
+	(string_value "context"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class5] of  String
+
+	(name "Timestamp")
+	(string_value "date"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class6] of  String
+
+	(name "Ontology_Component")
+	(string_value "currentName"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class7] of  String
+
+	(name "Vote")
+	(string_value "voteValue"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class8] of  String
+
+	(name "Proposal")
+	(string_value "subject"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class9] of  String
+
+	(name "Annotation")
+	(string_value "body"))
+
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_137]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_138]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_139]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_140]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_141]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_142]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_143]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_144]
-		[annotation_collaborativePizza.owl_ProjectKB_Instance_145]))
+		[annotation_collaborativePizza.owl_ProjectKB_Class2]
+		[annotation_collaborativePizza.owl_ProjectKB_Class3]
+		[annotation_collaborativePizza.owl_ProjectKB_Class4]
+		[annotation_collaborativePizza.owl_ProjectKB_Class5]
+		[annotation_collaborativePizza.owl_ProjectKB_Class6]
+		[annotation_collaborativePizza.owl_ProjectKB_Class7]
+		[annotation_collaborativePizza.owl_ProjectKB_Class8]
+		[annotation_collaborativePizza.owl_ProjectKB_Class9]
+		[annotation_collaborativePizza.owl_ProjectKB_Class10]))
 
 ([changes_ProjectKB_Instance_10] of  Boolean
 
@@ -174,7 +252,7 @@
 
 ([changes_ProjectKB_Instance_10131] of  Map
 
-	(entries [annotation_collaborativePizza.owl_ProjectKB_Instance_146]))
+	(entries [annotation_collaborativePizza.owl_ProjectKB_Class11]))
 
 ([changes_ProjectKB_Instance_102] of  Property_List
 )
@@ -1732,7 +1810,7 @@
 
 ([changes_ProjectKB_Instance_21459] of  Boolean
 
-	(boolean_value TRUE)
+	(boolean_value FALSE)
 	(name "readOnly_configured"))
 
 ([changes_ProjectKB_Instance_21460] of  String
@@ -4206,7 +4284,7 @@
 	(height 476)
 	(is_hidden FALSE)
 	(name ":INSTANCE-ANNOTATION")
-	(property_list [KB_724297_Instance_33])
+	(property_list [KB_406224_Instance_33])
 	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
 	(width 603)
 	(x 0)
@@ -4217,217 +4295,221 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_690954_Instance_0] of  String
-
-	(name "renaming_namespaces"))
-
-([KB_690954_Instance_1] of  String
-
-	(name "namespaces")
-	(string_value "rdfs http://www.w3.org/2000/01/rdf-schema# rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# "))
-
-([KB_724297_Instance_0] of  Property_List
+([KB_406224_Instance_0] of  Property_List
 
 	(name "class widget properties")
 	(properties
-		[KB_724297_Instance_1]
-		[KB_724297_Instance_2]
-		[KB_724297_Instance_3]
-		[KB_724297_Instance_4]
-		[KB_724297_Instance_5]
-		[KB_724297_Instance_6]
-		[KB_724297_Instance_7]
-		[KB_724297_Instance_8]
-		[KB_724297_Instance_9]
-		[KB_724297_Instance_10]))
+		[KB_406224_Instance_1]
+		[KB_406224_Instance_2]
+		[KB_406224_Instance_3]
+		[KB_406224_Instance_4]
+		[KB_406224_Instance_5]
+		[KB_406224_Instance_6]
+		[KB_406224_Instance_7]
+		[KB_406224_Instance_8]
+		[KB_406224_Instance_9]
+		[KB_406224_Instance_10]))
 
-([KB_724297_Instance_1] of  Widget
+([KB_406224_Instance_1] of  Widget
 
 	(height 120)
 	(label "Constraints")
 	(name ":SLOT-CONSTRAINTS")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class16])
 	(widget_class_name "edu.stanford.smi.protege.widget.ConstraintsWidget")
 	(width 200)
 	(x 400)
 	(y 0))
 
-([KB_724297_Instance_10] of  Property_List
+([KB_406224_Instance_10] of  Property_List
 
 	(name "layout properties")
-	(properties [KB_724297_Instance_11]))
+	(properties [KB_406224_Instance_11]))
 
-([KB_724297_Instance_11] of  String
+([KB_406224_Instance_11] of  String
 
 	(name "vertical_stretcher")
 	(string_value ":DIRECT-TEMPLATE-SLOTS"))
 
-([KB_724297_Instance_12] of  Property_List
+([KB_406224_Instance_12] of  Property_List
 
 	(name "slot widget properties")
 	(properties
-		[KB_724297_Instance_13]
-		[KB_724297_Instance_14]
-		[KB_724297_Instance_15]
-		[KB_724297_Instance_16]
-		[KB_724297_Instance_17]
-		[KB_724297_Instance_18]
-		[KB_724297_Instance_19]
-		[KB_724297_Instance_20]
-		[KB_724297_Instance_21]
-		[KB_724297_Instance_22]
-		[KB_724297_Instance_23]
-		[KB_724297_Instance_24]
-		[KB_724297_Instance_25]
-		[KB_724297_Instance_26]
-		[KB_724297_Instance_27]
-		[KB_724297_Instance_28]))
+		[KB_406224_Instance_13]
+		[KB_406224_Instance_14]
+		[KB_406224_Instance_15]
+		[KB_406224_Instance_16]
+		[KB_406224_Instance_17]
+		[KB_406224_Instance_18]
+		[KB_406224_Instance_19]
+		[KB_406224_Instance_20]
+		[KB_406224_Instance_21]
+		[KB_406224_Instance_22]
+		[KB_406224_Instance_23]
+		[KB_406224_Instance_24]
+		[KB_406224_Instance_25]
+		[KB_406224_Instance_26]
+		[KB_406224_Instance_27]
+		[KB_406224_Instance_28]
+		[annotation_collaborativePizza.owl_ProjectKB_Class25]))
 
-([KB_724297_Instance_13] of  Widget
+([KB_406224_Instance_13] of  Widget
 
 	(height 60)
 	(label "Cardinality")
 	(name ":SLOT-MINIMUM-CARDINALITY")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class33])
 	(widget_class_name "edu.stanford.smi.protege.widget.MinimumCardinalityWidget")
 	(width 200)
 	(x 200)
 	(y 120))
 
-([KB_724297_Instance_14] of  Widget
+([KB_406224_Instance_14] of  Widget
 
 	(height 35)
 	(name ":SLOT-MAXIMUM-CARDINALITY")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class34])
 	(widget_class_name "edu.stanford.smi.protege.widget.MaximumCardinalityWidget")
 	(width 200)
 	(x 200)
 	(y 180))
 
-([KB_724297_Instance_15] of  Widget
+([KB_406224_Instance_15] of  Widget
 
 	(name ":SLOT-CONSTRAINTS"))
 
-([KB_724297_Instance_16] of  Widget
+([KB_406224_Instance_16] of  Widget
 
 	(name ":DIRECT-TYPE"))
 
-([KB_724297_Instance_17] of  Widget
+([KB_406224_Instance_17] of  Widget
 
 	(height 95)
 	(label "Domain")
 	(name ":DIRECT-DOMAIN")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class26])
 	(widget_class_name "edu.stanford.smi.protege.widget.DirectDomainWidget")
 	(width 200)
 	(x 400)
 	(y 180))
 
-([KB_724297_Instance_18] of  Widget
+([KB_406224_Instance_18] of  Widget
 
 	(height 90)
 	(label "Template Values")
 	(name ":SLOT-VALUES")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class27])
 	(widget_class_name "edu.stanford.smi.protege.widget.SlotValuesWidget")
 	(width 200)
 	(x 400)
 	(y 0))
 
-([KB_724297_Instance_19] of  Widget
+([KB_406224_Instance_19] of  Widget
 
 	(name ":DIRECT-SUPERSLOTS"))
 
-([KB_724297_Instance_2] of  Widget
+([KB_406224_Instance_2] of  Widget
 
 	(name ":DIRECT-INSTANCES"))
 
-([KB_724297_Instance_20] of  Widget
+([KB_406224_Instance_20] of  Widget
 
 	(name ":DIRECT-SUBSLOTS"))
 
-([KB_724297_Instance_21] of  Widget
+([KB_406224_Instance_21] of  Widget
 
 	(height 90)
 	(label "Default")
 	(name ":SLOT-DEFAULTS")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class28])
 	(widget_class_name "edu.stanford.smi.protege.widget.DefaultValuesWidget")
 	(width 200)
 	(x 400)
 	(y 90))
 
-([KB_724297_Instance_22] of  Widget
+([KB_406224_Instance_22] of  Widget
 
 	(height 120)
 	(label "Documentation")
 	(name ":DOCUMENTATION")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class29])
 	(widget_class_name "edu.stanford.smi.protege.widget.DocumentationWidget")
 	(width 200)
 	(x 200)
 	(y 0))
 
-([KB_724297_Instance_23] of  Widget
+([KB_406224_Instance_23] of  Widget
 
 	(height 60)
 	(label "Maximum")
 	(name ":SLOT-NUMERIC-MAXIMUM")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class30])
 	(widget_class_name "edu.stanford.smi.protege.widget.NumericMaximumWidget")
 	(width 100)
 	(x 100)
 	(y 215))
 
-([KB_724297_Instance_24] of  Widget
+([KB_406224_Instance_24] of  Widget
 
 	(height 60)
 	(label "Minimum")
 	(name ":SLOT-NUMERIC-MINIMUM")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class31])
 	(widget_class_name "edu.stanford.smi.protege.widget.NumericMinimumWidget")
 	(width 100)
 	(x 0)
 	(y 215))
 
-([KB_724297_Instance_25] of  Widget
+([KB_406224_Instance_25] of  Widget
 
 	(name ":ASSOCIATED-FACET"))
 
-([KB_724297_Instance_26] of  Widget
+([KB_406224_Instance_26] of  Widget
 
 	(height 60)
 	(label "Name")
 	(name ":NAME")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class32])
 	(widget_class_name "edu.stanford.smi.protege.widget.InstanceNameWidget")
 	(width 200)
 	(x 0)
 	(y 0))
 
-([KB_724297_Instance_27] of  Widget
+([KB_406224_Instance_27] of  Widget
 
 	(height 60)
 	(label "Inverse Slot")
 	(name ":SLOT-INVERSE")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class35])
 	(widget_class_name "edu.stanford.smi.protege.widget.InverseSlotWidget")
 	(width 200)
 	(x 200)
 	(y 215))
 
-([KB_724297_Instance_28] of  Widget
+([KB_406224_Instance_28] of  Widget
 
 	(height 155)
 	(label "Value Type")
 	(name ":SLOT-VALUE-TYPE")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class36])
 	(widget_class_name "edu.stanford.smi.protege.widget.ValueTypeWidget")
 	(width 200)
 	(x 0)
 	(y 60))
 
-([KB_724297_Instance_29] of  Property_List
+([KB_406224_Instance_29] of  Property_List
 
 	(name "facet widget properties")
 	(properties
-		[KB_724297_Instance_30]
-		[KB_724297_Instance_31]
-		[KB_724297_Instance_32]))
+		[KB_406224_Instance_30]
+		[KB_406224_Instance_31]
+		[KB_406224_Instance_32]))
 
-([KB_724297_Instance_3] of  Widget
+([KB_406224_Instance_3] of  Widget
 
 	(name ":DIRECT-SUBCLASSES"))
 
-([KB_724297_Instance_30] of  Widget
+([KB_406224_Instance_30] of  Widget
 
 	(height 60)
 	(label "Name")
@@ -4437,7 +4519,7 @@
 	(x 0)
 	(y 0))
 
-([KB_724297_Instance_31] of  Widget
+([KB_406224_Instance_31] of  Widget
 
 	(height 120)
 	(label "Documentation")
@@ -4447,7 +4529,7 @@
 	(x 200)
 	(y 0))
 
-([KB_724297_Instance_32] of  Widget
+([KB_406224_Instance_32] of  Widget
 
 	(height 60)
 	(label "Associated Slot")
@@ -4457,27 +4539,27 @@
 	(x 0)
 	(y 60))
 
-([KB_724297_Instance_33] of  Property_List
+([KB_406224_Instance_33] of  Property_List
 
 	(properties
-		[KB_724297_Instance_34]
-		[KB_724297_Instance_35]
-		[KB_724297_Instance_36]
-		[KB_724297_Instance_37]))
+		[KB_406224_Instance_34]
+		[KB_406224_Instance_35]
+		[KB_406224_Instance_36]
+		[KB_406224_Instance_37]))
 
-([KB_724297_Instance_34] of  Widget
+([KB_406224_Instance_34] of  Widget
 
 	(name ":ANNOTATED-INSTANCE"))
 
-([KB_724297_Instance_35] of  Widget
+([KB_406224_Instance_35] of  Widget
 
 	(name ":CREATOR"))
 
-([KB_724297_Instance_36] of  Widget
+([KB_406224_Instance_36] of  Widget
 
 	(name ":CREATION-TIMESTAMP"))
 
-([KB_724297_Instance_37] of  Widget
+([KB_406224_Instance_37] of  Widget
 
 	(height 100)
 	(is_hidden FALSE)
@@ -4487,15 +4569,15 @@
 	(x 0)
 	(y 0))
 
-([KB_724297_Instance_38] of  Property_List
+([KB_406224_Instance_38] of  Property_List
 
 	(properties
-		[KB_724297_Instance_39]
-		[KB_724297_Instance_40]
-		[KB_724297_Instance_41]
-		[KB_724297_Instance_42]))
+		[KB_406224_Instance_39]
+		[KB_406224_Instance_40]
+		[KB_406224_Instance_41]
+		[KB_406224_Instance_42]))
 
-([KB_724297_Instance_39] of  Widget
+([KB_406224_Instance_39] of  Widget
 
 	(height 60)
 	(is_hidden FALSE)
@@ -4506,11 +4588,11 @@
 	(x 0)
 	(y 0))
 
-([KB_724297_Instance_4] of  Widget
+([KB_406224_Instance_4] of  Widget
 
 	(name ":DIRECT-SUPERCLASSES"))
 
-([KB_724297_Instance_40] of  Widget
+([KB_406224_Instance_40] of  Widget
 
 	(height 180)
 	(is_hidden FALSE)
@@ -4521,7 +4603,7 @@
 	(x 275)
 	(y 180))
 
-([KB_724297_Instance_41] of  Widget
+([KB_406224_Instance_41] of  Widget
 
 	(height 180)
 	(is_hidden FALSE)
@@ -4532,7 +4614,7 @@
 	(x 275)
 	(y 0))
 
-([KB_724297_Instance_42] of  Widget
+([KB_406224_Instance_42] of  Widget
 
 	(height 300)
 	(is_hidden FALSE)
@@ -4543,49 +4625,65 @@
 	(x 0)
 	(y 60))
 
-([KB_724297_Instance_5] of  Widget
+([KB_406224_Instance_5] of  Widget
 
 	(height 120)
 	(label "Documentation")
 	(name ":DOCUMENTATION")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class19])
 	(widget_class_name "edu.stanford.smi.protege.widget.DocumentationWidget")
 	(width 200)
 	(x 200)
 	(y 0))
 
-([KB_724297_Instance_6] of  Widget
+([KB_406224_Instance_6] of  Widget
 
 	(height 60)
 	(label "Name")
 	(name ":NAME")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class20])
 	(widget_class_name "edu.stanford.smi.protege.widget.InstanceNameWidget")
 	(width 200)
 	(x 0)
 	(y 0))
 
-([KB_724297_Instance_7] of  Widget
+([KB_406224_Instance_7] of  Widget
 
 	(height 60)
 	(label "Role")
 	(name ":ROLE")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class24])
 	(widget_class_name "edu.stanford.smi.protege.widget.RoleWidget")
 	(width 200)
 	(x 0)
 	(y 60))
 
-([KB_724297_Instance_8] of  Widget
+([KB_406224_Instance_8] of  Widget
 
 	(name ":DIRECT-TYPE"))
 
-([KB_724297_Instance_9] of  Widget
+([KB_406224_Instance_9] of  Widget
 
 	(height 150)
 	(label "Template Slots")
 	(name ":DIRECT-TEMPLATE-SLOTS")
+	(property_list [annotation_collaborativePizza.owl_ProjectKB_Class21])
 	(widget_class_name "edu.stanford.smi.protege.widget.TemplateSlotsWidget")
 	(width 600)
 	(x 0)
 	(y 120))
+
+([KB_690954_Instance_0] of  String
+
+	(name "renaming_namespaces"))
+
+([KB_690954_Instance_1] of  String
+
+	(name "namespaces")
+	(string_value "rdfs http://www.w3.org/2000/01/rdf-schema# rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# "))
+
+([KB_807609_Class1] of  Map
+)
 
 ([KB_994297_Instance_0] of  String
 
@@ -4627,7 +4725,7 @@
 	(height 476)
 	(is_hidden FALSE)
 	(name ":PAL-CONSTRAINT")
-	(property_list [KB_724297_Instance_38])
+	(property_list [KB_406224_Instance_38])
 	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
 	(width 603)
 	(x 0)
@@ -4637,21 +4735,21 @@
 
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
-		[STANDARD_SLOT_FORM_WIDGET]
-		[changes_ProjectKB_Instance_51393]
-		[changes_ProjectKB_Instance_16]
-		[PAL_FORM_WIDGET]
-		[changes_ProjectKB_Instance_50854]
-		[changes_ProjectKB_Instance_81267]
-		[changes_ProjectKB_Instance_51308]
-		[STANDARD_CLASS_FORM_WIDGET]
-		[changes_ProjectKB_Instance_82926]
 		[STANDARD_FACET_FORM_WIDGET]
-		[changes_ProjectKB_Instance_80822]
-		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[changes_ProjectKB_Instance_51020]
+		[changes_ProjectKB_Instance_82926]
+		[STANDARD_SLOT_FORM_WIDGET]
 		[changes_ProjectKB_Instance_40056]
-		[changes_ProjectKB_Instance_80535])
+		[STANDARD_CLASS_FORM_WIDGET]
+		[changes_ProjectKB_Instance_80822]
+		[PAL_FORM_WIDGET]
+		[INSTANCE_ANNOTATION_FORM_WIDGET]
+		[changes_ProjectKB_Instance_51308]
+		[changes_ProjectKB_Instance_51393]
+		[changes_ProjectKB_Instance_81267]
+		[changes_ProjectKB_Instance_51020]
+		[changes_ProjectKB_Instance_80535]
+		[changes_ProjectKB_Instance_16]
+		[changes_ProjectKB_Instance_50854])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
@@ -4725,17 +4823,17 @@
 ([STANDARD_CLASS_FORM_WIDGET] of  Widget
 
 	(name ":STANDARD-CLASS")
-	(property_list [KB_724297_Instance_0])
+	(property_list [KB_406224_Instance_0])
 	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
 
 ([STANDARD_FACET_FORM_WIDGET] of  Widget
 
 	(name ":STANDARD-FACET")
-	(property_list [KB_724297_Instance_29])
+	(property_list [KB_406224_Instance_29])
 	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
 
 ([STANDARD_SLOT_FORM_WIDGET] of  Widget
 
 	(name ":STANDARD-SLOT")
-	(property_list [KB_724297_Instance_12])
+	(property_list [KB_406224_Instance_12])
 	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
