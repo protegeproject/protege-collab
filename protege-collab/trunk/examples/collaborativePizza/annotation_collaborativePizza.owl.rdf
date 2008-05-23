@@ -19,16 +19,143 @@
 	 kb:date="08/16/2007 13:02:17 PDT"
 	 kb:sequence="0"
 	 rdfs:label="08/16/2007 13:02:17 PDT"/>
-<kb:Ontology_Individual rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10"
-	 kb:currentName="America"
-	 rdfs:label="America">
+<kb:Ontology_Individual rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10">
+	<kb:currentName>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#America</kb:currentName>
+	<rdfs:label>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#America</rdfs:label>
 	<kb:associatedAnnotations rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_8"/>
 </kb:Ontology_Individual>
-<kb:Ontology_Class rdf:about="&kb;annotation_collaborativePizza.owl_Instance_2"
-	 kb:currentName="DomainConcept"
-	 rdfs:label="DomainConcept">
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10001"
+	 kb:date="11/02/2007 02:32:28 GMT"
+	 kb:sequence="0"
+	 rdfs:label="11/02/2007 02:32:28 GMT"/>
+<kb:Ontology_Class rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10002">
+	<kb:currentName>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#Country</kb:currentName>
+	<rdfs:label>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#Country</rdfs:label>
+</kb:Ontology_Class>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10004"
+	 kb:date="11/02/2007 02:32:30 GMT"
+	 kb:sequence="1"
+	 rdfs:label="11/02/2007 02:32:30 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10006"
+	 kb:date="11/02/2007 02:32:30 GMT"
+	 kb:sequence="2"
+	 rdfs:label="11/02/2007 02:32:30 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10008"
+	 kb:date="11/02/2007 02:32:31 GMT"
+	 kb:sequence="3"
+	 rdfs:label="11/02/2007 02:32:31 GMT"/>
+<kb:Ontology_Class rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10009">
+	<kb:currentName>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#Class_1</kb:currentName>
+	<rdfs:label>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#Class_1</rdfs:label>
+	<kb:changes rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10010"/>
+	<kb:changes rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10012"/>
+	<kb:changes rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10014"/>
+	<kb:changes rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10016"/>
+</kb:Ontology_Class>
+<kb:Class_Created rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10010"
+	 kb:action="Class_Created"
+	 kb:author="ttania"
+	 kb:context="Class Created: Class_1"
+	 kb:creationName="Class_1"
+	 rdfs:label="Class Created: Class_1">
+	<kb:applyTo rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10009"/>
+	<kb:timestamp rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10011"/>
+	<kb:partOfCompositeChange rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10016"/>
+</kb:Class_Created>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10011"
+	 kb:date="11/02/2007 02:32:43 GMT"
+	 kb:sequence="4"
+	 rdfs:label="11/02/2007 02:32:43 GMT"/>
+<kb:Individual_Added rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10012"
+	 kb:action="Individual_Added"
+	 kb:author="ttania"
+	 kb:context="Instance Added: Class_1 (instance of: owl:Class)"
+	 rdfs:label="Instance Added: Class_1 (instance of: owl:Class)">
+	<kb:applyTo rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10009"/>
+	<kb:timestamp rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10013"/>
+	<kb:partOfCompositeChange rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10016"/>
+</kb:Individual_Added>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10013"
+	 kb:date="11/02/2007 02:32:43 GMT"
+	 kb:sequence="5"
+	 rdfs:label="11/02/2007 02:32:43 GMT"/>
+<kb:Subclass_Added rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10014"
+	 kb:action="Subclass_Added"
+	 kb:author="ttania"
+	 kb:context="Subclass Added: Class_1 (added to: Country)"
+	 rdfs:label="Subclass Added: Class_1 (added to: Country)">
+	<kb:applyTo rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10009"/>
+	<kb:timestamp rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10015"/>
+	<kb:partOfCompositeChange rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10016"/>
+</kb:Subclass_Added>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10015"
+	 kb:date="11/02/2007 02:32:43 GMT"
+	 kb:sequence="6"
+	 rdfs:label="11/02/2007 02:32:43 GMT"/>
+<kb:Composite_Change rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10016"
+	 kb:action="Composite_Change"
+	 kb:author="ttania"
+	 kb:context="Create subclass of type owl:Class -- Apply to: Class_1"
+	 rdfs:label="Create subclass of type owl:Class -- Apply to: Class_1">
+	<kb:applyTo rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10009"/>
+	<kb:subChanges rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10010"/>
+	<kb:subChanges rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10012"/>
+	<kb:subChanges rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10014"/>
+	<kb:timestamp rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_10017"/>
+</kb:Composite_Change>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10017"
+	 kb:date="11/02/2007 02:32:43 GMT"
+	 kb:sequence="7"
+	 rdfs:label="11/02/2007 02:32:43 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_10019"
+	 kb:date="11/02/2007 02:32:45 GMT"
+	 kb:sequence="8"
+	 rdfs:label="11/02/2007 02:32:45 GMT"/>
+<kb:Ontology_Class rdf:about="&kb;annotation_collaborativePizza.owl_Instance_2">
+	<kb:currentName>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#DomainConcept</kb:currentName>
+	<rdfs:label>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#DomainConcept</rdfs:label>
 	<kb:associatedAnnotations rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_0"/>
 </kb:Ontology_Class>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20001"
+	 kb:date="11/02/2007 18:05:19 GMT"
+	 kb:sequence="0"
+	 rdfs:label="11/02/2007 18:05:19 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20003"
+	 kb:date="11/02/2007 18:05:21 GMT"
+	 kb:sequence="1"
+	 rdfs:label="11/02/2007 18:05:21 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20005"
+	 kb:date="11/02/2007 18:05:23 GMT"
+	 kb:sequence="2"
+	 rdfs:label="11/02/2007 18:05:23 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20007"
+	 kb:date="11/02/2007 18:05:23 GMT"
+	 kb:sequence="3"
+	 rdfs:label="11/02/2007 18:05:23 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20009"
+	 kb:date="11/02/2007 18:05:23 GMT"
+	 kb:sequence="4"
+	 rdfs:label="11/02/2007 18:05:23 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20011"
+	 kb:date="11/02/2007 18:05:24 GMT"
+	 kb:sequence="5"
+	 rdfs:label="11/02/2007 18:05:24 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20013"
+	 kb:date="11/02/2007 18:05:40 GMT"
+	 kb:sequence="6"
+	 rdfs:label="11/02/2007 18:05:40 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20015"
+	 kb:date="11/02/2007 18:05:46 GMT"
+	 kb:sequence="7"
+	 rdfs:label="11/02/2007 18:05:46 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20017"
+	 kb:date="11/02/2007 18:05:46 GMT"
+	 kb:sequence="8"
+	 rdfs:label="11/02/2007 18:05:46 GMT"/>
+<kb:Timestamp rdf:about="&kb;annotation_collaborativePizza.owl_Instance_20019"
+	 kb:date="11/02/2007 18:05:47 GMT"
+	 kb:sequence="9"
+	 rdfs:label="11/02/2007 18:05:47 GMT"/>
 <kb:Comment rdf:about="&kb;annotation_collaborativePizza.owl_Instance_3"
 	 kb:author="Guest"
 	 kb:body="Example reply"
@@ -51,9 +178,9 @@
 	 kb:date="08/16/2007 13:02:48 PDT"
 	 kb:sequence="2"
 	 rdfs:label="08/16/2007 13:02:48 PDT"/>
-<kb:Ontology_Property rdf:about="&kb;annotation_collaborativePizza.owl_Instance_7"
-	 kb:currentName="hasIngredient"
-	 rdfs:label="hasIngredient">
+<kb:Ontology_Property rdf:about="&kb;annotation_collaborativePizza.owl_Instance_7">
+	<kb:currentName>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#hasIngredient</kb:currentName>
+	<rdfs:label>http://www.co-ode.org/ontologies/pizza/2005/10/18/pizza.owl#hasIngredient</rdfs:label>
 	<kb:associatedAnnotations rdf:resource="&kb;annotation_collaborativePizza.owl_Instance_5"/>
 </kb:Ontology_Property>
 <kb:Comment rdf:about="&kb;annotation_collaborativePizza.owl_Instance_8"
