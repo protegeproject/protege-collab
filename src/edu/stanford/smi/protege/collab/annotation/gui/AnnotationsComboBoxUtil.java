@@ -5,13 +5,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.stanford.smi.protege.model.Instance;
+import edu.stanford.bmir.protegex.chao.annotation.api.AgreeDisagreeVote;
+import edu.stanford.bmir.protegex.chao.annotation.api.AgreeDisagreeVoteProposal;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
+import edu.stanford.bmir.protegex.chao.annotation.api.FiveStarsVoteProposal;
+import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
+import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protegex.server_changes.model.ChangeModel;
-import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
-import edu.stanford.smi.protegex.server_changes.model.generated.AgreeDisagreeVote;
-import edu.stanford.smi.protegex.server_changes.model.generated.AgreeDisagreeVoteProposal;
-import edu.stanford.smi.protegex.server_changes.model.generated.FiveStarsVoteProposal;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -20,77 +21,73 @@ import edu.stanford.smi.protegex.server_changes.model.generated.FiveStarsVotePro
 public class AnnotationsComboBoxUtil {
 	private KnowledgeBase changesKb;
 	private static AnnotationsComboBoxUtil annotationsComboBoxUtil;
-	
-	private static ArrayList<AnnotationCls> allAnnotationTypes = new ArrayList<AnnotationCls>();
-	private static Set<AnnotationCls> filteredOutAnnotationTypes = new HashSet<AnnotationCls>();
 
-	
+	private static ArrayList<Cls> allAnnotationTypes = new ArrayList<Cls>();
+	private static Set<Cls> filteredOutAnnotationTypes = new HashSet<Cls>();
+
+
 	private AnnotationsComboBoxUtil(KnowledgeBase changesKb) {
 		this.changesKb = changesKb;
 		initializeAllAnnoatationTypes();
 	}
-	
+
 	private void initializeAllAnnoatationTypes() {
-		ChangeModel model = new ChangeModel(changesKb);
-		
-		AnnotationCls[] annotationClses = AnnotationCls.values();
-		
-		for (int i = 0; i < annotationClses.length; i++) {
-			AnnotationCls annotationCls = annotationClses[i];
-			
-			if (!model.getCls(annotationCls).isAbstract()) {
-				allAnnotationTypes.add(annotationCls);
+		AnnotationFactory factory = new AnnotationFactory(changesKb);
+		Cls annotCls = factory.getAnnotationClass();
+
+		for (Object obj : annotCls.getSubclasses()) {
+			Cls annotSubCls = (Cls) obj;
+			if (!annotSubCls.isAbstract()) {
+				allAnnotationTypes.add(annotSubCls);
 			}
 		}
-		
+
 		filterOutUnneededAnnotationTypes();
 	}
 
 	private void filterOutUnneededAnnotationTypes() {
-		//do this in a more general way, later
-		//filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVote);
-		//filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVote);
-		filteredOutAnnotationTypes.add(AnnotationCls.SimpleProposal);
-		//filteredOutAnnotationTypes.add(AnnotationCls.FiveStarsVoteProposal);
-		//filteredOutAnnotationTypes.add(AnnotationCls.AgreeDisagreeVoteProposal);
-		
+		AnnotationFactory factory = new AnnotationFactory(changesKb);
+		filteredOutAnnotationTypes.add(factory.getSimpleProposalClass());
+
 		allAnnotationTypes.removeAll(filteredOutAnnotationTypes);
 	}
-	
-	//Wrong! Change me!
+
 	public static AnnotationsComboBoxUtil getAnnotationsComboBoxUtil(KnowledgeBase changesKb){
 		if (annotationsComboBoxUtil == null) {
 			annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		}
-		
 		return annotationsComboBoxUtil;
 	}
-	
-	
+
+
 	//TT: probably we should cache this
-	public Collection<AnnotationCls> getAllowableAnnotationTypes(Instance annotationInstance) {
-		if (annotationInstance == null) {
+	public Collection<Cls> getAllowableAnnotationTypes(AnnotatableThing thing) {
+		if (thing == null) {
 			return allAnnotationTypes;
 		}
-		
-		ArrayList<AnnotationCls> allowableAnnotations = new ArrayList<AnnotationCls>(allAnnotationTypes);
-		
-		if (annotationInstance instanceof FiveStarsVoteProposal) {
-			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVote);			
-			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
-			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
-		} else if (annotationInstance instanceof AgreeDisagreeVoteProposal) {			
-			allowableAnnotations.remove(AnnotationCls.FiveStarsVote);
-			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
-			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
-		} else if (annotationInstance instanceof AgreeDisagreeVote || annotationInstance instanceof FiveStarsVoteProposal) {
-			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVote);
-			allowableAnnotations.remove(AnnotationCls.FiveStarsVote);
-			allowableAnnotations.remove(AnnotationCls.AgreeDisagreeVoteProposal);
-			allowableAnnotations.remove(AnnotationCls.FiveStarsVoteProposal);
+
+		ArrayList<Cls> allowableAnnotations = new ArrayList<Cls>(allAnnotationTypes);
+		AnnotationFactory factory = new AnnotationFactory(changesKb);
+
+
+		//TODO: these rules should not be hard-coded
+		if (OntologyJavaMappingUtil.canAs(thing, FiveStarsVoteProposal.class)) {
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteClass());
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteProposalClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteProposalClass());
+		} else if (OntologyJavaMappingUtil.canAs(thing, AgreeDisagreeVoteProposal.class)) {
+			allowableAnnotations.remove(factory.getFiveStarsVoteClass());
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteProposalClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteProposalClass());
+		} else if (OntologyJavaMappingUtil.canAs(thing, AgreeDisagreeVote.class) ||
+				OntologyJavaMappingUtil.canAs(thing, FiveStarsVoteProposal.class)) {
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteClass());
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteProposalClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteProposalClass());
 		}
-		
-		return allowableAnnotations;	
+
+		return allowableAnnotations;
 	}
-	
+
 }

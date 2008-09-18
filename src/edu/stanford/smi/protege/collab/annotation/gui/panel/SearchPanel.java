@@ -16,12 +16,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
+import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.ComplexFilterComponent;
-import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
@@ -30,67 +35,64 @@ import edu.stanford.smi.protege.resource.ResourceKey;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.SelectableContainer;
-import edu.stanford.smi.protegex.server_changes.model.generated.AnnotatableThing;
-import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
-import edu.stanford.smi.protegex.server_changes.model.generated.Ontology_Component;
 
 public class SearchPanel extends AnnotationsTabPanel {
-	
+
 	private AllowableAction viewAnnotatedEntityAction;
-	
+
 	private ComplexFilterComponent complexFilterComp;
-	private TreeFilter complexFilter;
+	private TreeFilter<AnnotatableThing> complexFilter;
 
 	public SearchPanel(KnowledgeBase kb) {
 		super(kb, "Search");
-		
+
 		fixGUI();
 	}
 
 	protected void fixGUI() {
 		LabeledComponent labledComponent = getLabeledComponent();
 		labledComponent.setFooterComponent(null);
-				
-		Collection headerButtonCollection = labledComponent.getHeaderButtons(); 
-		for (int i=0; i < headerButtonCollection.size(); i++) {			
+
+		Collection headerButtonCollection = labledComponent.getHeaderButtons();
+		for (int i=0; i < headerButtonCollection.size(); i++) {
 			labledComponent.removeHeaderButton(0);
 		}
-		
+
 		labledComponent.addHeaderButton(getViewAction());
 		labledComponent.addHeaderButton(getViewAnnotatedObjectAction());
 		labledComponent.setHeaderComponent(null);
 		labledComponent.setHeaderLabel("Search Results");
-		
-		
+
+
 		SelectableContainer parent = (SelectableContainer) labledComponent.getParent();
-		
+
 		parent.remove(labledComponent);
 		parent.remove(getToolbar());
 
 		complexFilterComp = new ComplexFilterComponent(getKnowledgeBase());
-		
+
 		LabeledComponent searchPanel = new LabeledComponent("Search", complexFilterComp.getValueComponent());
 		JButton searchButton = new JButton("Search");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				onSearch();				
-			}			
-		});		
+				onSearch();
+			}
+		});
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
-		buttonPanel.add(searchButton);		
+		buttonPanel.add(searchButton);
 		searchPanel.setFooterComponent(buttonPanel);
-		
-		JScrollPane searchScrollPane = new JScrollPane(searchPanel);		
-		
+
+		JScrollPane searchScrollPane = new JScrollPane(searchPanel);
+
 		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, searchScrollPane, labledComponent);
 		Dimension nullDim = new Dimension(0, 0);
 		searchScrollPane.setMinimumSize(nullDim);
-		labledComponent.setMinimumSize(nullDim);		
-		splitPane.setDividerLocation(175 + splitPane.getInsets().bottom);		
+		labledComponent.setMinimumSize(nullDim);
+		splitPane.setDividerLocation(175 + splitPane.getInsets().bottom);
 		splitPane.setOneTouchExpandable(true);
 
 		parent.add(splitPane, BorderLayout.CENTER);
-		
+
 	}
 
 	protected AllowableAction getViewAnnotatedObjectAction() {
@@ -99,21 +101,21 @@ public class SearchPanel extends AnnotationsTabPanel {
 					AnnotationsIcons.getOntologyAnnotationIcon(), getAnnotationsTree()) {
 
 						public void actionPerformed(ActionEvent arg0) {
-							onViewAnnotatedEntities(getSelection());							
-						}				
+							onViewAnnotatedEntities(getSelection());
+						}
 			};
 		}
-		
+
 		return viewAnnotatedEntityAction;
 	}
 
 	protected void onViewAnnotatedEntities(Collection annotations) {
 		for (Iterator iterator = annotations.iterator(); iterator.hasNext();) {
-			Object annotationObj = (Object) iterator.next();
+			Object annotationObj = iterator.next();
 			if (annotationObj instanceof Annotation) {
 				Annotation annotation = (Annotation) annotationObj;
 				Collection annotatedEntities = annotation.getAnnotates();
-				
+
 				if (annotatedEntities != null) {
 					for (Iterator iterator2 = annotatedEntities.iterator(); iterator2.hasNext();) {
 						AnnotatableThing annotatedEntity = (AnnotatableThing) iterator2.next();
@@ -121,15 +123,15 @@ public class SearchPanel extends AnnotationsTabPanel {
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	protected void onViewAnnotatedEntity(AnnotatableThing annotatedEntity) {
 		Project prj = getKnowledgeBase().getProject();
-		
+
 		if (annotatedEntity instanceof Ontology_Component) {
 			Ontology_Component oc = (Ontology_Component) annotatedEntity;
-			
+
 			String name = oc.getCurrentName();
 			if (name != null) {
 				Instance inst = getKnowledgeBase().getInstance(name);
@@ -137,16 +139,16 @@ public class SearchPanel extends AnnotationsTabPanel {
 					prj.show(inst);
 					return;
 				}
-			}			
+			}
 		}
-		
+
 		//all other cases just show the form
-		annotatedEntity.getProject().show(annotatedEntity);
+		ChAOKbManager.getChAOKb(getKnowledgeBase()).getProject().show(((AbstractWrappedInstance)annotatedEntity).getWrappedProtegeInstance());
 	}
 
 	protected void onSearch() {
 		complexFilter = complexFilterComp.getComplexFilter();
-		refreshDisplayAfterSearch();		
+		refreshDisplayAfterSearch();
 	}
 
 	@Override
@@ -158,33 +160,31 @@ public class SearchPanel extends AnnotationsTabPanel {
 	public void refreshDisplay() {
 		// do nothing
 	}
-	
+
 	private void refreshDisplayAfterSearch() {
-		//TODO: the search should be executed on the server		
-		Collection<Annotation> annotationsRoots = ChangeOntologyUtil.getAnnotationInstances(getKnowledgeBase());
+		//TODO: the search should be executed on the server
+		Collection<Annotation> annotationsRoots = ChAOUtil.getAnnotations(getKnowledgeBase());
 		//TT: Took out the search through the changes - it is too expensive to do on the client side
 		//Collection<Change> changeAnnotationsRoots = ChangeOntologyUtil.getChangeInstances(getKnowledgeBase());
-		
+
 		List allRoots = new ArrayList(annotationsRoots);
 		//allRoots.addAll(changeAnnotationsRoots);
-		
-		Collection filteredRoots = ChangeOntologyUtil.getFilteredCollection(allRoots, complexFilter);
-		
+
+		Collection filteredRoots = ChAOUtil.getFilteredCollection(allRoots, complexFilter);
 		//Collections.sort(filteredRoots, new AnnotationCreationComparator());
-		
+
 		//hack, reimplement later
-		TreeFilter filter = complexFilter;
-		
+		TreeFilter<AnnotatableThing> filter = complexFilter;
+
 		if (filter != null) {
 			filter = new UnsatisfiableFilter();
 		}
 		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
-		
 		getAnnotationsTree().setRoot(root);
 	}
-	
+
 	@Override
-	public Icon getIcon() {	
+	public Icon getIcon() {
 		return Icons.getIcon(new ResourceKey("object.search"));
 	}
 

@@ -1,15 +1,14 @@
 package edu.stanford.smi.protege.collab.annotation.gui.renderer;
 
+import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
+import edu.stanford.bmir.protegex.chao.annotation.api.Proposal;
+import edu.stanford.bmir.protegex.chao.annotation.api.Vote;
+import edu.stanford.bmir.protegex.chao.change.api.Change;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
-import edu.stanford.smi.protege.model.Instance;
-import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protegex.server_changes.model.generated.Annotation;
-import edu.stanford.smi.protegex.server_changes.model.generated.Change;
-import edu.stanford.smi.protegex.server_changes.model.generated.Ontology_Component;
-import edu.stanford.smi.protegex.server_changes.model.generated.Proposal;
-import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -18,23 +17,24 @@ import edu.stanford.smi.protegex.server_changes.model.generated.Vote;
 public class AnnotationsRenderer extends FrameRenderer {
 
 	@Override
-	protected void loadInstance(Instance instance) {	
-		super.loadInstance(instance);
-		
-		KnowledgeBase changesKb = instance.getKnowledgeBase();
-		
-		if (instance instanceof Change) {
+	public void load(Object value) {
+		//super.load(value);
+
+		if (value instanceof Change) {
 			setMainIcon(AnnotationsIcons.getChangeAnnotationIcon());
-		} else if (instance instanceof Ontology_Component) {
+		} else if (value instanceof Ontology_Component) {
 			setMainIcon(AnnotationsIcons.getOntologyAnnotationIcon());
-		}else if (instance instanceof Vote) {
+		}else if (value instanceof Vote) {
 			setMainIcon(Icons.getYesIcon());
-		}else if (instance instanceof Proposal) {
+		}else if (value instanceof Proposal) {
 			setMainIcon(Icons.getCopyIcon());
-		}else if (instance instanceof Annotation) {
+		}else if (value instanceof Annotation) {
 			setMainIcon(AnnotationsIcons.getCommentIcon());
-		} 
-		
-	}	
-	
+		}
+
+		if (value instanceof AbstractWrappedInstance) {
+			setMainText(((AbstractWrappedInstance)value).getWrappedProtegeInstance().getBrowserText());
+		}
+	}
+
 }

@@ -2,27 +2,22 @@ package edu.stanford.smi.protege.collab.annotation.tree.filter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
-import edu.stanford.smi.protege.model.Frame;
-
-public abstract class AbstractFilter implements TreeFilter {
+public abstract class AbstractFilter<X> implements TreeFilter<X> {
 	private Object filterValue;
-	
-	public Collection getFilteredCollection(Collection frames) {
-		Collection<Frame> filteredFrames = new ArrayList<Frame>();
-		
-		for (Iterator iter = frames.iterator(); iter.hasNext();) {
-			Frame frame = (Frame) iter.next();
+
+	public Collection<X> getFilteredCollection(Collection<X> frames) {
+		Collection<X> filteredFrames = new ArrayList<X>();
+
+		for (X frame : frames) {
 			if (isValid(frame)) {
 				filteredFrames.add(frame);
-			}			
+			}
 		}
-		
 		return filteredFrames;
 	}
 
-	abstract public boolean isValid(Frame frame);
+	abstract public boolean isValid(X object);
 
 	public Object getFilterValue() {
 		return filterValue;

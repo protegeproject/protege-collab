@@ -3,20 +3,21 @@ package edu.stanford.smi.protege.collab.annotation.tree.filter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import edu.stanford.smi.protege.model.Frame;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 
-public class UnsatisfiableFilter extends AbstractFilter{
+public class UnsatisfiableFilter extends AbstractFilter<AnnotatableThing>{
 
 	public UnsatisfiableFilter() {
 		super();
 	}
-	
+
+	@Override
 	public Collection getFilteredCollection(Collection unfilteredCollection) {
 		return new ArrayList();
 	}
 
-	public boolean isValid(Frame frame) {
+	@Override
+	public boolean isValid(AnnotatableThing thing) {
 		return false;
 	}
-
 }

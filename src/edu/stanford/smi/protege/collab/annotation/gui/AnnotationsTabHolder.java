@@ -106,6 +106,7 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		if (CollabTabsConfiguration.isTabEnabled(kb.getProject(), ChatPanel.class)) {
 			addTab(new ChatPanel(kb));
 		}
+		
 				
 		return tabs; 
 	}
