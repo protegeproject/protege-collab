@@ -2,35 +2,34 @@ package edu.stanford.smi.protege.collab.annotation.tree.filter;
 
 import java.util.Collection;
 
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.model.Cls;
-import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 
-public class TypeFilter extends AbstractFilter {	
-	
+public class TypeFilter extends AbstractFilter<AnnotatableThing> {
+
 	public TypeFilter() {
 		super();
 	}
-	
+
 	public TypeFilter(Cls type) {
 		setFilterValue(type);
 	}
-	
-	public Collection getFilteredCollection(Collection unfilteredCollection) {
+
+	@Override
+	public Collection<AnnotatableThing> getFilteredCollection(Collection<AnnotatableThing> unfilteredCollection) {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean isValid(Frame frame) {
+	@Override
+	public boolean isValid(AnnotatableThing object) {
 		Cls type = (Cls) getFilterValue();
-		
+
 		if (type == null) {
 			return true;
 		}
-		
-		if (!(frame instanceof Instance)) {
-			return false;
-		}
-		
-		return (((Instance)frame).hasType(type));
+		Instance inst = ((AbstractWrappedInstance) object).getWrappedProtegeInstance();
+		return inst.hasType(type);
 	}
 }

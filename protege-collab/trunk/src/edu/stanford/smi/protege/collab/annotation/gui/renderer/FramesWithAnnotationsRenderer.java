@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
-import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.ui.FrameRenderer;
@@ -42,7 +42,7 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
 		
 		Frame frame = (Frame) value;
 		
-		if (!ChangeOntologyUtil.hasAnnotations(frame)) {
+		if (!ChAOUtil.hasAnnotations(frame)) {
 			return;
 		}
 		

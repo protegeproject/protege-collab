@@ -9,8 +9,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
-import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
@@ -70,21 +72,21 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Collaboration", annotationsTabHolder, true);
 		LabeledComponent labeledComponentText = new LabeledComponent("Details", annotationBodyTextComponent, true);
 
-		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText, true);	
+		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText, true);
 		labeledComponentText.setPreferredSize(new Dimension(100, 200));
 		topBottomSplitPane.setResizeWeight(1);
 		topBottomSplitPane.setOneTouchExpandable(true);
 
 		classChangeListener = getClassChangeListener();
-		
+
 		setSelectable(annotationsTabHolder);
 
 		attachAnnotationTreeSelectionListener();
-		
+
 		annotationsTabHolder.getTabbedPane().addChangeListener(getCollabTabChangeListener());
-		
-		attachProtegeTabTreeListener();		
-		
+
+		attachProtegeTabTreeListener();
+
 		attachChangeKbListeners();
 
 		add(topBottomSplitPane);
@@ -93,14 +95,14 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
 	/*
 	 * Listeners
-	 */ 
+	 */
 
 
 	protected void attachChangeKbListeners() {
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb);
+		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
 
 		changesKbFrameListener = new ChangesKbFrameListener();
-		changesKb.addFrameListener(changesKbFrameListener);		
+		changesKb.addFrameListener(changesKbFrameListener);
 	}
 
 
@@ -108,12 +110,17 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		for (AnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
 			annotationPanel.addSelectionListener(new SelectionListener() {
 
-				public void selectionChanged(SelectionEvent event) {				
-					Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelectedTab().getAnnotationsTree().getSelection());
-					((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
+				public void selectionChanged(SelectionEvent event) {
+					AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelectedTab().getAnnotationsTree().getSelection());
+					if (thing == null) {
+						((InstanceDisplay)annotationBodyTextComponent).setInstance(null);
+					} else {
+						Instance annotInstance = ((AbstractWrappedInstance)thing).getWrappedProtegeInstance();
+						((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
+					}
 				}
 			});
-		}		
+		}
 	}
 
 
@@ -124,11 +131,11 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
 		protegeTabChangeListener = new ChangeListener() {
 
-			public void stateChanged(ChangeEvent e) {	
+			public void stateChanged(ChangeEvent e) {
 				//System.out.println("Tab changed " + ((JTabbedPane)e.getSource()).getSelectedComponent()  + "\nselectable before = " + selectable);
 				clsTreeSelectionListener = getClsTreeSelectionListener();
-				
-				if (selectable != null) {					
+
+				if (selectable != null) {
 					selectable.removeSelectionListener(clsTreeSelectionListener);
 				}
 
@@ -138,10 +145,10 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 				//do I need this here?
 				setInstances(selectable == null ? null : selectable.getSelection());
 
-				if (selectable != null) {					
+				if (selectable != null) {
 					selectable.addSelectionListener(clsTreeSelectionListener);
-				}					
-			}			
+				}
+			}
 
 		};
 
@@ -176,7 +183,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		if (clsTreeSelectionListener == null) {
 			clsTreeSelectionListener = new SelectionListener() {
 
-				public void selectionChanged(SelectionEvent event) {				
+				public void selectionChanged(SelectionEvent event) {
 					setInstances(event.getSelectable().getSelection());
 				}
 
@@ -191,7 +198,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 			classChangeListener = new ClassChangeListener() {
 				@Override
 				public void refreshClassDisplay(FrameEvent event) {
-					refreshAllTabs();				
+					refreshAllTabs();
 				}
 			};}
 		return classChangeListener;
@@ -202,14 +209,14 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
 		TabWidget currentTab = view.getSelectedTab();
 
-		selectable = UIUtil.getSelectableForTab(currentTab);	
-		if (selectable != null) {				
+		selectable = UIUtil.getSelectableForTab(currentTab);
+		if (selectable != null) {
 			clsTreeSelectionListener = getClsTreeSelectionListener();
 			selectable.addSelectionListener(clsTreeSelectionListener);
 			setInstances(selectable.getSelection());
 		}
 
-		init();		
+		init();
 	}
 
 
@@ -224,11 +231,11 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
 
 	protected JComponent createAnnotationBodyComponent() {
-		if (!ChangeOntologyUtil.isChangesOntologyPresent(kb)) {
+		if (!ChAOUtil.isChangesOntologyPresent(kb)) {
 			Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
 			annotationBodyTextComponent = new InstanceDisplay(ProjectManager.getProjectManager().getCurrentProject());
 		} else {
-			annotationBodyTextComponent = new InstanceDisplay(ChangeOntologyUtil.getChangesKb(kb).getProject(), false, false);
+			annotationBodyTextComponent = new InstanceDisplay(ChAOUtil.getChangesKb(kb).getProject(), false, false);
 		}
 
 		return annotationBodyTextComponent;
@@ -249,7 +256,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		annotationsTabHolder.setInstance(currentInstance);
 	}
 
-	public void setInstances(Collection instances) {		
+	public void setInstances(Collection instances) {
 		//TODO: handle multiple selections
 		setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
 	}
@@ -259,7 +266,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
 
 		protegeTabChangeListener = getProtegeTabChangeListener();
-		
+
 		view.removeChangeListener(protegeTabChangeListener);
 		view.addChangeListener(protegeTabChangeListener);
 	}
@@ -282,19 +289,19 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
 	}
 
-	
+
 	public void reloadCollabTabs() {
 		annotationsTabHolder.reload();
 		attachAnnotationTreeSelectionListener();
 	}
-	
+
 	public KnowledgeBase getKnowledgeBase() {
 		return kb;
 	}
-	
+
 	@Override
 	public void dispose() {
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb, false);
+		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
 
 		if (changesKb == null) {
 			Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
@@ -302,7 +309,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		}
 
 		try {
-			changesKb.removeFrameListener(changesKbFrameListener);	
+			changesKb.removeFrameListener(changesKbFrameListener);
 		} catch (Exception e) {
 			Log.getLogger().warning("Error at disposing changes ontology kb listener");
 		}

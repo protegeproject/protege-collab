@@ -3,55 +3,49 @@ package edu.stanford.smi.protege.collab.annotation.tree.gui;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
+import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
-import edu.stanford.smi.protege.collab.changes.ChangeOntologyUtil;
+import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protegex.server_changes.model.ChangeModel;
-import edu.stanford.smi.protegex.server_changes.model.ChangeModel.AnnotationCls;
 
 public class TypeFilterComponent implements FilterValueComponent {
 	private KnowledgeBase kb;
 	private JComboBox typeComboBox;
-	
+
 	public TypeFilterComponent(KnowledgeBase kb) {
 		this.kb = kb;
-
 		//clean up this
-		KnowledgeBase changesKb = ChangeOntologyUtil.getChangesKb(kb, false);
+		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
 		typeComboBox = new JComboBox();
-		
 		typeComboBox.addItem("Any type");
-		
 		typeComboBox.setRenderer(new FrameRenderer());
-		
-		ChangeModel changeModel = ChangeOntologyUtil.getChangeModel(kb);
-		
-		for (AnnotationCls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(null)) {
-			typeComboBox.addItem(changeModel.getCls(annotCls));
-		}		
-		
-		//annotationsComboBox.setSelectedItem(AnnotationCls.Comment);		
+
+		for (Cls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(null)) {
+			typeComboBox.addItem(annotCls);
+		}
+
+		//annotationsComboBox.setSelectedItem(AnnotationCls.Comment);
 	}
 
 	public Object getValue() {
 		return getSelectedAnnotationType();
 	}
 
-	public JComponent getValueComponent() {		
+	public JComponent getValueComponent() {
 		return typeComboBox;
 	}
 
 	public void setValue(Object value) {
-		if (value instanceof AnnotationCls) {
+		if (value instanceof Annotation) {
 			typeComboBox.setSelectedItem(value);
 		}
 	}
-	
+
 	private Cls getSelectedAnnotationType(){
-		Object selection = typeComboBox.getSelectedItem();		
-		return ((selection instanceof Cls) ? (Cls) selection : null);
+		Object selection = typeComboBox.getSelectedItem();
+		return selection instanceof Cls ? (Cls) selection : null;
 	}
 
 }
