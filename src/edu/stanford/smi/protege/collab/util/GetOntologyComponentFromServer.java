@@ -1,5 +1,6 @@
 package edu.stanford.smi.protege.collab.util;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.exception.ProtegeException;
 import edu.stanford.smi.protege.model.Frame;
@@ -21,10 +22,21 @@ public class GetOntologyComponentFromServer extends ProtegeJob {
 
 
 	@Override
-	public Object run() throws ProtegeException {
+	public Ontology_Component run() throws ProtegeException {
 		PostProcessorManager changesDb = ChangesProject.getChangesDb(getKnowledgeBase());
 		Ontology_Component oc = changesDb.getOntologyComponent(frame, createOntologyComponent);
 		return 	oc;
+	}
+	
+	/*
+     * the result is localized against the wrong knowledgebase.
+	 */
+	@Override
+	public Ontology_Component execute() {
+	    Ontology_Component oc = (Ontology_Component) super.execute();
+	    KnowledgeBase changekb = ChAOKbManager.getChAOKb(getKnowledgeBase());
+	    LocalizeUtils.localize(oc, changekb);
+	    return oc;
 	}
 
 	@Override
