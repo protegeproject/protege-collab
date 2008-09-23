@@ -72,8 +72,8 @@
       <echo message="protege installation directory where the"/>
       <echo message="appropriate plugins have been installed or copy the"/>
       <echo message="needed jars into the lib directory"/>
-      <echo message="The jar files in question are protege.jar, chat.jar, change-management.jar, changes-model.jar"/>
-      <fail message="build aborted."/>
+      <echo message="Use the -v option to ant to determine which library is missing."/>
+      <fail message="build aborted"/>
     </target>
       
    <!-- 
