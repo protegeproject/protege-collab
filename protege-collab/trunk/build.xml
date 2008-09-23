@@ -32,17 +32,23 @@
       <property name="protege.owl.lib"   location="${protege.home}/plugins/edu.stanford.smi.protegex.owl/protege-owl.jar"/>
       <property name="chat.lib"          location="${protege.home}/plugins/edu.stanford.smi.protegex.chatPlugin/chat.jar"/>
       <property name="changes.lib"       location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/change-management.jar"/>
-      <property name="changes.model.lib" location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/change-model.jar"/>
+      <property name="chao.annotate.lib" location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/chao-annotation.jar"/>
+      <property name="chao.changes.lib"  location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/chao-changes.jar"/>
+      <property name="chao.comp.lib"     location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/chao-component.jar"/>
+      <property name="chao.util.lib"     location="${protege.home}/plugins/edu.stanford.smi.protegex.changes/chao-util.jar"/>
     </target>
     
     <target name = "checkProtegeLibs" depends="useProtegeHome">
       <condition property="libs.found">
         <and>
           <available file="${protege.lib}"       type = "file"/>
-          <available file="${protege.owl.lib}"    type = "file"/>
+          <available file="${protege.owl.lib}"   type = "file"/>
           <available file="${chat.lib}"          type = "file"/>
           <available file="${changes.lib}"       type = "file"/>
-          <available file="${changes.model.lib}" type = "file"/>
+          <available file="${chao.annotate.lib}" type = "file"/>
+          <available file="${chao.changes.lib}"  type = "file"/>
+          <available file="${chao.comp.lib}"     type = "file"/>
+          <available file="${chao.util.lib}"     type = "file"/>
         </and>
       </condition>
       <path id = "project.classpath">    
@@ -50,7 +56,10 @@
         <pathelement location = "${protege.owl.lib}"/>
         <pathelement location = "${chat.lib}"/>
         <pathelement location = "${changes.lib}"/>
-        <pathelement location = "${changes.model.lib}"/>
+        <pathelement location="${chao.annotate.lib}"/>
+        <pathelement location="${chao.changes.lib}"/>
+        <pathelement location="${chao.comp.lib}"/>
+        <pathelement location="${chao.util.lib}"/>
         <pathelement location = "./lib/jcalendar.jar"/>
       </path>
 
