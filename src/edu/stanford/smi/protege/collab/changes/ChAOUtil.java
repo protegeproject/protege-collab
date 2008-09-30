@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 
 import edu.stanford.bmir.protegex.chao.ChAOKbManager;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
@@ -21,6 +22,7 @@ import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.DefaultKnowledgeBase;
 import edu.stanford.smi.protege.model.Frame;
+import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.model.framestore.FrameStoreManager;
@@ -187,13 +189,25 @@ public class ChAOUtil {
 
 
 	public static Annotation createAnnotationOnAnnotation(KnowledgeBase kb, Frame annotatedFrame, Cls annotationType) {
-		Annotation annotInst = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, annotationType.getName(), Annotation.class);
+		KnowledgeBase changesKb = ChAOKbManager.getChAOKb(kb);
+		Annotation annotInst = OntologyJavaMappingUtil.createObject(changesKb, null, annotationType.getName(), Annotation.class);
 		if (annotatedFrame == null) {
 			return annotInst;
 		}
-		Ontology_Component ontologyComp = getOntologyComponent(annotatedFrame, true);
-		if (ontologyComp != null) {
-			annotInst.setAnnotates(CollectionUtilities.createCollection(ontologyComp));
+		//maybe annotatedFrame is in the changes kb
+		if (annotatedFrame.getKnowledgeBase().equals(changesKb)) { //annotated frame is an annotatable thing
+			AnnotatableThing thing = OntologyJavaMappingUtil.getSpecificObject(changesKb, (Instance) annotatedFrame, AnnotatableThing.class);
+			if (thing == null) {
+				Log.getLogger().warning("Could not find annotatable thing: " + annotatedFrame);
+				return annotInst;
+			}
+			thing.addAssociatedAnnotations(annotInst);
+			
+		} else { //annotated frame is a domain entity
+			Ontology_Component ontologyComp = getOntologyComponent(annotatedFrame, true);
+			if (ontologyComp != null) {
+				annotInst.setAnnotates(CollectionUtilities.createCollection(ontologyComp));
+			}
 		}
 		return annotInst;
 	}
