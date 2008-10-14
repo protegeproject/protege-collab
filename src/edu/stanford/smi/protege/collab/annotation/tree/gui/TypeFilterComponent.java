@@ -13,19 +13,20 @@ import edu.stanford.smi.protege.ui.FrameRenderer;
 public class TypeFilterComponent implements FilterValueComponent {
 	private KnowledgeBase kb;
 	private JComboBox typeComboBox;
+	private AnnotationsComboBoxUtil annotationsComboBoxUtil;
 
 	public TypeFilterComponent(KnowledgeBase kb) {
 		this.kb = kb;
 		//clean up this
 		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
+		annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		typeComboBox = new JComboBox();
 		typeComboBox.addItem("Any type");
 		typeComboBox.setRenderer(new FrameRenderer());
 
-		for (Cls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(null)) {
+		for (Cls annotCls : annotationsComboBoxUtil.getAllowableAnnotationTypes(null)) {
 			typeComboBox.addItem(annotCls);
 		}
-
 		//annotationsComboBox.setSelectedItem(AnnotationCls.Comment);
 	}
 
