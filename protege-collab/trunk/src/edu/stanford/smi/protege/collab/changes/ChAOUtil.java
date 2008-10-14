@@ -190,26 +190,26 @@ public class ChAOUtil {
 
 	public static Annotation createAnnotationOnAnnotation(KnowledgeBase kb, Frame annotatedFrame, Cls annotationType) {
 		KnowledgeBase changesKb = ChAOKbManager.getChAOKb(kb);
-		Annotation annotInst = OntologyJavaMappingUtil.createObject(changesKb, null, annotationType.getName(), Annotation.class);
+		Annotation annot = OntologyJavaMappingUtil.createObject(changesKb, null, annotationType.getName(), Annotation.class);
 		if (annotatedFrame == null) {
-			return annotInst;
+			return annot;
 		}
 		//maybe annotatedFrame is in the changes kb
 		if (annotatedFrame.getKnowledgeBase().equals(changesKb)) { //annotated frame is an annotatable thing
 			AnnotatableThing thing = OntologyJavaMappingUtil.getSpecificObject(changesKb, (Instance) annotatedFrame, AnnotatableThing.class);
 			if (thing == null) {
 				Log.getLogger().warning("Could not find annotatable thing: " + annotatedFrame);
-				return annotInst;
+				return annot;
 			}
-			thing.addAssociatedAnnotations(annotInst);
-			
+			thing.addAssociatedAnnotations(annot);
+
 		} else { //annotated frame is a domain entity
 			Ontology_Component ontologyComp = getOntologyComponent(annotatedFrame, true);
 			if (ontologyComp != null) {
-				annotInst.setAnnotates(CollectionUtilities.createCollection(ontologyComp));
+				annot.setAnnotates(CollectionUtilities.createCollection(ontologyComp));
 			}
 		}
-		return annotInst;
+		return annot;
 	}
 
 	/**
