@@ -23,7 +23,7 @@ public class GetOntologyComponentFromServer extends ProtegeJob {
 
 	@Override
 	public Ontology_Component run() throws ProtegeException {
-		PostProcessorManager changesDb = ChangesProject.getChangesDb(getKnowledgeBase());
+		PostProcessorManager changesDb = ChangesProject.getPostProcessorManager(getKnowledgeBase());
 		Ontology_Component oc = changesDb.getOntologyComponent(frame, createOntologyComponent);
 		return 	oc;
 	}
