@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -43,6 +44,7 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
+import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentFactory;
@@ -78,6 +80,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	private AllowableAction createAction;
 	private AllowableAction replyAction;
 
+	private AnnotationsComboBoxUtil annotComboBoxUtil;
+
 	private Instance currentInstance = null;
 	private KnowledgeBase kb;
 
@@ -102,6 +106,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 		getCreateAction().setAllowed(true);
 		labeledComponent.addHeaderButton(getViewAction());
+
+		annotComboBoxUtil = new AnnotationsComboBoxUtil(ChAOKbManager.getChAOKb(kb));
 
 		annotationsComboBox = new JComboBox();
 		annotationsComboBox.setRenderer(new FrameRenderer());
@@ -291,7 +297,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		AnnotatableThing selection = (AnnotatableThing) (selectionColl == null ? null : CollectionUtilities.getFirstItem(selectionColl));
 		annotationsComboBox.removeAllItems();
 		//annotationsComboBox.addItem("Select annotation type ...");
-		for (Cls annotCls : AnnotationsComboBoxUtil.getAnnotationsComboBoxUtil(changesKb).getAllowableAnnotationTypes(selection)) {
+		for (Cls annotCls : annotComboBoxUtil.getAllowableAnnotationTypes(selection)) {
 			annotationsComboBox.addItem(annotCls);
 		}
 		AnnotationFactory factory = new AnnotationFactory(changesKb);
@@ -358,14 +364,29 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 		Collection selection = getAnnotationsTree().getSelection();
 
-		Annotation annotInst = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
-		annotInst.setAnnotates(selection);
-		ChAOUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annotInst);
-		annotInst.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
+		Annotation annot = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
+		annot.setAnnotates(selection);
+		ChAOUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annot);
+		annot.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
-		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();
-		selectedNode.childAdded(annotInst);
-		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInst);
+		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
+		InstanceDisplay instDispl = new InstanceDisplay(getChaoKb().getProject(), false, true);
+		instDispl.setInstance(annotInst);
+
+		Object[] options = {"Post", "Cancel"};
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "New reply",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+				AnnotationsIcons.getMailIcon(),
+				options,
+				options[0]);
+
+		if (ret == JOptionPane.OK_OPTION) {
+			LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();
+			selectedNode.childAdded(annot);
+			ComponentUtilities.extendSelection(getAnnotationsTree(), annot);
+		} else {
+			annotInst.delete();
+		}
 	}
 
 
@@ -409,6 +430,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 	public KnowledgeBase getKnowledgeBase() {
 		return kb;
+	}
+
+	public KnowledgeBase getChaoKb() {
+		return ChAOKbManager.getChAOKb(kb);
 	}
 
 	public Cls getSelectedAnnotationType(){
