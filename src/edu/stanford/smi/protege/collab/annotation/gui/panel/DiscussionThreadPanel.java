@@ -3,15 +3,19 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 import java.util.Collection;
 
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Cls;
+import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.ui.InstanceDisplay;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -44,11 +48,26 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 			return;
 		}
 
-		Annotation annotInstance = ChAOUtil.createAnnotationOnAnnotation(getKnowledgeBase(), null, pickedAnnotationCls);
-		ChAOUtil.fillAnnotationSystemFields(getKnowledgeBase(), annotInstance);
-		annotInstance.setBody("(Enter the annotation text here)");
+		Annotation annot = ChAOUtil.createAnnotationOnAnnotation(getKnowledgeBase(), null, pickedAnnotationCls);
+		ChAOUtil.fillAnnotationSystemFields(getKnowledgeBase(), annot);
+		annot.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
-		refreshDisplay();
+		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
+		InstanceDisplay instDispl = new InstanceDisplay(getChaoKb().getProject(), false, true);
+		instDispl.setInstance(annotInst);
+
+		Object[] options = {"Post", "Cancel"};
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "Create new discussion thread",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+				AnnotationsIcons.getMailIcon(),
+				options,
+				options[0]);
+
+		if (ret == JOptionPane.OK_OPTION) {
+			refreshDisplay();
+		} else {
+			annotInst.delete();
+		}
 	}
 
 	@Override
