@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
 import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
@@ -18,7 +20,9 @@ import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
+import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.ComponentUtilities;
@@ -80,7 +84,7 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 
 		Annotation annotation = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
 		ChAOUtil.fillAnnotationSystemFields(kb, annotation);
-		annotation.setBody("(Enter the annotation text here)");
+		annotation.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
 		if (firstSelection instanceof AnnotatableThing) {
 			AnnotatableThing annotatableThing = (AnnotatableThing) firstSelection;
@@ -98,10 +102,24 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 			annotation.setAnnotates(ontologyComponents);
 		}
 
-		refreshDisplay();
-		((LazyTreeRoot)getAnnotationsTree().getModel().getRoot()).reload();
-		ComponentUtilities.setSelectedObjectPath(getAnnotationsTree(), CollectionUtilities.createCollection(annotation));
+		Instance annotInst = ((AbstractWrappedInstance)annotation).getWrappedProtegeInstance();
+		InstanceDisplay instDispl = new InstanceDisplay(getChaoKb().getProject(), false, true);
+		instDispl.setInstance(annotInst);
 
+		Object[] options = {"Post", "Cancel"};
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "New annotation",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+				AnnotationsIcons.getMailIcon(),
+				options,
+				options[0]);
+
+		if (ret == JOptionPane.OK_OPTION) {
+			refreshDisplay();
+			((LazyTreeRoot)getAnnotationsTree().getModel().getRoot()).reload();
+			ComponentUtilities.setSelectedObjectPath(getAnnotationsTree(), CollectionUtilities.createCollection(annotation));
+		} else {
+			annotInst.delete();
+		}
 	}
 
 
