@@ -20,13 +20,13 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
  */
 public class AnnotationsComboBoxUtil {
 	private KnowledgeBase changesKb;
-	private static AnnotationsComboBoxUtil annotationsComboBoxUtil;
+	private AnnotationsComboBoxUtil annotationsComboBoxUtil;
 
-	private static ArrayList<Cls> allAnnotationTypes = new ArrayList<Cls>();
-	private static Set<Cls> filteredOutAnnotationTypes = new HashSet<Cls>();
+	private ArrayList<Cls> allAnnotationTypes = new ArrayList<Cls>();
+	private Set<Cls> filteredOutAnnotationTypes = new HashSet<Cls>();
 
 
-	private AnnotationsComboBoxUtil(KnowledgeBase changesKb) {
+	public AnnotationsComboBoxUtil(KnowledgeBase changesKb) {
 		this.changesKb = changesKb;
 		initializeAllAnnoatationTypes();
 	}
@@ -52,13 +52,6 @@ public class AnnotationsComboBoxUtil {
 		allAnnotationTypes.removeAll(filteredOutAnnotationTypes);
 	}
 
-	public static AnnotationsComboBoxUtil getAnnotationsComboBoxUtil(KnowledgeBase changesKb){
-		if (annotationsComboBoxUtil == null) {
-			annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
-		}
-		return annotationsComboBoxUtil;
-	}
-
 
 	//TT: probably we should cache this
 	public Collection<Cls> getAllowableAnnotationTypes(AnnotatableThing thing) {
@@ -68,7 +61,6 @@ public class AnnotationsComboBoxUtil {
 
 		ArrayList<Cls> allowableAnnotations = new ArrayList<Cls>(allAnnotationTypes);
 		AnnotationFactory factory = new AnnotationFactory(changesKb);
-
 
 		//TODO: these rules should not be hard-coded
 		if (OntologyJavaMappingUtil.canAs(thing, FiveStarsVoteProposal.class)) {
@@ -86,7 +78,6 @@ public class AnnotationsComboBoxUtil {
 			allowableAnnotations.remove(factory.getAgreeDisagreeVoteProposalClass());
 			allowableAnnotations.remove(factory.getFiveStarsVoteProposalClass());
 		}
-
 		return allowableAnnotations;
 	}
 
