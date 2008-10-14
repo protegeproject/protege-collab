@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
@@ -44,24 +45,16 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	private KnowledgeBase kb;
 
 	private Instance currentInstance;
-
 	private Selectable selectable;
 
 	private JComponent annotationBodyTextComponent;
-
 	private AnnotationsTabHolder annotationsTabHolder;
 
 	private ClassChangeListener classChangeListener;
-
 	private SelectionListener clsTreeSelectionListener;
-
 	private ChangesKbFrameListener changesKbFrameListener;
-
 	private ChangeListener protegeTabChangeListener;
-
 	private ChangeListener collabTabChangeListener;
-
-
 
 	public AnnotationsDisplayComponent(KnowledgeBase kb) {
 		this.kb = kb;
@@ -169,8 +162,9 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
 					annotTabPanel.setInstance(currentInstance);
 					setSelectable(annotTabPanel.getSelectable());
-					Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotTabPanel.getSelection());
-					((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
+					AnnotatableThing annot = (AnnotatableThing) CollectionUtilities.getFirstItem(annotTabPanel.getSelection());
+					Instance wrappedInst = new AnnotationFactory(ChAOUtil.getChangesKb(kb)).getWrappedProtegeInstance(annot);
+					((InstanceDisplay)annotationBodyTextComponent).setInstance(wrappedInst);
 				}
 			};
 		}
