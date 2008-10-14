@@ -58,28 +58,20 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		projectViewListener = new ProjectViewListener() {
 
 			public void closed(ProjectViewEvent event) {
-				// TODO Auto-generated method stub
 				//System.out.println("Project view closed " + event);
-
 			}
 
 			public void saved(ProjectViewEvent event) {
-				// TODO Auto-generated method stub
 				//System.out.println("Project view saved " + event);
-
 			}
 
 			public void tabAdded(ProjectViewEvent event) {
 				//System.out.println("Tab added " + event);
-
 				UIUtil.adjustTreeFrameRenderer((TabWidget)event.getWidget());
 				annotationsDisplayComponent.init();
 			}
-
 		};
-
 		view.addProjectViewListener(projectViewListener);
-
 	}
 
 
@@ -111,13 +103,10 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		pane.setRightComponent(annotationsDisplayComponent);
 
 		parent.add(pane, BorderLayout.CENTER);
-
 		parent.revalidate();
 
 		return annotationsDisplayComponent;
 	}
-
-
 
 
 	@Override
@@ -159,33 +148,10 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		if (p == null) {
 			return;
 		}
-
 		if (p.isMultiUserClient() && isChangesOntologyPresent(p.getKnowledgeBase())) {
-
 			if (annotationsDisplayComponent != null) {
 				annotationsDisplayComponent.dispose();
 			}
-
-			/*
-			 * TODO: We must notify somehow the ChAOKbManager that we don't
-			 * need this ontology anymore.. we cannot dispose it, because
-			 * all components get the same copy of it..
-			 */
-
-			/*
-//			dispose also the changes project
-			KnowledgeBase changesKb = ChAOUtil.getChangesKb(p.getKnowledgeBase());
-
-			if (changesKb != null) {
-				Project changesProject = changesKb.getProject();
-
-				try {
-					changesProject.dispose();
-				} catch (Exception e) {
-					Log.getLogger().warning("Errors at disposing changes project " + changesProject + " of project " + p);
-				}
-			}
-			*/
 		}
 	}
 
