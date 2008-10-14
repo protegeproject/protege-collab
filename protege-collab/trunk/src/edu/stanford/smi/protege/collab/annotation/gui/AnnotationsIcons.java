@@ -13,9 +13,9 @@ import edu.stanford.smi.protege.util.ComponentUtilities;
  */
 public class AnnotationsIcons {
 	private static HashMap<String, Icon> key2icon = new HashMap<String, Icon>();
-		
+
     private static Icon lookupIcon(String key) {
-        Icon icon = (Icon) key2icon.get(key);
+        Icon icon = key2icon.get(key);
         if (icon == null || icon.getIconWidth() == -1) {
             String fileName = key.toString() + ".gif";
             icon = ComponentUtilities.loadImageIcon(AnnotationsIcons.class, "images/" + fileName);
@@ -23,7 +23,7 @@ public class AnnotationsIcons {
         }
         return icon;
     }
-    	
+
     public static Icon getIcon(String key) {
         Icon icon = lookupIcon(key);
         if (icon == null) {
@@ -31,7 +31,7 @@ public class AnnotationsIcons {
         }
         return icon;
     }
-	
+
 	public static Icon getCommentIcon() {
 		return getIcon("instance_comment_icon");
 	}
@@ -43,11 +43,11 @@ public class AnnotationsIcons {
 	public static Icon getChangeAnnotationIcon() {
 		return getIcon("instance_note_change_icon");
 	}
-	
+
 	public static Icon getInstanceNoteFullIcon() {
 		return getIcon("instance_note_full_icon");
 	}
-	
+
 	public static Icon getOntologyAnnotationFullIcon() {
 		return getIcon("instance_note_ontology_full_icon");
 	}
@@ -60,5 +60,8 @@ public class AnnotationsIcons {
 		return getIcon("instance_note_and_change_icon");
 	}
 
-	
+	public static Icon getMailIcon() {
+		return getIcon("mail");
+	}
+
 }
