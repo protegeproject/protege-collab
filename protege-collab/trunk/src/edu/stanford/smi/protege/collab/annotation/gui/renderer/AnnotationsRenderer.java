@@ -1,13 +1,21 @@
 package edu.stanford.smi.protege.collab.annotation.gui.renderer;
 
+import edu.stanford.bmir.protegex.chao.annotation.api.Advice;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
+import edu.stanford.bmir.protegex.chao.annotation.api.Comment;
+import edu.stanford.bmir.protegex.chao.annotation.api.Example;
+import edu.stanford.bmir.protegex.chao.annotation.api.Explanation;
 import edu.stanford.bmir.protegex.chao.annotation.api.Proposal;
+import edu.stanford.bmir.protegex.chao.annotation.api.Question;
+import edu.stanford.bmir.protegex.chao.annotation.api.SeeAlso;
 import edu.stanford.bmir.protegex.chao.annotation.api.Vote;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
-import edu.stanford.smi.protege.resource.Icons;
+import edu.stanford.smi.protege.model.Cls;
+import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.ui.FrameRenderer;
 
 /**
@@ -16,24 +24,81 @@ import edu.stanford.smi.protege.ui.FrameRenderer;
  */
 public class AnnotationsRenderer extends FrameRenderer {
 
+	private KnowledgeBase chaoKb;
+	private AnnotationFactory factory;
+
+	public AnnotationsRenderer(KnowledgeBase chaoKb) {
+		this.chaoKb = chaoKb;
+		this.factory = new AnnotationFactory(chaoKb);
+	}
+
 	@Override
 	public void load(Object value) {
-		//super.load(value);
+		if (!(value instanceof AbstractWrappedInstance)) {
+			super.load(value);
+			return;
+		}
 
-		if (value instanceof Change) {
+		AbstractWrappedInstance inst = (AbstractWrappedInstance) value;
+
+		if (inst.canAs(Change.class)) {
 			setMainIcon(AnnotationsIcons.getChangeAnnotationIcon());
-		} else if (value instanceof Ontology_Component) {
+		} else if (inst.canAs(Ontology_Component.class)) {
 			setMainIcon(AnnotationsIcons.getOntologyAnnotationIcon());
-		}else if (value instanceof Vote) {
-			setMainIcon(Icons.getYesIcon());
-		}else if (value instanceof Proposal) {
-			setMainIcon(Icons.getCopyIcon());
-		}else if (value instanceof Annotation) {
+		}else if (inst.canAs(Vote.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("v"));
+		}else if (inst.canAs(Proposal.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("p"));
+		}else if (inst.canAs(Explanation.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("e"));
+		}else if (inst.canAs(Advice.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("a"));
+		}else if (inst.canAs(Example.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("e_small"));
+		}else if (inst.canAs(SeeAlso.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("s"));
+		}else if (inst.canAs(Comment.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("c"));
+		}else if (inst.canAs(Question.class)) {
+			setMainIcon(AnnotationsIcons.getIcon("q"));
+		}else if (inst.canAs(Annotation.class)) {
 			setMainIcon(AnnotationsIcons.getCommentIcon());
 		}
 
-		if (value instanceof AbstractWrappedInstance) {
-			setMainText(((AbstractWrappedInstance)value).getWrappedProtegeInstance().getBrowserText());
+		setMainText(inst.getWrappedProtegeInstance().getBrowserText());
+	}
+
+	@Override
+	protected void loadCls(Cls cls) {
+		if (cls.equals(factory.getExplanationClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("e"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.equals(factory.getAdviceClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("a"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.equals(factory.getExampleClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("e_small"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.equals(factory.getSeeAlsoClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("s"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.equals(factory.getCommentClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("c"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.equals(factory.getQuestionClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("q"));
+			setMainText(cls.getBrowserText());
+		}  else if (cls.hasSuperclass(factory.getVoteClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("v"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.hasSuperclass(factory.getProposalClass())) {
+			setMainIcon(AnnotationsIcons.getIcon("p"));
+			setMainText(cls.getBrowserText());
+		} else if (cls.hasSuperclass(factory.getAnnotationClass())){ //has to be last
+			setMainIcon(AnnotationsIcons.getCommentIcon());
+			setMainText(cls.getBrowserText());
+		} else {
+			super.loadCls(cls);
 		}
 	}
 
