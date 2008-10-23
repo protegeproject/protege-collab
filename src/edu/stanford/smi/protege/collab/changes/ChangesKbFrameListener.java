@@ -58,10 +58,12 @@ public class ChangesKbFrameListener extends FrameAdapter {
 			AnnotatableThing annotThing = (AnnotatableThing) iter.next();
 
 			String key = null;
-			if (annotThing instanceof Ontology_Component) {
-				key = ((Ontology_Component)annotThing).getCurrentName();
-			} else if (annotThing instanceof Change) {
-				Ontology_Component applyTo = ((Change)annotThing).getApplyTo();
+			if (annotThing.canAs(Ontology_Component.class)) {
+				Ontology_Component oc = annotThing.as(Ontology_Component.class);
+				key = oc.getCurrentName();
+			} else if (annotThing.canAs(Change.class)) {
+				Change c = annotThing.as(Change.class);
+				Ontology_Component applyTo = c.getApplyTo();
 				if (applyTo != null) {
 					key = applyTo.getCurrentName();
 				}
