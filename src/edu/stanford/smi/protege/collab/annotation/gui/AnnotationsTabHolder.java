@@ -45,10 +45,13 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	public AnnotationsTabHolder(KnowledgeBase kb) {
 		this.kb = kb;
 
+		//disabling by default the AllCollabTab
+		if (kb.getProject().getClientInformation(AllAnnotationsPanel.class.getName()) == null) {
+			CollabTabsConfiguration.setTabEnabled(kb.getProject(), AllAnnotationsPanel.class, false);
+		}
+
 		tabbedPane = createTabbedPane();
-
 		setSelectable(getSelectedTab().getSelectable());
-
 		add(tabbedPane);
 	}
 
@@ -110,11 +113,9 @@ public class AnnotationsTabHolder extends SelectableContainer {
 
 
 	protected void addTab(AnnotationsTabPanel annotationsTabPanel) {
-
 		if (!CollabTabsConfiguration.isTabEnabled(kb.getProject(), annotationsTabPanel.getClass())) {
 			return;
 		}
-
 		try {
 			tabs.add(annotationsTabPanel);
 		} catch (Exception e) {
@@ -125,7 +126,6 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	protected void reload() {
 		disposeTabs();
 		addTabs();
-
 		//tabbedPane.setSelectedIndex(0);
 	}
 
@@ -135,7 +135,6 @@ public class AnnotationsTabHolder extends SelectableContainer {
 
 		AnnotationsTabPanel annotTabPanel = getSelectedTab();
 		annotTabPanel.setInstance(currentInstance);
-
 	}
 
 	public void setInstances(Collection instances) {
@@ -155,16 +154,13 @@ public class AnnotationsTabHolder extends SelectableContainer {
 
 	public void refreshDisplay() {
 		AnnotationsTabPanel annotTabPanel = getSelectedTab();
-
 		//why?
 		if (annotTabPanel == null) {
 			return;
 		}
 
 		setSelectable(annotTabPanel);
-
 		annotTabPanel.refreshDisplay();
-
 		repaint();
 	}
 
