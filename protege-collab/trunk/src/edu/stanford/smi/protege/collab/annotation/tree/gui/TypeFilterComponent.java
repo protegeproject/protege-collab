@@ -5,10 +5,10 @@ import javax.swing.JComponent;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
+import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationsRenderer;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.ui.FrameRenderer;
 
 public class TypeFilterComponent implements FilterValueComponent {
 	private KnowledgeBase kb;
@@ -22,7 +22,7 @@ public class TypeFilterComponent implements FilterValueComponent {
 		annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		typeComboBox = new JComboBox();
 		typeComboBox.addItem("Any type");
-		typeComboBox.setRenderer(new FrameRenderer());
+		typeComboBox.setRenderer(new AnnotationsRenderer(changesKb));
 
 		for (Cls annotCls : annotationsComboBoxUtil.getAllowableAnnotationTypes(null)) {
 			typeComboBox.addItem(annotCls);
