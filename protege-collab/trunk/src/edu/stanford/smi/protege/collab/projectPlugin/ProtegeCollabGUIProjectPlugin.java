@@ -1,6 +1,7 @@
 package edu.stanford.smi.protege.collab.projectPlugin;
 
 import java.awt.BorderLayout;
+import java.util.logging.Level;
 
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -8,12 +9,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSplitPane;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
+import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.ConfigureCollabProtegeAction;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
+import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
+import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.plugin.ProjectPluginAdapter;
 import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.ui.ProjectMenuBar;
@@ -35,7 +40,6 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 	private ProjectViewListener projectViewListener;
 	private JMenu collabMenu;
 
-
 	@Override
 	public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
 		KnowledgeBase kb = view.getProject().getKnowledgeBase();
@@ -48,10 +52,29 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 		insertCollabPanel(view);
 		attachProjectViewListener(view);
+		backwardCompatibilityFix(kb);
 		UIUtil.adjustTreeFrameRenderers(view);
+		UIUtil.adjustAnnotationBrowserPattern(kb);
 		insertCollabMenu(menuBar);
 	}
 
+
+	private void backwardCompatibilityFix(KnowledgeBase kb) {
+		//add subject if not added as a template slot of annotation
+		KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(kb);
+		if (chaoKb == null) { return; }
+		try {
+			AnnotationFactory factory = new AnnotationFactory(chaoKb);
+			Cls annotationCls = factory.getAnnotationClass();
+			Slot subjectSlot = factory.getSubjectSlot();
+			if (!annotationCls.hasTemplateSlot(subjectSlot)) {
+				annotationCls.addDirectTemplateSlot(subjectSlot);
+				Log.getLogger().info("Backwards compatibility fix for the Changes and Annotation ontology (done)");
+			}
+		} catch (Exception e) {
+			Log.getLogger().log(Level.WARNING, "Failed to do the backwards compatibility fix for the ChAO Kb", e);
+		}
+	}
 
 
 	private void attachProjectViewListener(ProjectView view) {
