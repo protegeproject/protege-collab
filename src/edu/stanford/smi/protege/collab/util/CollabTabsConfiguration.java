@@ -15,20 +15,20 @@ import edu.stanford.smi.protege.plugin.PluginUtilities;
 /**
  * Note: This is a temporary implementation until a plugin architecture for the c
  * collaborative tabs is implemented.
- * 
+ *
  * @author ttania
  *
  */
 public class CollabTabsConfiguration {
-	
+
 	private static List<Class<?>> allCollabTabs = new ArrayList<Class<?>>();
-	
+
 	static {
 		fillAllCollabTabs();
 	}
-	
 
-	private static void fillAllCollabTabs() {		
+
+	private static void fillAllCollabTabs() {
 		allCollabTabs.add(OntologyComponentAnnotationsPanel.class);
 		allCollabTabs.add(ChangesAnnotationsPanel.class);
 		allCollabTabs.add(AllAnnotationsPanel.class);
@@ -40,34 +40,31 @@ public class CollabTabsConfiguration {
 		if (chatTab != null) {
 			allCollabTabs.add(chatTab);
 		}
-		
 	}
-	
+
 
 	public static boolean isTabEnabled(Project project, Class<?> tab){
-		String b = (String) project.getClientInformation(tab.getName());	
-		return (b == null ? true : (b.equalsIgnoreCase("false") ? false : true));
+		String b = (String) project.getClientInformation(tab.getName());
+		return b == null ? true : b.equalsIgnoreCase("false") ? false : true;
 	}
 
-	
+
 	public static void setTabEnabled(Project project, Class<?> tab, boolean enabled) {
 		project.setClientInformation(tab.getName(), Boolean.toString(enabled));
 	}
-	
-	
+
 	public static Collection<String> getAllCollabTabNames() {
-		ArrayList<String> names = new ArrayList<String>(); 
-		
+		ArrayList<String> names = new ArrayList<String>();
+
 		for (Class<?> tab : allCollabTabs) {
 			names.add(tab.getSimpleName());
 		}
-		
+
 		return names;
 	}
-	
+
 	public static Collection<Class<?>> getAllCollabTabClasses() {
 		return allCollabTabs;
 	}
-	
-	
+
 }
