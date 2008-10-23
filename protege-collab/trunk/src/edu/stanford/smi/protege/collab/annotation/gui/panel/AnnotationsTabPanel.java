@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,6 +27,7 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.annotation.api.Vote;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.impl.DefaultTimestamp;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsComboBoxUtil;
@@ -43,7 +46,6 @@ import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.resource.Icons;
-import edu.stanford.smi.protege.ui.FrameRenderer;
 import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.CollectionUtilities;
@@ -52,6 +54,7 @@ import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.CreateAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.LazyTreeNode;
+import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.ViewAction;
@@ -110,7 +113,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		annotComboBoxUtil = new AnnotationsComboBoxUtil(ChAOKbManager.getChAOKb(kb));
 
 		annotationsComboBox = new JComboBox();
-		annotationsComboBox.setRenderer(new FrameRenderer());
+		annotationsComboBox.setRenderer(new AnnotationsRenderer(ChAOKbManager.getChAOKb(kb)));
 		updateAnnotationsComboBoxItems();
 
 		//ratingComboBox = new JComboBox(new String[]{"Rate this ..." , "*****", "****", "***", "**", "*"});
@@ -313,7 +316,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		annotationsTree.setSelectionRow(0);
 		annotationsTree.setAutoscrolls(true);
 		annotationsTree.setShowsRootHandles(true);
-		annotationsTree.setCellRenderer(new AnnotationsRenderer());
+		annotationsTree.setCellRenderer(new AnnotationsRenderer(ChAOKbManager.getChAOKb(kb)));
 		return annotationsTree;
 	}
 
@@ -323,7 +326,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			return replyAction;
 		}
 
-		replyAction = new AllowableAction("Reply", AnnotationsIcons.getCommentIcon(), getAnnotationsTree()) {
+		replyAction = new AllowableAction("Reply", AnnotationsIcons.getReplyIcon(), getAnnotationsTree()) {
 			public void actionPerformed(ActionEvent arg0) {
 				onReplyAnnotation();
 			}
@@ -367,7 +370,20 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		Annotation annot = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
 		annot.setAnnotates(selection);
 		ChAOUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annot);
-		annot.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
+
+		try {
+			AnnotatableThing repliedToAnnotThing = (AnnotatableThing) CollectionUtilities.getFirstItem(selection);
+			Annotation repliedToAnn = repliedToAnnotThing.as(Annotation.class);
+			if (repliedToAnn != null) {
+				String repliedToSubj = repliedToAnn.getSubject();
+				annot.setSubject("Re: " + (repliedToSubj == null ? "" : repliedToSubj));
+				annot.setBody(getQuotedReplyText(repliedToAnn));
+			} else {
+				annot.setBody(NEW_ANNOTATION_DEFAULT_BODY_TEXT);
+			}
+		} catch (Exception e) {
+			Log.getLogger().log(Level.WARNING, "Errors at creating the reply of " + selection, e);
+		}
 
 		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
 		InstanceDisplay instDispl = new InstanceDisplay(getChaoKb().getProject(), false, true);
@@ -387,6 +403,39 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		} else {
 			annotInst.delete();
 		}
+	}
+
+	private String getQuotedReplyText(Annotation annotation) {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		String user = annotation.getAuthor();
+		String date = sdf.format(((DefaultTimestamp)annotation.getCreated()).getDateParsed());
+		String body = annotation.getBody();
+
+		if (body == null) {
+			body = "";
+		} else {
+			if (body.indexOf("<html>") >=0 && body.indexOf("<body>") > 0) { //HTML message
+				try {
+					int index = body.indexOf("<body>");
+					StringBuffer buffer = new StringBuffer();
+					buffer.append(body.substring(0, index + 6));
+					buffer.append("<br><br>");
+					buffer.append("=== On ");
+					buffer.append(date);
+					buffer.append(", ");
+					buffer.append(user);
+					buffer.append(" wrote:<br><br>");
+					buffer.append(body.substring(index+6));
+					body = buffer.toString();
+				} catch (Exception e) {
+					Log.emptyCatchBlock(e);
+				}
+			} else { //text message
+				String line = "\n\n=== On " + date + ", " + user + " wrote:\n\n";
+				body = line + body;
+			}
+		}
+		return body;
 	}
 
 
