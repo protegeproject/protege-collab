@@ -64,4 +64,9 @@ public class AnnotationsIcons {
 		return getIcon("mail");
 	}
 
+	public static Icon getReplyIcon() {
+		return getIcon("reply");
+	}
+
+
 }
