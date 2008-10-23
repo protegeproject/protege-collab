@@ -55,12 +55,14 @@ public class AnnotationsComboBoxUtil {
 
 	//TT: probably we should cache this
 	public Collection<Cls> getAllowableAnnotationTypes(AnnotatableThing thing) {
-		if (thing == null) {
-			return allAnnotationTypes;
-		}
-
 		ArrayList<Cls> allowableAnnotations = new ArrayList<Cls>(allAnnotationTypes);
 		AnnotationFactory factory = new AnnotationFactory(changesKb);
+
+		if (thing == null) { //all except votes
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteClass());
+			return allowableAnnotations;
+		}
 
 		//TODO: these rules should not be hard-coded
 		if (OntologyJavaMappingUtil.canAs(thing, FiveStarsVoteProposal.class)) {
@@ -77,6 +79,9 @@ public class AnnotationsComboBoxUtil {
 			allowableAnnotations.remove(factory.getFiveStarsVoteClass());
 			allowableAnnotations.remove(factory.getAgreeDisagreeVoteProposalClass());
 			allowableAnnotations.remove(factory.getFiveStarsVoteProposalClass());
+		} else { //remove by default the votes
+			allowableAnnotations.remove(factory.getAgreeDisagreeVoteClass());
+			allowableAnnotations.remove(factory.getFiveStarsVoteClass());
 		}
 		return allowableAnnotations;
 	}
