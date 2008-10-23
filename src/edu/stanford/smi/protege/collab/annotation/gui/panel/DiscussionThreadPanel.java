@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
@@ -12,6 +13,7 @@ import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
+import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
@@ -52,9 +54,7 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		ChAOUtil.fillAnnotationSystemFields(getKnowledgeBase(), annot);
 		annot.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
-		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
-		InstanceDisplay instDispl = new InstanceDisplay(getChaoKb().getProject(), false, true);
-		instDispl.setInstance(annotInst);
+		InstanceDisplay instDispl = UIUtil.createAnnotationInstanceDisplay(annot, ChAOKbManager.getChAOKb(getKnowledgeBase()));
 
 		Object[] options = {"Post", "Cancel"};
 		int ret = JOptionPane.showOptionDialog(this, instDispl, "Create new discussion thread",
@@ -66,6 +66,7 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		if (ret == JOptionPane.OK_OPTION) {
 			refreshDisplay();
 		} else {
+			Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
 			annotInst.delete();
 		}
 	}
