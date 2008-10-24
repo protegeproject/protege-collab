@@ -34,8 +34,6 @@ import edu.stanford.smi.protegex.server_changes.ChangesProject;
 
 public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
-	public final static String TOOLS_MENU = "Tools";
-
 	private AnnotationsDisplayComponent annotationsDisplayComponent;
 	private ProjectViewListener projectViewListener;
 	private JMenu collabMenu;
