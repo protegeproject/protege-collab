@@ -390,7 +390,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		instDispl.setInstance(annotInst);
 
 		Object[] options = {"Post", "Cancel"};
-		int ret = JOptionPane.showOptionDialog(this, instDispl, "New reply",
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "New reply (" +
+				annotInst.getDirectType().getBrowserText() + ")",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 				AnnotationsIcons.getMailIcon(),
 				options,
