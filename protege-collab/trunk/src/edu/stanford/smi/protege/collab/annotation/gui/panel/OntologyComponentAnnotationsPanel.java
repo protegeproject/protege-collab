@@ -104,8 +104,11 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 
 		InstanceDisplay instDispl = UIUtil.createAnnotationInstanceDisplay(annotation, ChAOKbManager.getChAOKb(kb));
 
+		Instance annotInst = ((AbstractWrappedInstance)annotation).getWrappedProtegeInstance();
+
 		Object[] options = {"Post", "Cancel"};
-		int ret = JOptionPane.showOptionDialog(this, instDispl, "New annotation",
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "New " +
+				annotInst.getDirectType().getBrowserText(),
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 				AnnotationsIcons.getCommentIcon(),
 				options,
@@ -116,7 +119,6 @@ public class OntologyComponentAnnotationsPanel extends AnnotationsTabPanel {
 			((LazyTreeRoot)getAnnotationsTree().getModel().getRoot()).reload();
 			ComponentUtilities.setSelectedObjectPath(getAnnotationsTree(), CollectionUtilities.createCollection(annotation));
 		} else {
-			Instance annotInst = ((AbstractWrappedInstance)annotation).getWrappedProtegeInstance();
 			annotInst.delete();
 		}
 	}

@@ -55,9 +55,10 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		annot.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
 		InstanceDisplay instDispl = UIUtil.createAnnotationInstanceDisplay(annot, ChAOKbManager.getChAOKb(getKnowledgeBase()));
-
+		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
 		Object[] options = {"Post", "Cancel"};
-		int ret = JOptionPane.showOptionDialog(this, instDispl, "Create new discussion thread",
+		int ret = JOptionPane.showOptionDialog(this, instDispl, "New discussion thread ("+
+				annotInst.getDirectType().getBrowserText() + ")",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 				AnnotationsIcons.getMailIcon(),
 				options,
@@ -66,7 +67,6 @@ public class DiscussionThreadPanel extends AnnotationsTabPanel {
 		if (ret == JOptionPane.OK_OPTION) {
 			refreshDisplay();
 		} else {
-			Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
 			annotInst.delete();
 		}
 	}
