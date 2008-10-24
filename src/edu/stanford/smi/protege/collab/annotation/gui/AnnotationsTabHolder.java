@@ -39,7 +39,6 @@ public class AnnotationsTabHolder extends SelectableContainer {
 
 	private JTabbedPane tabbedPane;
 	private Collection<AnnotationsTabPanel> tabs;
-	private JPopupMenu configureTabPopupMenu;
 
 
 	public AnnotationsTabHolder(KnowledgeBase kb) {
@@ -48,6 +47,11 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		//disabling by default the AllCollabTab
 		if (kb.getProject().getClientInformation(AllAnnotationsPanel.class.getName()) == null) {
 			CollabTabsConfiguration.setTabEnabled(kb.getProject(), AllAnnotationsPanel.class, false);
+		}
+
+		//disabling the chat tab is not multi user client
+		if (!kb.getProject().isMultiUserClient()) {
+			CollabTabsConfiguration.setTabEnabled(kb.getProject(), ChatPanel.class, false);
 		}
 
 		tabbedPane = createTabbedPane();
@@ -106,8 +110,6 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		if (CollabTabsConfiguration.isTabEnabled(kb.getProject(), ChatPanel.class)) {
 			addTab(new ChatPanel(kb));
 		}
-
-
 		return tabs;
 	}
 
