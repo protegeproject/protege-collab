@@ -7,8 +7,7 @@ import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.LocalizeUtils;
 import edu.stanford.smi.protege.util.ProtegeJob;
-import edu.stanford.smi.protegex.server_changes.PostProcessorManager;
-import edu.stanford.smi.protegex.server_changes.ChangesProject;
+import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
 public class GetOntologyComponentFromServer extends ProtegeJob {
 	private Frame frame;
@@ -23,11 +22,11 @@ public class GetOntologyComponentFromServer extends ProtegeJob {
 
 	@Override
 	public Ontology_Component run() throws ProtegeException {
-		PostProcessorManager changesDb = ChangesProject.getPostProcessorManager(getKnowledgeBase());
-		Ontology_Component oc = changesDb.getOntologyComponent(frame, createOntologyComponent);
+		Ontology_Component oc = ServerChangesUtil.getOntologyComponent(ChAOKbManager.getChAOKb(getKnowledgeBase()),
+				frame, createOntologyComponent);
 		return 	oc;
 	}
-	
+
 	/*
      * the result is localized against the wrong knowledgebase.
 	 */
