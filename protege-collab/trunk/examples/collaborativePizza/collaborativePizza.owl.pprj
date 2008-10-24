@@ -1,16 +1,16 @@
-; Thu May 22 16:35:26 GMT-08:00 2008
+; Thu Oct 23 22:27:37 GMT-08:00 2008
 ; 
 ;+ (version "3.4")
-;+ (build "Build 138")
+;+ (build "Build 509")
 
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[collaborativePizza.owl_ProjectKB_Class10]
-		[collaborativePizza.owl_ProjectKB_Class11]
 		[collaborativePizza.owl_ProjectKB_Class12]
 		[collaborativePizza.owl_ProjectKB_Class13]
-		[collaborativePizza.owl_ProjectKB_Class14]))
+		[collaborativePizza.owl_ProjectKB_Class14]
+		[collaborativePizza.owl_ProjectKB_Class15]
+		[collaborativePizza.owl_ProjectKB_Class16]))
 
 ([CLSES_TAB] of  Widget
 
@@ -19,88 +19,408 @@
 	(property_list [Instance_47])
 	(widget_class_name "edu.stanford.smi.protege.widget.ClsesTab"))
 
-([collaborativePizza.owl_ProjectKB_Class10] of  String
+([collaborativePizza.owl_ProjectKB_Class10012] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10013])
+	(widget_class_name "TGViztab.TGVizTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10013] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10014] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10015])
+	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10015] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10016] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10017])
+	(widget_class_name "script.ProtegeScriptTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10017] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10018] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10019])
+	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
+
+([collaborativePizza.owl_ProjectKB_Class10019] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10020] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10021])
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10021] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10022] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10023])
+	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10023] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10024] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10025])
+	(widget_class_name "ezpal.EZPalTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10025] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10026] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10027])
+	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10027] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10028] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10029])
+	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10029] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10030] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10031])
+	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10031] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10032] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10033])
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10033] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10034] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10035])
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10035] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10036] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10037])
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10037] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10038] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10039])
+	(widget_class_name "se.liu.ida.JessTab.JessTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10039] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10040] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10041])
+	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10041] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10042] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10043])
+	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10043] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10044] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10045])
+	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10045] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10046] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10047])
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10047] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10048] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10049])
+	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10049] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10050] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10051])
+	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10051] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10052] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10053])
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10053] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10054] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10055])
+	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10055] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10056] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativePizza.owl_ProjectKB_Class10057])
+	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
+
+([collaborativePizza.owl_ProjectKB_Class10057] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10058] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#usedLanguage")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10059]))
+
+([collaborativePizza.owl_ProjectKB_Class10059] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10060] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#excludedTest")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10061]))
+
+([collaborativePizza.owl_ProjectKB_Class10061] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10062] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#todoPrefix")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10063]))
+
+([collaborativePizza.owl_ProjectKB_Class10063] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10064] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#todoProperty")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10065]))
+
+([collaborativePizza.owl_ProjectKB_Class10065] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10066] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#abstract")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10067]))
+
+([collaborativePizza.owl_ProjectKB_Class10067] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10068] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#probeClass")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10069]))
+
+([collaborativePizza.owl_ProjectKB_Class10069] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10070] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#subclassesDisjoint")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10071]))
+
+([collaborativePizza.owl_ProjectKB_Class10071] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10072] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#readOnly")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10073]))
+
+([collaborativePizza.owl_ProjectKB_Class10073] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10074] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#allowedParent")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10075]))
+
+([collaborativePizza.owl_ProjectKB_Class10075] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10076] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#readOnly")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10077]))
+
+([collaborativePizza.owl_ProjectKB_Class10077] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class10078] of  Widget
+
+	(is_hidden FALSE)
+	(name "http://protege.stanford.edu/plugins/owl/protege#allowedParent")
+	(property_list [collaborativePizza.owl_ProjectKB_Class10079]))
+
+([collaborativePizza.owl_ProjectKB_Class10079] of  Property_List
+)
+
+([collaborativePizza.owl_ProjectKB_Class12] of  String
 
 	(name "http://www.w3.org/2002/07/owl#Class")
 	(string_value "%3ANAME"))
 
-([collaborativePizza.owl_ProjectKB_Class11] of  String
+([collaborativePizza.owl_ProjectKB_Class13] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([collaborativePizza.owl_ProjectKB_Class12] of  String
+([collaborativePizza.owl_ProjectKB_Class14] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([collaborativePizza.owl_ProjectKB_Class13] of  String
+([collaborativePizza.owl_ProjectKB_Class15] of  String
 
 	(name "http://www.w3.org/2002/07/owl#Thing")
 	(string_value "%3ANAME"))
 
-([collaborativePizza.owl_ProjectKB_Class14] of  String
+([collaborativePizza.owl_ProjectKB_Class16] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([collaborativePizza.owl_ProjectKB_Class15] of  Map_Entry
+([collaborativePizza.owl_ProjectKB_Class17] of  Map_Entry
 
 	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativePizza.owl_ProjectKB_Class16] of  Map_Entry
+([collaborativePizza.owl_ProjectKB_Class18] of  Map_Entry
 
 	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativePizza.owl_ProjectKB_Class17] of  Map_Entry
+([collaborativePizza.owl_ProjectKB_Class19] of  Map_Entry
 
 	(key "java.lang.Class")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([collaborativePizza.owl_ProjectKB_Class18] of  Map_Entry
+([collaborativePizza.owl_ProjectKB_Class20] of  Map_Entry
 
 	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativePizza.owl_ProjectKB_Class19] of  Map_Entry
-
-	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel")
-	(key_class "java.lang.String")
-	(value "true")
-	(value_class "java.lang.String"))
-
-([collaborativePizza.owl_ProjectKB_Class20] of  Map_Entry
-
-	(key "change_tracking_active")
-	(key_class "java.lang.String")
-	(value "true")
-	(value_class "java.lang.String"))
-
 ([collaborativePizza.owl_ProjectKB_Class21] of  Map_Entry
 
-	(key "add_name_on_instance_form")
+	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
 ([collaborativePizza.owl_ProjectKB_Class22] of  Map_Entry
 
+	(key "chaoProject")
+	(key_class "java.lang.String")
+	(value "annotation_collaborativePizza.owl.pprj")
+	(value_class "java.lang.String"))
+
+([collaborativePizza.owl_ProjectKB_Class23] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativePizza.owl_ProjectKB_Class24] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativePizza.owl_ProjectKB_Class25] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([collaborativePizza.owl_ProjectKB_Class26] of  Map_Entry
+
 	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativePizza.owl_ProjectKB_Class23] of  Map_Entry
+([collaborativePizza.owl_ProjectKB_Class27] of  Map_Entry
 
 	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel")
 	(key_class "java.lang.String")
@@ -922,6 +1242,9 @@
 	(name "http://protege.stanford.edu/plugins/owl/protege#ExternalResource")
 	(property_list [XY_Instance_890])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.OWLFormWidget"))
+
+([KB_563726_Class11] of  Map
+)
 
 ([KB_632156_Instance_0] of  String
 
@@ -3191,33 +3514,6 @@
 ([KB_865583_Instance_11] of  Property_List
 )
 
-([KB_865583_Instance_12] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [KB_865583_Instance_13])
-	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
-
-([KB_865583_Instance_13] of  Property_List
-)
-
-([KB_865583_Instance_4] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [KB_865583_Instance_5])
-	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
-
-([KB_865583_Instance_5] of  Property_List
-)
-
-([KB_865583_Instance_6] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [KB_865583_Instance_7])
-	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
-
-([KB_865583_Instance_7] of  Property_List
-)
-
 ([KB_865583_Instance_8] of  Widget
 
 	(is_hidden FALSE)
@@ -3984,8 +4280,8 @@
 		[KB_938545_Instance_327]
 		[KB_221055_Instance_26]
 		[KB_221055_Instance_30]
-		[pizza.owl_ProjectKB_Instance_10002]
-		[pizza.owl_ProjectKB_Instance_10004]))
+		[collaborativePizza.owl_ProjectKB_Class10076]
+		[collaborativePizza.owl_ProjectKB_Class10078]))
 
 ([KB_938545_Instance_250] of  Widget
 
@@ -7015,12 +7311,9 @@
 ([KB_941921_Instance_7] of  Property_List
 )
 
-([KB_996744_Class9] of  Map
-)
-
 ([OWL_ProjectKB_Instance_3] of  Integer
 
-	(integer_value 139)
+	(integer_value 509)
 	(name "owl_build"))
 
 ([PAL_FORM_WIDGET] of  Widget
@@ -7034,58 +7327,13 @@
 	(x 0)
 	(y 0))
 
-([pizza.owl_ProjectKB_Instance_0] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_1])
-	(widget_class_name "TGViztab.TGVizTab"))
-
-([pizza.owl_ProjectKB_Instance_1] of  Property_List
-)
-
 ([pizza.owl_ProjectKB_Instance_10] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [pizza.owl_ProjectKB_Instance_11])
 	(widget_class_name "edu.stanford.smi.protegex.changes.ChangesTab"))
 
-([pizza.owl_ProjectKB_Instance_10002] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#readOnly")
-	(property_list [pizza.owl_ProjectKB_Instance_10003]))
-
-([pizza.owl_ProjectKB_Instance_10003] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_10004] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#allowedParent")
-	(property_list [pizza.owl_ProjectKB_Instance_10005]))
-
-([pizza.owl_ProjectKB_Instance_10005] of  Property_List
-)
-
 ([pizza.owl_ProjectKB_Instance_11] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_12] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_13])
-	(widget_class_name "ezpal.EZPalTab"))
-
-([pizza.owl_ProjectKB_Instance_13] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_14] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_15])
-	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
-
-([pizza.owl_ProjectKB_Instance_15] of  Property_List
 )
 
 ([pizza.owl_ProjectKB_Instance_16] of  Widget
@@ -7097,30 +7345,6 @@
 ([pizza.owl_ProjectKB_Instance_17] of  Property_List
 )
 
-([pizza.owl_ProjectKB_Instance_18] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_19])
-	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
-
-([pizza.owl_ProjectKB_Instance_19] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_2] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_3])
-	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
-
-([pizza.owl_ProjectKB_Instance_20] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_21])
-	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
-
-([pizza.owl_ProjectKB_Instance_21] of  Property_List
-)
-
 ([pizza.owl_ProjectKB_Instance_22] of  Widget
 
 	(is_hidden TRUE)
@@ -7128,36 +7352,6 @@
 	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
 
 ([pizza.owl_ProjectKB_Instance_23] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_24] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_25])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
-
-([pizza.owl_ProjectKB_Instance_25] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_26] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_27])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
-
-([pizza.owl_ProjectKB_Instance_27] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_28] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_29])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
-
-([pizza.owl_ProjectKB_Instance_29] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_3] of  Property_List
 )
 
 ([pizza.owl_ProjectKB_Instance_30] of  Widget
@@ -7169,75 +7363,6 @@
 ([pizza.owl_ProjectKB_Instance_31] of  Property_List
 )
 
-([pizza.owl_ProjectKB_Instance_32] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_33])
-	(widget_class_name "se.liu.ida.JessTab.JessTab"))
-
-([pizza.owl_ProjectKB_Instance_33] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_34] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_35])
-	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
-
-([pizza.owl_ProjectKB_Instance_35] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_36] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_37])
-	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
-
-([pizza.owl_ProjectKB_Instance_37] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_38] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_39])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
-
-([pizza.owl_ProjectKB_Instance_39] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_4] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_5])
-	(widget_class_name "script.ProtegeScriptTab"))
-
-([pizza.owl_ProjectKB_Instance_40] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_41])
-	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
-
-([pizza.owl_ProjectKB_Instance_41] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_42] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_43])
-	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
-
-([pizza.owl_ProjectKB_Instance_43] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_44] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_45])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
-
-([pizza.owl_ProjectKB_Instance_45] of  Property_List
-)
-
 ([pizza.owl_ProjectKB_Instance_46] of  Widget
 
 	(is_hidden TRUE)
@@ -7247,51 +7372,20 @@
 ([pizza.owl_ProjectKB_Instance_47] of  Property_List
 )
 
-([pizza.owl_ProjectKB_Instance_48] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_49])
-	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
-
-([pizza.owl_ProjectKB_Instance_49] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_5] of  Property_List
-)
-
 ([pizza.owl_ProjectKB_Instance_55] of  Map
 
 	(entries
-		[collaborativePizza.owl_ProjectKB_Class15]
-		[collaborativePizza.owl_ProjectKB_Class16]
 		[collaborativePizza.owl_ProjectKB_Class17]
 		[collaborativePizza.owl_ProjectKB_Class18]
 		[collaborativePizza.owl_ProjectKB_Class19]
 		[collaborativePizza.owl_ProjectKB_Class20]
 		[collaborativePizza.owl_ProjectKB_Class21]
 		[collaborativePizza.owl_ProjectKB_Class22]
-		[collaborativePizza.owl_ProjectKB_Class23]))
-
-([pizza.owl_ProjectKB_Instance_6] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_7])
-	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
-
-([pizza.owl_ProjectKB_Instance_7] of  Property_List
-)
-
-([pizza.owl_ProjectKB_Instance_8] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [pizza.owl_ProjectKB_Instance_9])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
-
-([pizza.owl_ProjectKB_Instance_9] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_10] of  Property_List
-)
+		[collaborativePizza.owl_ProjectKB_Class23]
+		[collaborativePizza.owl_ProjectKB_Class24]
+		[collaborativePizza.owl_ProjectKB_Class25]
+		[collaborativePizza.owl_ProjectKB_Class26]
+		[collaborativePizza.owl_ProjectKB_Class27]))
 
 ([pizza_ProjectKB_Instance_11] of  Widget
 
@@ -7301,84 +7395,6 @@
 
 ([pizza_ProjectKB_Instance_12] of  Property_List
 )
-
-([pizza_ProjectKB_Instance_13] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#excludedTest")
-	(property_list [pizza_ProjectKB_Instance_14]))
-
-([pizza_ProjectKB_Instance_14] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_15] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#subclassesDisjoint")
-	(property_list [pizza_ProjectKB_Instance_16]))
-
-([pizza_ProjectKB_Instance_16] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_17] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#probeClass")
-	(property_list [pizza_ProjectKB_Instance_18]))
-
-([pizza_ProjectKB_Instance_18] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_19] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#abstract")
-	(property_list [pizza_ProjectKB_Instance_20]))
-
-([pizza_ProjectKB_Instance_20] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_21] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#allowedParent")
-	(property_list [pizza_ProjectKB_Instance_22]))
-
-([pizza_ProjectKB_Instance_22] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_23] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#readOnly")
-	(property_list [pizza_ProjectKB_Instance_24]))
-
-([pizza_ProjectKB_Instance_24] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_5] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#todoProperty")
-	(property_list [pizza_ProjectKB_Instance_6]))
-
-([pizza_ProjectKB_Instance_6] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_7] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#usedLanguage")
-	(property_list [pizza_ProjectKB_Instance_8]))
-
-([pizza_ProjectKB_Instance_8] of  Property_List
-)
-
-([pizza_ProjectKB_Instance_9] of  Widget
-
-	(is_hidden FALSE)
-	(name "http://protege.stanford.edu/plugins/owl/protege#todoPrefix")
-	(property_list [pizza_ProjectKB_Instance_10]))
 
 ([PROJECT] of  Project
 
@@ -7448,8 +7464,8 @@
 		"http://www.w3.org/2002/07/owl#MaxCardinalityRestriction"
 		"http://www.w3.org/2003/11/swrlb#divideDayTimeDuration"
 		"http://www.w3.org/2001/XMLSchema#gYearMonth"
-		"http://www.w3.org/2002/07/owl#SymmetricProperty"
 		"http://protege.stanford.edu/plugins/owl/protege#ExternalResource"
+		"http://www.w3.org/2002/07/owl#SymmetricProperty"
 		"http://www.w3.org/2000/01/rdf-schema#domain"
 		"http://www.w3.org/2003/11/swrlb#stringEqualIgnoreCase"
 		"http://www.w3.org/2001/XMLSchema#double"
@@ -7721,41 +7737,41 @@
 		[Instance_2600]
 		[Instance_3234]
 		[KB_865583_Instance_8]
-		[pizza.owl_ProjectKB_Instance_10]
-		[pizza.owl_ProjectKB_Instance_40]
 		[pizza.owl_ProjectKB_Instance_16]
+		[collaborativePizza.owl_ProjectKB_Class10048]
+		[pizza.owl_ProjectKB_Instance_10]
 		[pizza.owl_ProjectKB_Instance_30]
 		[Instance_43]
 		[CLSES_TAB]
-		[pizza.owl_ProjectKB_Instance_36]
-		[KB_865583_Instance_6]
-		[pizza.owl_ProjectKB_Instance_14]
+		[collaborativePizza.owl_ProjectKB_Class10042]
+		[collaborativePizza.owl_ProjectKB_Class10044]
+		[collaborativePizza.owl_ProjectKB_Class10026]
 		[FORMS_TAB]
 		[INSTANCES_TAB]
-		[pizza.owl_ProjectKB_Instance_28]
-		[pizza.owl_ProjectKB_Instance_34]
-		[pizza.owl_ProjectKB_Instance_32]
+		[collaborativePizza.owl_ProjectKB_Class10036]
+		[collaborativePizza.owl_ProjectKB_Class10040]
+		[collaborativePizza.owl_ProjectKB_Class10038]
 		[Instance_45]
-		[pizza.owl_ProjectKB_Instance_26]
-		[pizza.owl_ProjectKB_Instance_2]
-		[KB_865583_Instance_12]
-		[pizza.owl_ProjectKB_Instance_48]
-		[pizza.owl_ProjectKB_Instance_24]
-		[pizza.owl_ProjectKB_Instance_20]
+		[collaborativePizza.owl_ProjectKB_Class10034]
+		[collaborativePizza.owl_ProjectKB_Class10014]
+		[collaborativePizza.owl_ProjectKB_Class10054]
+		[collaborativePizza.owl_ProjectKB_Class10056]
+		[collaborativePizza.owl_ProjectKB_Class10032]
+		[collaborativePizza.owl_ProjectKB_Class10030]
 		[pizza.owl_ProjectKB_Instance_22]
-		[pizza.owl_ProjectKB_Instance_4]
-		[KB_865583_Instance_4]
+		[collaborativePizza.owl_ProjectKB_Class10016]
+		[collaborativePizza.owl_ProjectKB_Class10022]
 		[SLOTS_TAB]
-		[pizza.owl_ProjectKB_Instance_6]
+		[collaborativePizza.owl_ProjectKB_Class10018]
 		[KB_865583_Instance_10]
-		[pizza.owl_ProjectKB_Instance_0]
-		[pizza.owl_ProjectKB_Instance_44]
+		[collaborativePizza.owl_ProjectKB_Class10012]
+		[collaborativePizza.owl_ProjectKB_Class10052]
 		[pizza.owl_ProjectKB_Instance_46]
-		[pizza.owl_ProjectKB_Instance_18]
-		[pizza.owl_ProjectKB_Instance_42]
-		[pizza.owl_ProjectKB_Instance_12]
-		[pizza.owl_ProjectKB_Instance_38]
-		[pizza.owl_ProjectKB_Instance_8]))
+		[collaborativePizza.owl_ProjectKB_Class10028]
+		[collaborativePizza.owl_ProjectKB_Class10050]
+		[collaborativePizza.owl_ProjectKB_Class10024]
+		[collaborativePizza.owl_ProjectKB_Class10046]
+		[collaborativePizza.owl_ProjectKB_Class10020]))
 
 ([SLOTS_TAB] of  Widget
 
@@ -8128,11 +8144,11 @@
 		[KB_635552_Instance_22]
 		[KB_635552_Instance_24]
 		[KB_938545_Instance_8]
-		[pizza_ProjectKB_Instance_5]
-		[pizza_ProjectKB_Instance_7]
-		[pizza_ProjectKB_Instance_9]
 		[pizza_ProjectKB_Instance_11]
-		[pizza_ProjectKB_Instance_13]))
+		[collaborativePizza.owl_ProjectKB_Class10058]
+		[collaborativePizza.owl_ProjectKB_Class10060]
+		[collaborativePizza.owl_ProjectKB_Class10062]
+		[collaborativePizza.owl_ProjectKB_Class10064]))
 
 ([XY_Instance_2] of  Widget
 
@@ -8368,8 +8384,8 @@
 		[KB_938545_Instance_162]
 		[KB_221055_Instance_18]
 		[KB_221055_Instance_22]
-		[pizza_ProjectKB_Instance_21]
-		[pizza_ProjectKB_Instance_23]))
+		[collaborativePizza.owl_ProjectKB_Class10072]
+		[collaborativePizza.owl_ProjectKB_Class10074]))
 
 ([XY_Instance_463] of  Widget
 
@@ -8602,9 +8618,9 @@
 		[KB_635552_Instance_8]
 		[KB_941921_Instance_2]
 		[KB_941921_Instance_6]
-		[pizza_ProjectKB_Instance_15]
-		[pizza_ProjectKB_Instance_17]
-		[pizza_ProjectKB_Instance_19]))
+		[collaborativePizza.owl_ProjectKB_Class10066]
+		[collaborativePizza.owl_ProjectKB_Class10068]
+		[collaborativePizza.owl_ProjectKB_Class10070]))
 
 ([XY_Instance_541] of  Widget
 

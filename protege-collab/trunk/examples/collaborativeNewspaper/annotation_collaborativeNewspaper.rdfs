@@ -449,7 +449,7 @@
 <rdf:Property rdf:about="&kb;subject"
 	 a:maxCardinality="1"
 	 rdfs:label="subject">
-	<rdfs:domain rdf:resource="&kb;Proposal"/>
+	<rdfs:domain rdf:resource="&kb;Annotation"/>
 	<rdfs:range rdf:resource="&rdfs;Literal"/>
 </rdf:Property>
 <rdf:Property rdf:about="&kb;timestamp"

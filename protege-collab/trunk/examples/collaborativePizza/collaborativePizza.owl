@@ -60,12 +60,12 @@
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="Hot"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:ID="hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="Hot"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -80,39 +80,28 @@
     <rdfs:label xml:lang="pt">CoberturaDeQueijoComVegetais</rdfs:label>
   </owl:Class>
   <owl:Class rdf:ID="PolloAdAstra">
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Veneziana"/>
-    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:ID="hasTopping"/>
         </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:ID="RedOnionTopping"/>
+          <owl:Class rdf:ID="TomatoTopping"/>
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:ID="Rosa"/>
+      <owl:Class rdf:ID="FruttiDiMare"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:ID="FourSeasons"/>
+      <owl:Class rdf:ID="UnclosedPizza"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:ID="Giardiniera"/>
+      <owl:Class rdf:ID="Caprina"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:ID="Fiorentina"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#CajunSpiceTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -125,14 +114,47 @@
               <owl:Class rdf:ID="ChickenTopping"/>
               <owl:Class rdf:ID="GarlicTopping"/>
               <owl:Class rdf:ID="MozzarellaTopping"/>
-              <owl:Class rdf:about="#RedOnionTopping"/>
+              <owl:Class rdf:ID="RedOnionTopping"/>
               <owl:Class rdf:ID="SweetPepperTopping"/>
-              <owl:Class rdf:ID="TomatoTopping"/>
+              <owl:Class rdf:about="#TomatoTopping"/>
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:label xml:lang="pt">PolloAdAstra</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="FourSeasons"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="PrinceCarlo"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#RedOnionTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="SloppyGiuseppe"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -147,97 +169,75 @@
       <owl:Class rdf:ID="NamedPizza"/>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:ID="QuattroFormaggi"/>
+      <owl:Class rdf:ID="Parmense"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Parmense"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Capricciosa"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Margherita"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#ChickenTopping"/>
         </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:ID="Cajun"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="PrinceCarlo"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="SloppyGiuseppe"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">PolloAdAstra</rdfs:label>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#GarlicTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="UnclosedPizza"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="AmericanHot"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="American"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="FruttiDiMare"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="Napoletana"/>
+      <owl:Class rdf:ID="Rosa"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:ID="LaReine"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:ID="Soho"/>
+      <owl:Class rdf:ID="Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Cajun"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#CajunSpiceTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="QuattroFormaggi"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:ID="Mushroom"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Capricciosa"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#GarlicTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="Pizza">
     <owl:disjointWith>
@@ -268,12 +268,12 @@
     <rdfs:label xml:lang="pt">CoberturaDePimentaoVerdePicante</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Hot"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Hot"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -281,33 +281,35 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#PrinceCarlo">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="ParmesanTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
+      <owl:Class rdf:about="#FourSeasons"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Napoletana"/>
     </owl:disjointWith>
     <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
       <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Capricciosa"/>
+      <owl:Class rdf:about="#AmericanHot"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedPizza"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Capricciosa"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -319,38 +321,16 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#UnclosedPizza"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaPrinceCarlo</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="ParmesanTopping"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Cajun"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
@@ -364,33 +344,15 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Rosa"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Cajun"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -411,11 +373,49 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:label xml:lang="pt">CoberturaPrinceCarlo</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Fiorentina"/>
+    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Parmense"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#UnclosedPizza"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FruttiDiMare"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:ID="Country">
@@ -446,95 +446,14 @@
     <owl:disjointWith rdf:resource="#DeepPanBase"/>
   </owl:Class>
   <owl:Class rdf:about="#Capricciosa">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Cajun"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="PeperonataTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="OliveTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#UnclosedPizza"/>
-    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
+      <owl:Class rdf:about="#Giardiniera"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
+      <owl:Class rdf:about="#Fiorentina"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -546,40 +465,64 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="AnchoviesTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
               <owl:Class rdf:about="#TomatoTopping"/>
               <owl:Class rdf:ID="HamTopping"/>
               <owl:Class rdf:about="#MozzarellaTopping"/>
-              <owl:Class rdf:about="#AnchoviesTopping"/>
-              <owl:Class rdf:about="#OliveTopping"/>
-              <owl:Class rdf:about="#PeperonataTopping"/>
+              <owl:Class rdf:ID="AnchoviesTopping"/>
+              <owl:Class rdf:ID="OliveTopping"/>
+              <owl:Class rdf:ID="PeperonataTopping"/>
               <owl:Class rdf:about="#CaperTopping"/>
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#AnchoviesTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">Capricciosa</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#OliveTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -590,28 +533,82 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
+      <owl:Class rdf:about="#FruttiDiMare"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Rosa"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#PeperonataTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Cajun"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#UnclosedPizza"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Parmense"/>
     </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Capricciosa</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedPizza"/>
+    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Rosa"/>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:ID="MushroomTopping">
     <owl:disjointWith>
-      <owl:Class rdf:about="#TomatoTopping"/>
+      <owl:Class rdf:ID="OnionTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:ID="AsparagusTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="ArtichokeTopping"/>
+      <owl:Class rdf:ID="PetitPoisTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:ID="RocketTopping"/>
@@ -620,21 +617,18 @@
       <owl:Class rdf:ID="PepperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="PetitPoisTopping"/>
+      <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#LeekTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:ID="OnionTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
+      <owl:Class rdf:about="#TomatoTopping"/>
     </owl:disjointWith>
     <rdfs:label xml:lang="pt">CoberturaDeCogumelo</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="AsparagusTopping"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom>
@@ -646,13 +640,19 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:ID="SpinachTopping"/>
+      <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#VegetableTopping"/>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#GarlicTopping"/>
+      <owl:Class rdf:about="#CaperTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="ArtichokeTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="SpinachTopping"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:about="#ChickenTopping">
@@ -681,31 +681,31 @@
     <rdfs:label xml:lang="pt">CoberturaDeFrango</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#MeatTopping">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CheeseTopping"/>
-    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDeCarne</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#FruitTopping"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#PizzaTopping"/>
-    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#HerbSpiceTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#NutTopping"/>
+      <owl:Class rdf:about="#VegetableTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#SauceTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
+      <owl:Class rdf:about="#NutTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#HerbSpiceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CheeseTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
       <owl:Class rdf:ID="FishTopping"/>
     </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDeCarne</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PizzaTopping"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="NonVegetarianPizza">
     <owl:equivalentClass>
@@ -732,12 +732,12 @@
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#Mild"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -746,16 +746,40 @@
     <rdfs:label xml:lang="pt">CoberturaDeTomateFatiado</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#UnclosedPizza">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >An unclosed Pizza cannot be inferred to be either a VegetarianPizza or a NonVegetarianPizza, because it might have other toppings.</rdfs:comment>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Parmense"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">PizzaAberta</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#NamedPizza"/>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Parmense"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
+      <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Napoletana"/>
@@ -764,107 +788,80 @@
       <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#Caprina"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Rosa"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
       <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Cajun"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >An unclosed Pizza cannot be inferred to be either a VegetarianPizza or a NonVegetarianPizza, because it might have other toppings.</rdfs:comment>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Fiorentina"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Giardiniera"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">PizzaAberta</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Cajun"/>
+      <owl:Class rdf:about="#FruttiDiMare"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:about="#OnionTopping">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="#VegetableTopping"/>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="Medium"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
       <owl:Class rdf:about="#TomatoTopping"/>
     </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDeCebola</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#ArtichokeTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
+      <owl:Class rdf:about="#LeekTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PepperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#RocketTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SpinachTopping"/>
+      <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:ID="Medium"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AsparagusTopping"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDeCebola</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#PetitPoisTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#LeekTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PepperTopping"/>
+      <owl:Class rdf:about="#AsparagusTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#CaperTopping"/>
@@ -872,50 +869,37 @@
     <owl:disjointWith>
       <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
-  </owl:Class>
-  <owl:Class rdf:about="#AnchoviesTopping">
     <owl:disjointWith>
-      <owl:Class rdf:ID="PrawnsTopping"/>
+      <owl:Class rdf:about="#SpinachTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:ID="MixedSeafoodTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#FishTopping"/>
-    </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">CoberturaDeAnchovies</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#Cajun">
     <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
+      <owl:Class rdf:about="#Rosa"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
+      <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Parmense"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
+          <owl:Class rdf:about="#PeperonataTopping"/>
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FruttiDiMare"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Cajun</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -926,35 +910,13 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#Parmense"/>
     </owl:disjointWith>
-    <rdfs:label xml:lang="pt">Cajun</rdfs:label>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#PeperonataTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -966,7 +928,7 @@
               <owl:Class rdf:about="#MozzarellaTopping"/>
               <owl:Class rdf:about="#OnionTopping"/>
               <owl:Class rdf:about="#PeperonataTopping"/>
-              <owl:Class rdf:about="#PrawnsTopping"/>
+              <owl:Class rdf:ID="PrawnsTopping"/>
               <owl:Class rdf:ID="TobascoPepperSauce"/>
               <owl:Class rdf:about="#TomatoTopping"/>
             </owl:unionOf>
@@ -977,8 +939,23 @@
     <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Fiorentina"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -990,41 +967,64 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Rosa"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#PrinceCarlo"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TobascoPepperSauce"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
+      <owl:Class rdf:about="#NamedPizza"/>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TobascoPepperSauce"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#AnchoviesTopping">
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PrawnsTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="MixedSeafoodTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#FishTopping"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="pt">CoberturaDeAnchovies</rdfs:label>
   </owl:Class>
   <owl:Class rdf:ID="GoatsCheeseTopping">
     <rdfs:label xml:lang="pt">CoberturaDeQueijoDeCabra	</rdfs:label>
@@ -1033,12 +1033,12 @@
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Mild"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Mild"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
@@ -1056,47 +1056,43 @@
   </owl:Class>
   <owl:Class rdf:about="#Parmense">
     <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
+      <owl:Class rdf:about="#Caprina"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">Parmense</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#AsparagusTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#HamTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FruttiDiMare"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -1116,44 +1112,45 @@
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#AsparagusTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Fiorentina"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Rosa"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#HamTopping"/>
-        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -1164,25 +1161,28 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Rosa"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedPizza"/>
+    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
+      <owl:Class rdf:about="#Giardiniera"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
+      <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Parmense</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#PeperoniSausageTopping">
     <owl:disjointWith>
@@ -1195,12 +1195,12 @@
     <rdfs:label xml:lang="pt">CoberturaDeCalabreza</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#Medium"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf rdf:resource="#MeatTopping"/>
@@ -1218,12 +1218,12 @@
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#Medium"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -1231,26 +1231,13 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#NutTopping">
+    <owl:disjointWith rdf:resource="#MeatTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#HerbSpiceTopping"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#PizzaTopping"/>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FruitTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CheeseTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SauceTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MeatTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaDeCastanha</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#FishTopping"/>
     </owl:disjointWith>
@@ -1264,6 +1251,19 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:label xml:lang="pt">CoberturaDeCastanha</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CheeseTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SauceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FruitTopping"/>
+    </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:about="#GreenPepperTopping">
     <rdfs:subClassOf>
@@ -1279,15 +1279,24 @@
     <rdfs:label xml:lang="pt">CoberturaDePimentaoVerde</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#Rosa">
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
+      <owl:Class rdf:about="#FruttiDiMare"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Rosa</rdfs:label>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -1297,39 +1306,69 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Caprina"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FruttiDiMare"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
+      <owl:Class rdf:about="#Fiorentina"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
+      <owl:Class rdf:about="#Napoletana"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#SloppyGiuseppe"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#GorgonzolaTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedPizza"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -1342,46 +1381,7 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#GorgonzolaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <rdfs:label xml:lang="pt">Rosa</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
+      <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:ID="SpicyTopping">
@@ -1391,12 +1391,12 @@
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#PizzaTopping"/>
           <owl:Restriction>
-            <owl:someValuesFrom>
-              <owl:Class rdf:about="#Hot"/>
-            </owl:someValuesFrom>
             <owl:onProperty>
               <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
             </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class rdf:about="#Hot"/>
+            </owl:someValuesFrom>
           </owl:Restriction>
         </owl:intersectionOf>
       </owl:Class>
@@ -1430,63 +1430,36 @@
     <rdfs:label xml:lang="pt">CoberturaDeParmesao</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#FruttiDiMare">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#MixedSeafoodTopping"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Fiorentina"/>
+      <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#GarlicTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -1497,25 +1470,47 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:label xml:lang="pt">FrutosDoMar</rdfs:label>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#GarlicTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
+      <owl:Class rdf:about="#NamedPizza"/>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">FrutosDoMar</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#AmericanHot"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Fiorentina"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -1532,6 +1527,11 @@
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
   </owl:Class>
   <owl:Class rdf:about="#DomainConcept">
     <owl:disjointWith>
@@ -1550,14 +1550,97 @@
   </owl:Class>
   <owl:Class rdf:about="#Fiorentina">
     <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
+      <owl:Class rdf:about="#QuattroFormaggi"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#SpinachTopping"/>
+        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#OliveTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#ParmesanTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedPizza"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <rdfs:label xml:lang="pt">Fiorentina</rdfs:label>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SloppyGiuseppe"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -1570,115 +1653,32 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith>
       <owl:Class rdf:about="#AmericanHot"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#GarlicTopping"/>
         </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#QuattroFormaggi"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">Fiorentina</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SloppyGiuseppe"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#FruttiDiMare"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#ParmesanTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#OliveTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#NamedPizza"/>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#SpinachTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:ID="Spiciness">
@@ -1703,28 +1703,48 @@
     <rdfs:label xml:lang="pt">PizzaComUmNome</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#SloppyGiuseppe">
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
+          <owl:Class rdf:about="#TomatoTopping"/>
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:label xml:lang="pt">SloppyGiuseppe</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -1736,54 +1756,43 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#HotSpicedBeefTopping"/>
+        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
+      <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#HotSpicedBeefTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -1792,31 +1801,22 @@
         <owl:someValuesFrom rdf:resource="#GreenPepperTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
     <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith>
       <owl:Class rdf:about="#QuattroFormaggi"/>
     </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
+      <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:label xml:lang="pt">SloppyGiuseppe</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#PrawnsTopping">
     <owl:disjointWith rdf:resource="#MixedSeafoodTopping"/>
@@ -1828,25 +1828,25 @@
   </owl:Class>
   <owl:Class rdf:about="#FruitTopping">
     <owl:disjointWith>
-      <owl:Class rdf:about="#SauceTopping"/>
+      <owl:Class rdf:about="#VegetableTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MeatTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FishTopping"/>
+      <owl:Class rdf:about="#CheeseTopping"/>
     </owl:disjointWith>
     <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith rdf:resource="#MeatTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaDeFrutas</rdfs:label>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#PizzaTopping"/>
     </rdfs:subClassOf>
     <owl:disjointWith>
+      <owl:Class rdf:about="#SauceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
       <owl:Class rdf:about="#HerbSpiceTopping"/>
     </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDeFrutas</rdfs:label>
     <owl:disjointWith>
-      <owl:Class rdf:about="#CheeseTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#VegetableTopping"/>
+      <owl:Class rdf:about="#FishTopping"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:ID="CheeseyPizza">
@@ -1889,88 +1889,25 @@
       <owl:Class rdf:about="#PepperTopping"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="#AsparagusTopping">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PepperTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaDeAspargos</rdfs:label>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#GarlicTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#TomatoTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Mild"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LeekTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SpinachTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PetitPoisTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#ArtichokeTopping"/>
-    </owl:disjointWith>
-  </owl:Class>
   <owl:Class rdf:about="#QuattroFormaggi">
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#Caprina"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#FourCheesesTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Giardiniera"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
     <owl:disjointWith rdf:resource="#Capricciosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -1983,19 +1920,46 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#AmericanHot"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#FourCheesesTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Giardiniera"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -2004,23 +1968,59 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:about="#AsparagusTopping">
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Mild"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#ArtichokeTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PepperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
+      <owl:Class rdf:about="#PetitPoisTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
+      <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#GarlicTopping"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDeAspargos</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LeekTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#TomatoTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SpinachTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CaperTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="VegetarianPizzaEquivalent2">
     <rdfs:comment xml:lang="en">An alternative to VegetarianPizzaEquiv1 that does not require a definition of VegetarianTopping. Perhaps more difficult to maintain. Not equivalent to VegetarianPizza </rdfs:comment>
@@ -2056,24 +2056,24 @@
   </owl:Class>
   <owl:Class rdf:about="#CheeseTopping">
     <owl:disjointWith>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MeatTopping"/>
-    <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#HerbSpiceTopping"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDeQueijo</rdfs:label>
-    <owl:disjointWith rdf:resource="#FruitTopping"/>
-    <owl:disjointWith>
       <owl:Class rdf:about="#SauceTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#FishTopping"/>
+      <owl:Class rdf:about="#HerbSpiceTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#NutTopping"/>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#PizzaTopping"/>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FishTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MeatTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaDeQueijo</rdfs:label>
+    <owl:disjointWith rdf:resource="#FruitTopping"/>
   </owl:Class>
   <owl:Class rdf:ID="VegetarianPizzaEquivalent1">
     <owl:equivalentClass>
@@ -2081,10 +2081,10 @@
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#Pizza"/>
           <owl:Restriction>
-            <owl:allValuesFrom rdf:resource="#VegetarianTopping"/>
             <owl:onProperty>
               <owl:ObjectProperty rdf:about="#hasTopping"/>
             </owl:onProperty>
+            <owl:allValuesFrom rdf:resource="#VegetarianTopping"/>
           </owl:Restriction>
         </owl:intersectionOf>
       </owl:Class>
@@ -2094,26 +2094,7 @@
   </owl:Class>
   <owl:Class rdf:about="#LeekTopping">
     <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#ArtichokeTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
       <owl:Class rdf:about="#PetitPoisTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SpinachTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PepperTopping"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -2125,17 +2106,36 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
     <rdfs:label xml:lang="pt">CoberturaDeLeek</rdfs:label>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#TomatoTopping"/>
+      <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#ArtichokeTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#GarlicTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SpinachTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PepperTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#TomatoTopping"/>
     </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:about="#PizzaBase">
@@ -2151,41 +2151,79 @@
   </owl:Class>
   <owl:Class rdf:about="#Giardiniera">
     <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#PeperonataTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#LeekTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <owl:disjointWith>
       <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#PeperonataTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#PetitPoisTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#TomatoTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#SlicedTomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#OliveTopping"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -2200,69 +2238,46 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#AmericanHot"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#FourSeasons"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#TomatoTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#SlicedTomatoTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#OliveTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
+      <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
     <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <rdfs:label xml:lang="pt">Giardiniera</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#LeekTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
+      <owl:Class rdf:about="#AmericanHot"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -2274,23 +2289,19 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">Giardiniera</rdfs:label>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#PetitPoisTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
   </owl:Class>
   <owl:Class rdf:about="#FishTopping">
+    <owl:disjointWith>
+      <owl:Class rdf:about="#HerbSpiceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#FruitTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SauceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#CheeseTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -2301,23 +2312,12 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#FruitTopping"/>
     <rdfs:label xml:lang="pt">CoberturaDePeixe</rdfs:label>
-    <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#HerbSpiceTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#CheeseTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SauceTopping"/>
-    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#MeatTopping"/>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#PizzaTopping"/>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#NutTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#JalapenoPepperTopping">
     <rdfs:subClassOf>
@@ -2325,12 +2325,12 @@
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Hot"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Hot"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#PeperonataTopping"/>
@@ -2346,10 +2346,10 @@
           <owl:Class>
             <owl:complementOf>
               <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="#MeatTopping"/>
                 <owl:onProperty>
                   <owl:ObjectProperty rdf:about="#hasTopping"/>
                 </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="#MeatTopping"/>
               </owl:Restriction>
             </owl:complementOf>
           </owl:Class>
@@ -2371,23 +2371,18 @@
     <owl:disjointWith rdf:resource="#NonVegetarianPizza"/>
   </owl:Class>
   <owl:Class rdf:about="#TomatoTopping">
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#VegetableTopping"/>
-    </rdfs:subClassOf>
+    <rdfs:label xml:lang="pt">CoberturaDeTomate</rdfs:label>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#ArtichokeTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PepperTopping"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDeTomate</rdfs:label>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith>
       <owl:Class rdf:about="#PetitPoisTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SpinachTopping"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -2400,19 +2395,24 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#OliveTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PepperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#SpinachTopping"/>
+      <owl:Class rdf:about="#ArtichokeTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VegetableTopping"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#TobascoPepperSauce">
     <rdfs:subClassOf>
@@ -2441,83 +2441,14 @@
     <rdfs:subClassOf rdf:resource="#Spiciness"/>
   </owl:Class>
   <owl:Class rdf:about="#AmericanHot">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <rdfs:label xml:lang="pt">AmericanaPicante</rdfs:label>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#HotGreenPepperTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#JalapenoPepperTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <rdfs:label xml:lang="pt">AmericanaPicante</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
+      <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#FourSeasons"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
@@ -2526,12 +2457,8 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Rosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -2543,50 +2470,123 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#JalapenoPepperTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#HotGreenPepperTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#FourSeasons"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
   </owl:Class>
   <owl:Class rdf:about="#ArtichokeTopping">
     <owl:disjointWith>
-      <owl:Class rdf:about="#PepperTopping"/>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#OliveTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#VegetableTopping"/>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <rdfs:label xml:lang="pt">CoberturaDeArtichoke</rdfs:label>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
+      <owl:Class rdf:about="#PepperTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Mild"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PetitPoisTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#SpinachTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PetitPoisTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Mild"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#FourCheesesTopping">
     <owl:disjointWith rdf:resource="#ParmesanTopping"/>
@@ -2600,12 +2600,12 @@
     <rdfs:label xml:lang="pt">CoberturaQuatroQueijos</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#Mild"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf rdf:resource="#CheeseTopping"/>
@@ -2615,12 +2615,12 @@
     <owl:disjointWith rdf:resource="#SlicedTomatoTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Mild"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Mild"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf rdf:resource="#TomatoTopping"/>
@@ -2644,82 +2644,51 @@
     <owl:disjointWith rdf:resource="#PizzaBase"/>
   </owl:Class>
   <owl:Class rdf:about="#FourSeasons">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Napoletana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#CaperTopping"/>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
         </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#AnchoviesTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#OliveTopping"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#AnchoviesTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
       <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
     <owl:disjointWith>
       <owl:Class rdf:about="#LaReine"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
     <owl:disjointWith rdf:resource="#Giardiniera"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
+      <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -2728,15 +2697,9 @@
         <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -2750,28 +2713,90 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
+      <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
+          <owl:Class rdf:about="#CaperTopping"/>
         </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Napoletana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
   </owl:Class>
   <owl:Class rdf:about="#Napoletana">
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#OliveTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -2785,33 +2810,29 @@
     <owl:disjointWith>
       <owl:Class rdf:about="#Soho"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
     <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:label xml:lang="pt">Napoletana</rdfs:label>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
     <owl:disjointWith rdf:resource="#Giardiniera"/>
     <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -2823,28 +2844,21 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#OliveTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#LaReine"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Caprina"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#LaReine"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Napoletana</rdfs:label>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -2856,24 +2870,10 @@
     <owl:disjointWith>
       <owl:Class rdf:about="#Siciliana"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
     <owl:disjointWith rdf:resource="#AmericanHot"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Rosa"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
+      <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
   </owl:Class>
   <owl:Class rdf:about="#HamTopping">
     <owl:disjointWith rdf:resource="#PeperoniSausageTopping"/>
@@ -2885,88 +2885,9 @@
     <rdfs:label xml:lang="pt">CoberturaDePresunto</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#LaReine">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#HamTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#OliveTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Caprina"/>
-    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#Napoletana"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">LaReine</rdfs:label>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -2985,151 +2906,9 @@
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="#VegetableTopping">
-    <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#HerbSpiceTopping"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDeVegetais</rdfs:label>
-    <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SauceTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MeatTopping"/>
-    <owl:disjointWith rdf:resource="#FruitTopping"/>
-    <owl:disjointWith rdf:resource="#FishTopping"/>
-    <owl:disjointWith rdf:resource="#CheeseTopping"/>
-  </owl:Class>
-  <owl:Class rdf:about="#Caprina">
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Siciliana"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">Caprina</rdfs:label>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#SundriedTomatoTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:allValuesFrom>
-          <owl:Class>
-            <owl:unionOf rdf:parseType="Collection">
-              <owl:Class rdf:about="#GoatsCheeseTopping"/>
-              <owl:Class rdf:about="#MozzarellaTopping"/>
-              <owl:Class rdf:about="#SundriedTomatoTopping"/>
-              <owl:Class rdf:about="#TomatoTopping"/>
-            </owl:unionOf>
-          </owl:Class>
-        </owl:allValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <owl:disjointWith rdf:resource="#AmericanHot"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#LaReine"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#GoatsCheeseTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="#PepperTopping">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#GarlicTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#SpinachTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#OliveTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#PetitPoisTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <rdfs:label xml:lang="pt">CoberturaDePimentao</rdfs:label>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-  </owl:Class>
-  <owl:Class rdf:about="#Siciliana">
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
+      <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -3141,6 +2920,38 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Caprina"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#HamTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">LaReine</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3151,20 +2962,220 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#AnchoviesTopping"/>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+  </owl:Class>
+  <owl:Class rdf:about="#VegetableTopping">
+    <owl:disjointWith rdf:resource="#FishTopping"/>
+    <owl:disjointWith rdf:resource="#MeatTopping"/>
+    <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SauceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#HerbSpiceTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#NutTopping"/>
+    <owl:disjointWith rdf:resource="#FruitTopping"/>
+    <owl:disjointWith rdf:resource="#CheeseTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaDeVegetais</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#Caprina">
+    <rdfs:label xml:lang="pt">Caprina</rdfs:label>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith rdf:resource="#LaReine"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Siciliana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#SundriedTomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom>
+          <owl:Class>
+            <owl:unionOf rdf:parseType="Collection">
+              <owl:Class rdf:about="#GoatsCheeseTopping"/>
+              <owl:Class rdf:about="#MozzarellaTopping"/>
+              <owl:Class rdf:about="#SundriedTomatoTopping"/>
+              <owl:Class rdf:about="#TomatoTopping"/>
+            </owl:unionOf>
+          </owl:Class>
+        </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#GoatsCheeseTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PepperTopping">
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CaperTopping"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDePimentao</rdfs:label>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#GarlicTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#OliveTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SpinachTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#PetitPoisTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Siciliana">
+    <owl:disjointWith rdf:resource="#Caprina"/>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#HamTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Soho"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">Siciliana</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#AnchoviesTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Rosa"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
@@ -3178,7 +3189,7 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="#ArtichokeTopping"/>
@@ -3187,12 +3198,25 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Margherita"/>
+    </owl:disjointWith>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#OliveTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#LaReine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -3206,35 +3230,11 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Soho"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#LaReine"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#HamTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Caprina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <rdfs:label xml:lang="pt">Siciliana</rdfs:label>
   </owl:Class>
   <owl:Class rdf:ID="InterestingPizza">
     <owl:equivalentClass>
@@ -3255,90 +3255,40 @@
     <rdfs:label xml:lang="pt">PizzaInteressante</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#Soho">
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:allValuesFrom>
-          <owl:Class>
-            <owl:unionOf rdf:parseType="Collection">
-              <owl:Class rdf:about="#GarlicTopping"/>
-              <owl:Class rdf:about="#MozzarellaTopping"/>
-              <owl:Class rdf:about="#OliveTopping"/>
-              <owl:Class rdf:about="#ParmesanTopping"/>
-              <owl:Class rdf:about="#RocketTopping"/>
-              <owl:Class rdf:about="#TomatoTopping"/>
-            </owl:unionOf>
-          </owl:Class>
-        </owl:allValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Caprina"/>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Siciliana"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Margherita"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#LaReine"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#ParmesanTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#RocketTopping"/>
+          <owl:Class rdf:about="#GarlicTopping"/>
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <rdfs:label xml:lang="pt">Soho</rdfs:label>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#Veneziana"/>
+      <owl:Class rdf:about="#Margherita"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#Caprina"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#MozzarellaTopping"/>
-        </owl:someValuesFrom>
+        <owl:someValuesFrom rdf:resource="#ParmesanTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom>
@@ -3351,17 +3301,67 @@
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:someValuesFrom>
-          <owl:Class rdf:about="#GarlicTopping"/>
+          <owl:Class rdf:about="#MozzarellaTopping"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#RocketTopping"/>
         </owl:someValuesFrom>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Veneziana"/>
+    </owl:disjointWith>
     <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:label xml:lang="pt">Soho</rdfs:label>
     <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:allValuesFrom>
+          <owl:Class>
+            <owl:unionOf rdf:parseType="Collection">
+              <owl:Class rdf:about="#GarlicTopping"/>
+              <owl:Class rdf:about="#MozzarellaTopping"/>
+              <owl:Class rdf:about="#OliveTopping"/>
+              <owl:Class rdf:about="#ParmesanTopping"/>
+              <owl:Class rdf:about="#RocketTopping"/>
+              <owl:Class rdf:about="#TomatoTopping"/>
+            </owl:unionOf>
+          </owl:Class>
+        </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith rdf:resource="#LaReine"/>
+    <owl:disjointWith rdf:resource="#Cajun"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#Siciliana"/>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
   </owl:Class>
   <owl:Class rdf:about="#Mild">
     <owl:disjointWith rdf:resource="#Hot"/>
@@ -3370,6 +3370,23 @@
     </owl:disjointWith>
     <rdfs:subClassOf rdf:resource="#Spiciness"/>
     <rdfs:label xml:lang="pt">NaoPicante</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SpicyPizza">
+    <rdfs:label xml:lang="pt">PizzaTemperada</rdfs:label>
+    <rdfs:comment xml:lang="en">Any pizza that has a spicy topping is a SpicyPizza</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Pizza"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#hasTopping"/>
+            </owl:onProperty>
+            <owl:someValuesFrom rdf:resource="#SpicyTopping"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
   </owl:Class>
   <owl:Class rdf:ID="RealItalianPizza">
     <rdfs:subClassOf>
@@ -3384,10 +3401,10 @@
       <owl:Class>
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Restriction>
-            <owl:hasValue rdf:resource="#Italy"/>
             <owl:onProperty>
               <owl:ObjectProperty rdf:ID="hasCountryOfOrigin"/>
             </owl:onProperty>
+            <owl:hasValue rdf:resource="#Italy"/>
           </owl:Restriction>
           <owl:Class rdf:about="#Pizza"/>
         </owl:intersectionOf>
@@ -3396,38 +3413,21 @@
     <rdfs:comment xml:lang="en">This defined class has conditions that are part of the definition: ie any Pizza that has the country of origin, Italy is a RealItalianPizza. It also has conditions that merely describe the members - that all RealItalianPizzas must only have ThinAndCrispy bases.</rdfs:comment>
     <rdfs:label xml:lang="pt">PizzaItalianaReal</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:ID="SpicyPizza">
-    <rdfs:label xml:lang="pt">PizzaTemperada</rdfs:label>
-    <rdfs:comment xml:lang="en">Any pizza that has a spicy topping is a SpicyPizza</rdfs:comment>
-    <owl:equivalentClass>
-      <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="#Pizza"/>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="#SpicyTopping"/>
-            <owl:onProperty>
-              <owl:ObjectProperty rdf:about="#hasTopping"/>
-            </owl:onProperty>
-          </owl:Restriction>
-        </owl:intersectionOf>
-      </owl:Class>
-    </owl:equivalentClass>
-  </owl:Class>
   <owl:Class rdf:about="#MozzarellaTopping">
     <rdfs:label xml:lang="pt">CoberturaDeMozzarella</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#Mild"/>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf rdf:resource="#CheeseTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:hasValue rdf:resource="#Italy"/>
         <owl:onProperty rdf:resource="#hasCountryOfOrigin"/>
+        <owl:hasValue rdf:resource="#Italy"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#GoatsCheeseTopping"/>
@@ -3457,12 +3457,12 @@
     <rdfs:subClassOf rdf:resource="#FruitTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Medium"/>
-        </owl:someValuesFrom>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Medium"/>
+        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -3487,50 +3487,50 @@
   </owl:Class>
   <owl:Class rdf:about="#HerbSpiceTopping">
     <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
-    <owl:disjointWith rdf:resource="#FishTopping"/>
     <rdfs:label xml:lang="pt">CoberturaDeErvas</rdfs:label>
-    <owl:disjointWith rdf:resource="#CheeseTopping"/>
-    <owl:disjointWith rdf:resource="#VegetableTopping"/>
-    <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith rdf:resource="#MeatTopping"/>
+    <owl:disjointWith rdf:resource="#FishTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#SauceTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MeatTopping"/>
     <owl:disjointWith rdf:resource="#FruitTopping"/>
+    <owl:disjointWith rdf:resource="#CheeseTopping"/>
+    <owl:disjointWith rdf:resource="#NutTopping"/>
+    <owl:disjointWith rdf:resource="#VegetableTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#PetitPoisTopping">
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaPetitPois</rdfs:label>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PepperTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#SpinachTopping"/>
     </owl:disjointWith>
     <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
+      <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#Mild"/>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaPetitPois</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
     <owl:disjointWith>
-      <owl:Class rdf:about="#GarlicTopping"/>
+      <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#GorgonzolaTopping">
     <owl:disjointWith rdf:resource="#MozzarellaTopping"/>
@@ -3549,19 +3549,28 @@
     <rdfs:label xml:lang="pt">CoberturaDeGorgonzola</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#SpinachTopping">
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#GarlicTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaDeEspinafre</rdfs:label>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#PepperTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3570,58 +3579,49 @@
         <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaDeEspinafre</rdfs:label>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#GarlicTopping">
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="#Medium"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
     <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
     <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
     <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Medium"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#LeekTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#CaperTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith rdf:resource="#SpinachTopping"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#OliveTopping"/>
     </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
     <rdfs:label xml:lang="pt">CoberturaDeAlho</rdfs:label>
+    <owl:disjointWith rdf:resource="#SpinachTopping"/>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#SauceTopping">
     <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
+    <owl:disjointWith rdf:resource="#VegetableTopping"/>
     <owl:disjointWith rdf:resource="#CheeseTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaEmMolho</rdfs:label>
     <owl:disjointWith rdf:resource="#MeatTopping"/>
     <owl:disjointWith rdf:resource="#NutTopping"/>
-    <owl:disjointWith rdf:resource="#FruitTopping"/>
     <owl:disjointWith rdf:resource="#HerbSpiceTopping"/>
     <owl:disjointWith rdf:resource="#FishTopping"/>
-    <owl:disjointWith rdf:resource="#VegetableTopping"/>
+    <owl:disjointWith rdf:resource="#FruitTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaEmMolho</rdfs:label>
   </owl:Class>
   <owl:Class rdf:ID="MeatyPizza">
     <owl:equivalentClass>
@@ -3641,25 +3641,37 @@
     <rdfs:comment xml:lang="en">Any pizza that has at least one meat topping</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="#Margherita">
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">Margherita</rdfs:label>
+    <owl:disjointWith rdf:resource="#Soho"/>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Veneziana"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
     <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -3668,95 +3680,64 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith rdf:resource="#Soho"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <rdfs:label xml:lang="pt">Margherita</rdfs:label>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#Caprina"/>
+    <owl:disjointWith rdf:resource="#LaReine"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#Mushroom"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#LaReine"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#Siciliana"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
     <owl:disjointWith>
       <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#Siciliana"/>
     <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#Caprina"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
   </owl:Class>
   <owl:Class rdf:about="#Veneziana">
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
     <rdfs:label xml:lang="pt">Veneziana</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#SultanaTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="#CaperTopping"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#PineKernels"/>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Soho"/>
     <owl:disjointWith rdf:resource="#LaReine"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith>
       <owl:Class rdf:about="#American"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3767,23 +3748,52 @@
         </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
-    <owl:disjointWith rdf:resource="#Margherita"/>
-    <owl:disjointWith rdf:resource="#Siciliana"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#Mushroom"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Caprina"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PineKernels"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Caprina"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Mushroom"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#Siciliana"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#Margherita"/>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#SultanaTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
         <owl:allValuesFrom>
           <owl:Class>
             <owl:unionOf rdf:parseType="Collection">
@@ -3797,39 +3807,13 @@
             </owl:unionOf>
           </owl:Class>
         </owl:allValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#OnionTopping"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="#hasTopping"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#Soho"/>
   </owl:Class>
   <owl:Class rdf:about="#OliveTopping">
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#RocketTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaDeAzeitona</rdfs:label>
-    <owl:disjointWith rdf:resource="#GarlicTopping"/>
-    <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <owl:disjointWith rdf:resource="#SpinachTopping"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#CaperTopping"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#PepperTopping"/>
-    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3838,55 +3822,38 @@
         <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <owl:disjointWith rdf:resource="#GarlicTopping"/>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <owl:disjointWith rdf:resource="#SpinachTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RocketTopping"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
     <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#CaperTopping"/>
+    </owl:disjointWith>
+    <rdfs:label xml:lang="pt">CoberturaDeAzeitona</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
   </owl:Class>
   <owl:Class rdf:ID="ParmaHamTopping">
     <rdfs:subClassOf rdf:resource="#HamTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#Mild"/>
         <owl:onProperty>
           <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
         </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="pt">CoberturaDePrezuntoParma</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#Mushroom">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Veneziana"/>
-    <rdfs:label xml:lang="pt">Cogumelo</rdfs:label>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
-    <owl:disjointWith rdf:resource="#Caprina"/>
-    <owl:disjointWith>
-      <owl:Class rdf:about="#American"/>
-    </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#Soho"/>
-    <owl:disjointWith rdf:resource="#Siciliana"/>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
@@ -3895,7 +3862,6 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#AmericanHot"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:allValuesFrom>
@@ -3912,14 +3878,48 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith rdf:resource="#Veneziana"/>
+    <rdfs:label xml:lang="pt">Cogumelo</rdfs:label>
+    <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#American"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#LaReine"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <owl:disjointWith rdf:resource="#Margherita"/>
+    <owl:disjointWith rdf:resource="#Siciliana"/>
     <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith rdf:resource="#Caprina"/>
+    <owl:disjointWith rdf:resource="#Soho"/>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
+    <owl:disjointWith rdf:resource="#Margherita"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <owl:disjointWith rdf:resource="#LaReine"/>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#MushroomTopping"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Parmense"/>
   </owl:Class>
   <owl:Class rdf:ID="SpicyPizzaEquivalent">
     <owl:equivalentClass>
@@ -3927,22 +3927,22 @@
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#Pizza"/>
           <owl:Restriction>
-            <owl:onProperty>
-              <owl:ObjectProperty rdf:about="#hasTopping"/>
-            </owl:onProperty>
             <owl:someValuesFrom>
               <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
                   <owl:Class rdf:about="#PizzaTopping"/>
                   <owl:Restriction>
-                    <owl:someValuesFrom rdf:resource="#Hot"/>
                     <owl:onProperty>
                       <owl:FunctionalProperty rdf:about="#hasSpiciness"/>
                     </owl:onProperty>
+                    <owl:someValuesFrom rdf:resource="#Hot"/>
                   </owl:Restriction>
                 </owl:intersectionOf>
               </owl:Class>
             </owl:someValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#hasTopping"/>
+            </owl:onProperty>
           </owl:Restriction>
         </owl:intersectionOf>
       </owl:Class>
@@ -3951,9 +3951,44 @@
     <rdfs:label xml:lang="pt">PizzaTemperadaEquivalente</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="#American">
-    <owl:disjointWith rdf:resource="#Caprina"/>
+    <owl:disjointWith rdf:resource="#Capricciosa"/>
+    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
+    <owl:disjointWith rdf:resource="#Fiorentina"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#Mushroom"/>
+    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
+    <rdfs:label xml:lang="pt">Americana</rdfs:label>
+    <owl:disjointWith rdf:resource="#Giardiniera"/>
     <owl:disjointWith rdf:resource="#LaReine"/>
+    <owl:disjointWith rdf:resource="#FourSeasons"/>
+    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
+    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
+    <owl:disjointWith rdf:resource="#Siciliana"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasTopping"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <owl:disjointWith rdf:resource="#AmericanHot"/>
+    <owl:disjointWith rdf:resource="#Caprina"/>
+    <owl:disjointWith rdf:resource="#Parmense"/>
+    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#Soho"/>
+    <owl:disjointWith rdf:resource="#Napoletana"/>
+    <owl:disjointWith rdf:resource="#Margherita"/>
+    <owl:disjointWith rdf:resource="#Rosa"/>
+    <owl:disjointWith rdf:resource="#Cajun"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3970,25 +4005,7 @@
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Siciliana"/>
-    <owl:disjointWith rdf:resource="#Capricciosa"/>
-    <owl:disjointWith rdf:resource="#FourSeasons"/>
-    <rdfs:subClassOf rdf:resource="#NamedPizza"/>
-    <owl:disjointWith rdf:resource="#Giardiniera"/>
-    <owl:disjointWith rdf:resource="#Soho"/>
-    <rdfs:label xml:lang="pt">Americana</rdfs:label>
-    <owl:disjointWith rdf:resource="#Rosa"/>
-    <owl:disjointWith rdf:resource="#QuattroFormaggi"/>
-    <owl:disjointWith rdf:resource="#Parmense"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="#PeperoniSausageTopping"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#UnclosedPizza"/>
+    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -3997,28 +4014,9 @@
         <owl:someValuesFrom rdf:resource="#TomatoTopping"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Fiorentina"/>
-    <owl:disjointWith rdf:resource="#SloppyGiuseppe"/>
-    <owl:disjointWith rdf:resource="#PolloAdAstra"/>
     <owl:disjointWith rdf:resource="#Veneziana"/>
-    <owl:disjointWith rdf:resource="#FruttiDiMare"/>
-    <owl:disjointWith rdf:resource="#Cajun"/>
-    <owl:disjointWith rdf:resource="#PrinceCarlo"/>
-    <owl:disjointWith rdf:resource="#Mushroom"/>
-    <owl:disjointWith rdf:resource="#Margherita"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="#MozzarellaTopping"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="#hasTopping"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="#Napoletana"/>
   </owl:Class>
   <owl:Class rdf:about="#CaperTopping">
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#PepperTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
@@ -4027,20 +4025,22 @@
         <owl:someValuesFrom rdf:resource="#Mild"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">CoberturaDeCaper</rdfs:label>
     <owl:disjointWith>
       <owl:Class rdf:about="#RocketTopping"/>
     </owl:disjointWith>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
-    <owl:disjointWith rdf:resource="#OliveTopping"/>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
-    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
-    <owl:disjointWith rdf:resource="#SpinachTopping"/>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith rdf:resource="#OnionTopping"/>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith rdf:resource="#OliveTopping"/>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaDeCaper</rdfs:label>
+    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith rdf:resource="#GarlicTopping"/>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
+    <owl:disjointWith rdf:resource="#SpinachTopping"/>
+    <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
   </owl:Class>
   <owl:Class rdf:about="#IceCream">
     <rdfs:subClassOf rdf:resource="#DomainConcept"/>
@@ -4065,14 +4065,8 @@
     <rdfs:subClassOf rdf:resource="#Spiciness"/>
   </owl:Class>
   <owl:Class rdf:about="#RocketTopping">
-    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
     <owl:disjointWith rdf:resource="#CaperTopping"/>
-    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
-    <owl:disjointWith rdf:resource="#OliveTopping"/>
-    <owl:disjointWith rdf:resource="#TomatoTopping"/>
-    <owl:disjointWith rdf:resource="#GarlicTopping"/>
-    <rdfs:label xml:lang="pt">CoberturaRocket</rdfs:label>
-    <owl:disjointWith rdf:resource="#MushroomTopping"/>
+    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="#Medium"/>
@@ -4081,12 +4075,18 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#OliveTopping"/>
     <owl:disjointWith rdf:resource="#SpinachTopping"/>
     <owl:disjointWith rdf:resource="#OnionTopping"/>
-    <owl:disjointWith rdf:resource="#AsparagusTopping"/>
     <rdfs:subClassOf rdf:resource="#VegetableTopping"/>
-    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <owl:disjointWith rdf:resource="#MushroomTopping"/>
     <owl:disjointWith rdf:resource="#PepperTopping"/>
+    <owl:disjointWith rdf:resource="#PetitPoisTopping"/>
+    <owl:disjointWith rdf:resource="#TomatoTopping"/>
+    <owl:disjointWith rdf:resource="#GarlicTopping"/>
+    <owl:disjointWith rdf:resource="#ArtichokeTopping"/>
+    <owl:disjointWith rdf:resource="#LeekTopping"/>
+    <rdfs:label xml:lang="pt">CoberturaRocket</rdfs:label>
   </owl:Class>
   <owl:ObjectProperty rdf:ID="isToppingOf">
     <owl:inverseOf>
@@ -4152,4 +4152,4 @@
   </owl:AllDifferent>
 </rdf:RDF>
 
-<!-- Created with Protege (with OWL Plugin 3.4, Build 139)  http://protege.stanford.edu -->
+<!-- Created with Protege (with OWL Plugin 3.4, Build 509)  http://protege.stanford.edu -->

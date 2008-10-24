@@ -1,7 +1,7 @@
-; Thu Aug 16 12:51:17 PDT 2007
+; Thu Oct 23 21:55:48 GMT-08:00 2008
 ; 
-;+ (version "3.3")
-;+ (build "Build 420")
+;+ (version "3.4")
+;+ (build "Build 509")
 
 ([CLASS_WIDGET] of  Widget
 
@@ -55,241 +55,485 @@
 	(x 0)
 	(y 0))
 
-([collaborative_newspaper_ProjectKB_Instance_0] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [collaborative_newspaper_ProjectKB_Instance_1])
-	(widget_class_name "edu.stanford.smi.protege.ui.internalKB.InternalKBTab"))
-
-([collaborative_newspaper_ProjectKB_Instance_1] of  Property_List
-)
-
-([collaborativeNewspaper_ProjectKB_Instance_38] of  String
-
-	(name ":STANDARD-SLOT")
-	(string_value "%3ANAME"))
-
-([collaborativeNewspaper_ProjectKB_Instance_39] of  String
-
-	(name "Prototype_Newspaper")
-	(string_value "weekday"))
-
-([collaborativeNewspaper_ProjectKB_Instance_40] of  String
-
-	(name "Rectangle")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_41] of  String
-
-	(name "Advertisement")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_42] of  String
-
-	(name "Library")
-	(string_value "organization"))
-
-([collaborativeNewspaper_ProjectKB_Instance_43] of  String
-
-	(name "Person")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_44] of  String
-
-	(name "Newspaper")
-	(string_value "date"))
-
-([collaborativeNewspaper_ProjectKB_Instance_45] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([collaborativeNewspaper_ProjectKB_Instance_46] of  String
-
-	(name "Columnist")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_47] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([collaborativeNewspaper_ProjectKB_Instance_48] of  String
+([collaborativeNewspaper_ProjectKB_Class10081] of  String
 
 	(name "Manager Supervision Relation")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Instance_49] of  String
+([collaborativeNewspaper_ProjectKB_Class10082] of  String
 
-	(name "Editor")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_50] of  String
-
-	(name ":STANDARD-CLASS")
+	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([collaborativeNewspaper_ProjectKB_Instance_51] of  String
-
-	(name "Section")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_52] of  String
-
-	(name "Article")
-	(string_value "headline"))
-
-([collaborativeNewspaper_ProjectKB_Instance_53] of  String
-
-	(name "Billing_Chart")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_54] of  String
-
-	(name "Reporter")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Instance_55] of  String
+([collaborativeNewspaper_ProjectKB_Class10083] of  String
 
 	(name "Organization")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Instance_56] of  Map
+([collaborativeNewspaper_ProjectKB_Class10084] of  String
+
+	(name "Prototype_Newspaper")
+	(string_value "weekday"))
+
+([collaborativeNewspaper_ProjectKB_Class10085] of  String
+
+	(name "Advertisement")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10086] of  String
+
+	(name ":STANDARD-SLOT")
+	(string_value "%3ANAME"))
+
+([collaborativeNewspaper_ProjectKB_Class10087] of  String
+
+	(name "Rectangle")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10088] of  String
+
+	(name "Billing_Chart")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10089] of  String
+
+	(name ":STANDARD-CLASS")
+	(string_value "%3ANAME"))
+
+([collaborativeNewspaper_ProjectKB_Class10090] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([collaborativeNewspaper_ProjectKB_Class10091] of  String
+
+	(name "Article")
+	(string_value "headline"))
+
+([collaborativeNewspaper_ProjectKB_Class10092] of  String
+
+	(name "Columnist")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10093] of  String
+
+	(name "Person")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10094] of  String
+
+	(name "Section")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10095] of  String
+
+	(name "Editor")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10096] of  String
+
+	(name "Newspaper")
+	(string_value "date"))
+
+([collaborativeNewspaper_ProjectKB_Class10097] of  String
+
+	(name "Reporter")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10098] of  String
+
+	(name "Library")
+	(string_value "organization"))
+
+([collaborativeNewspaper_ProjectKB_Class10099] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10100] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10101] of  Map
 
 	(entries
-		[collaborativeNewspaper_ProjectKB_Instance_57]
-		[collaborativeNewspaper_ProjectKB_Instance_58]
-		[collaborativeNewspaper_ProjectKB_Instance_59]
-		[collaborativeNewspaper_ProjectKB_Instance_60]
-		[collaborativeNewspaper_ProjectKB_Instance_61]
-		[collaborativeNewspaper_ProjectKB_Instance_62]
-		[collaborativeNewspaper_ProjectKB_Instance_63]
-		[collaborativeNewspaper_ProjectKB_Instance_64]
-		[collaborativeNewspaper_ProjectKB_Instance_65]
-		[collaborativeNewspaper_ProjectKB_Instance_66]
-		[collaborativeNewspaper_ProjectKB_Instance_67]
-		[collaborativeNewspaper_ProjectKB_Instance_68]
-		[collaborativeNewspaper_ProjectKB_Instance_69]
-		[collaborativeNewspaper_ProjectKB_Instance_70]))
+		[collaborativeNewspaper_ProjectKB_Class10102]
+		[collaborativeNewspaper_ProjectKB_Class10103]
+		[collaborativeNewspaper_ProjectKB_Class10104]
+		[collaborativeNewspaper_ProjectKB_Class10105]
+		[collaborativeNewspaper_ProjectKB_Class10106]
+		[collaborativeNewspaper_ProjectKB_Class10107]
+		[collaborativeNewspaper_ProjectKB_Class10108]
+		[collaborativeNewspaper_ProjectKB_Class10109]
+		[collaborativeNewspaper_ProjectKB_Class10110]
+		[collaborativeNewspaper_ProjectKB_Class10111]
+		[collaborativeNewspaper_ProjectKB_Class10112]
+		[collaborativeNewspaper_ProjectKB_Class10113]
+		[collaborativeNewspaper_ProjectKB_Class10114]
+		[collaborativeNewspaper_ProjectKB_Class10115]))
 
-([collaborativeNewspaper_ProjectKB_Instance_57] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10102] of  Map_Entry
 
 	(key "instance_00067")
 	(key_class "java.lang.String")
 	(value "220 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_58] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10103] of  Map_Entry
 
 	(key "newspaper_00021")
 	(key_class "java.lang.String")
 	(value "520 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_59] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10104] of  Map_Entry
 
 	(key "newspaper_00010")
 	(key_class "java.lang.String")
 	(value "220 70 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_60] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10105] of  Map_Entry
 
 	(key "instance_00068")
 	(key_class "java.lang.String")
 	(value "370 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_61] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10106] of  Map_Entry
 
 	(key "instance_00045")
 	(key_class "java.lang.String")
 	(value "70 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_62] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10107] of  Map_Entry
 
 	(key "instance_00039")
 	(key_class "java.lang.String")
 	(value "170 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_63] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10108] of  Map_Entry
 
 	(key "newspaper_00013")
 	(key_class "java.lang.String")
 	(value "370 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_64] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10109] of  Map_Entry
 
 	(key "newspaper_00012")
 	(key_class "java.lang.String")
 	(value "220 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_65] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10110] of  Map_Entry
 
 	(key "instance_00093")
 	(key_class "java.lang.String")
 	(value "320 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_66] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10111] of  Map_Entry
 
 	(key "instance_00055")
 	(key_class "java.lang.String")
 	(value "220 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_67] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10112] of  Map_Entry
 
 	(key "newspaper_00011")
 	(key_class "java.lang.String")
 	(value "70 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_68] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10113] of  Map_Entry
 
 	(key "newspaper_00020")
 	(key_class "java.lang.String")
 	(value "370 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_69] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10114] of  Map_Entry
 
 	(key "instance_00051")
 	(key_class "java.lang.String")
 	(value "70 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_70] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10115] of  Map_Entry
 
 	(key "instance_00043")
 	(key_class "java.lang.String")
 	(value "470 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Instance_71] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10116] of  Map_Entry
 
 	(key "InstanceGraphWidget.instance_00064.employees")
 	(key_class "java.lang.String")
-	(value "collaborativeNewspaper_ProjectKB_Instance_56")
+	(value "collaborativeNewspaper_ProjectKB_Class10101")
 	(value_class "java.util.Map"))
 
-([collaborativeNewspaper_ProjectKB_Instance_72] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10117] of  Map_Entry
+
+	(key "chaoProject")
+	(key_class "java.lang.String")
+	(value "annotation_collaborativeNewspaper.pprj")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10118] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativeNewspaper_ProjectKB_Instance_73] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10119] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10144] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([collaborativeNewspaper_ProjectKB_Class10145] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([collaborativeNewspaper_ProjectKB_Class10146] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([collaborativeNewspaper_ProjectKB_Class10147] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([collaborativeNewspaper_ProjectKB_Class10148] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([collaborativeNewspaper_ProjectKB_Class22] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class23])
+	(widget_class_name "TGViztab.TGVizTab"))
+
+([collaborativeNewspaper_ProjectKB_Class23] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class24] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class25])
+	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
+
+([collaborativeNewspaper_ProjectKB_Class25] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class26] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class27])
+	(widget_class_name "script.ProtegeScriptTab"))
+
+([collaborativeNewspaper_ProjectKB_Class27] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class28] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class29])
+	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
+
+([collaborativeNewspaper_ProjectKB_Class29] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class30] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class31])
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
+
+([collaborativeNewspaper_ProjectKB_Class31] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class32] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class33])
+	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
+
+([collaborativeNewspaper_ProjectKB_Class33] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class34] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class35])
+	(widget_class_name "ezpal.EZPalTab"))
+
+([collaborativeNewspaper_ProjectKB_Class35] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class36] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class37])
+	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
+
+([collaborativeNewspaper_ProjectKB_Class37] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class38] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class39])
+	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
+
+([collaborativeNewspaper_ProjectKB_Class39] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class40] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class41])
+	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
+
+([collaborativeNewspaper_ProjectKB_Class41] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class42] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class43])
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
+
+([collaborativeNewspaper_ProjectKB_Class43] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class44] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class45])
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
+
+([collaborativeNewspaper_ProjectKB_Class45] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class46] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class47])
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
+
+([collaborativeNewspaper_ProjectKB_Class47] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class48] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class49])
+	(widget_class_name "se.liu.ida.JessTab.JessTab"))
+
+([collaborativeNewspaper_ProjectKB_Class49] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class50] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class51])
+	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
+
+([collaborativeNewspaper_ProjectKB_Class51] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class52] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class53])
+	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
+
+([collaborativeNewspaper_ProjectKB_Class53] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class54] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class55])
+	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
+
+([collaborativeNewspaper_ProjectKB_Class55] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class56] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class57])
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
+
+([collaborativeNewspaper_ProjectKB_Class57] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class58] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class59])
+	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
+
+([collaborativeNewspaper_ProjectKB_Class59] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class60] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class61])
+	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
+
+([collaborativeNewspaper_ProjectKB_Class61] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class62] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class63])
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
+
+([collaborativeNewspaper_ProjectKB_Class63] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class64] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class65])
+	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
+
+([collaborativeNewspaper_ProjectKB_Class65] of  Property_List
+)
+
+([collaborativeNewspaper_ProjectKB_Class66] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [collaborativeNewspaper_ProjectKB_Class67])
+	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
+
+([collaborativeNewspaper_ProjectKB_Class67] of  Property_List
+)
 
 ([FACTORY_CLASS_NAME] of  String
 
@@ -732,27 +976,30 @@
 	(x 0)
 	(y 120))
 
+([KB_946430_Class21] of  Map
+)
+
 ([KB_INSTANCE_00001] of  Property_List
 
 	(properties
-		[collaborativeNewspaper_ProjectKB_Instance_38]
-		[collaborativeNewspaper_ProjectKB_Instance_39]
-		[collaborativeNewspaper_ProjectKB_Instance_40]
-		[collaborativeNewspaper_ProjectKB_Instance_41]
-		[collaborativeNewspaper_ProjectKB_Instance_42]
-		[collaborativeNewspaper_ProjectKB_Instance_43]
-		[collaborativeNewspaper_ProjectKB_Instance_44]
-		[collaborativeNewspaper_ProjectKB_Instance_45]
-		[collaborativeNewspaper_ProjectKB_Instance_46]
-		[collaborativeNewspaper_ProjectKB_Instance_47]
-		[collaborativeNewspaper_ProjectKB_Instance_48]
-		[collaborativeNewspaper_ProjectKB_Instance_49]
-		[collaborativeNewspaper_ProjectKB_Instance_50]
-		[collaborativeNewspaper_ProjectKB_Instance_51]
-		[collaborativeNewspaper_ProjectKB_Instance_52]
-		[collaborativeNewspaper_ProjectKB_Instance_53]
-		[collaborativeNewspaper_ProjectKB_Instance_54]
-		[collaborativeNewspaper_ProjectKB_Instance_55]))
+		[collaborativeNewspaper_ProjectKB_Class10081]
+		[collaborativeNewspaper_ProjectKB_Class10082]
+		[collaborativeNewspaper_ProjectKB_Class10083]
+		[collaborativeNewspaper_ProjectKB_Class10084]
+		[collaborativeNewspaper_ProjectKB_Class10085]
+		[collaborativeNewspaper_ProjectKB_Class10086]
+		[collaborativeNewspaper_ProjectKB_Class10087]
+		[collaborativeNewspaper_ProjectKB_Class10088]
+		[collaborativeNewspaper_ProjectKB_Class10089]
+		[collaborativeNewspaper_ProjectKB_Class10090]
+		[collaborativeNewspaper_ProjectKB_Class10091]
+		[collaborativeNewspaper_ProjectKB_Class10092]
+		[collaborativeNewspaper_ProjectKB_Class10093]
+		[collaborativeNewspaper_ProjectKB_Class10094]
+		[collaborativeNewspaper_ProjectKB_Class10095]
+		[collaborativeNewspaper_ProjectKB_Class10096]
+		[collaborativeNewspaper_ProjectKB_Class10097]
+		[collaborativeNewspaper_ProjectKB_Class10098]))
 
 ([KB_INSTANCE_00002] of  String
 
@@ -905,10 +1152,6 @@
 ([newspaper_ProjectKB_00219] of  Property_List
 )
 
-([newspaper_ProjectKB_00260] of  Property_List
-
-	(properties [newspaper_ProjectKB_00478]))
-
 ([newspaper_ProjectKB_00428] of  Widget
 
 	(height 60)
@@ -1038,7 +1281,8 @@
 		[newspaper_ProjectKB_00454]
 		[newspaper_ProjectKB_00455]
 		[newspaper_ProjectKB_00456]
-		[newspaper_ProjectKB_00457]))
+		[newspaper_ProjectKB_00457]
+		[collaborativeNewspaper_ProjectKB_Class10144]))
 
 ([newspaper_ProjectKB_00452] of  Boolean
 
@@ -1089,7 +1333,8 @@
 		[newspaper_ProjectKB_00462]
 		[newspaper_ProjectKB_00463]
 		[newspaper_ProjectKB_00464]
-		[newspaper_ProjectKB_00465]))
+		[newspaper_ProjectKB_00465]
+		[collaborativeNewspaper_ProjectKB_Class10145]))
 
 ([newspaper_ProjectKB_00460] of  Boolean
 
@@ -1140,7 +1385,8 @@
 		[newspaper_ProjectKB_00470]
 		[newspaper_ProjectKB_00471]
 		[newspaper_ProjectKB_00472]
-		[newspaper_ProjectKB_00474]))
+		[newspaper_ProjectKB_00474]
+		[collaborativeNewspaper_ProjectKB_Class10146]))
 
 ([newspaper_ProjectKB_00468] of  Boolean
 
@@ -1172,11 +1418,6 @@
 	(boolean_value FALSE)
 	(name "ButtonDisplayed-Delete Instance"))
 
-([newspaper_ProjectKB_00478] of  String
-
-	(name "SearchTab_Query")
-	(string_value "Query Name: People with salary greater than 100,000\nMatch All:true\nLength: 1\n 	salary	is greater than	Other:100000	1	\n\nQuery Name: Articles whose authors are highly paid\nMatch All:true\nLength: 1\nArticle	author	contains	Query:People with salary greater than 100,000|People with salary greater than 100,000	1	\n\nQuery Name: Articles whose authors are highly paid and articles are urgent with less than 50 pages\nMatch All:true\nLength: 3\nArticle	page_number	is less than	Other:50	1	\nArticle	urgent	is	Other:true	1	\nArticle	author	contains	Query:People with salary greater than 100,000|People with salary greater than 100,000	1	\n\n"))
-
 ([newspaper_ProjectKB_00575] of  Widget
 
 	(height 60)
@@ -1196,7 +1437,8 @@
 		[newspaper_ProjectKB_00779]
 		[newspaper_ProjectKB_00879]
 		[newspaper_ProjectKB_00880]
-		[newspaper_ProjectKB_00881]))
+		[newspaper_ProjectKB_00881]
+		[collaborativeNewspaper_ProjectKB_Class10147]))
 
 ([newspaper_ProjectKB_00676] of  Boolean
 
@@ -1437,7 +1679,8 @@
 		[newspaper_ProjectKB_00886]
 		[newspaper_ProjectKB_00887]
 		[newspaper_ProjectKB_00888]
-		[newspaper_ProjectKB_00889]))
+		[newspaper_ProjectKB_00889]
+		[collaborativeNewspaper_ProjectKB_Class10148]))
 
 ([newspaper_ProjectKB_00884] of  Boolean
 
@@ -1566,10 +1809,13 @@
 ([newspaper_ProjectKB_01008] of  Map
 
 	(entries
-		[collaborativeNewspaper_ProjectKB_Instance_71]
-		[collaborativeNewspaper_ProjectKB_Instance_72]
-		[collaborativeNewspaper_ProjectKB_Instance_73])
-	(referenced_maps [collaborativeNewspaper_ProjectKB_Instance_56]))
+		[collaborativeNewspaper_ProjectKB_Class10099]
+		[collaborativeNewspaper_ProjectKB_Class10100]
+		[collaborativeNewspaper_ProjectKB_Class10116]
+		[collaborativeNewspaper_ProjectKB_Class10117]
+		[collaborativeNewspaper_ProjectKB_Class10118]
+		[collaborativeNewspaper_ProjectKB_Class10119])
+	(referenced_maps [collaborativeNewspaper_ProjectKB_Class10101]))
 
 ([newspaper_ProjectKB_01072] of  Boolean
 
@@ -2380,9 +2626,6 @@
 	(x 0)
 	(y 0))
 
-([newspaper_ProjectKB_Instance_100] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_10045] of  Property_List
 
 	(properties
@@ -2488,24 +2731,6 @@
 	(boolean_value FALSE)
 	(name "ButtonDisplayed-Delete Instance"))
 
-([newspaper_ProjectKB_Instance_101] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_102])
-	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
-
-([newspaper_ProjectKB_Instance_102] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_103] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_104])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
-
-([newspaper_ProjectKB_Instance_104] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_105] of  Widget
 
 	(is_hidden TRUE)
@@ -2515,69 +2740,6 @@
 ([newspaper_ProjectKB_Instance_106] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_107] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_108])
-	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
-
-([newspaper_ProjectKB_Instance_108] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_109] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_110])
-	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
-
-([newspaper_ProjectKB_Instance_110] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_43] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_44])
-	(widget_class_name "TGViztab.TGVizTab"))
-
-([newspaper_ProjectKB_Instance_44] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_45] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_46])
-	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
-
-([newspaper_ProjectKB_Instance_46] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_47] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_48])
-	(widget_class_name "script.ProtegeScriptTab"))
-
-([newspaper_ProjectKB_Instance_48] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_49] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_50])
-	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
-
-([newspaper_ProjectKB_Instance_50] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_51] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_52])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
-
-([newspaper_ProjectKB_Instance_52] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_53] of  Widget
 
 	(is_hidden TRUE)
@@ -2585,15 +2747,6 @@
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.metadatatab.OWLMetadataTab"))
 
 ([newspaper_ProjectKB_Instance_54] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_55] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_56])
-	(widget_class_name "edu.stanford.smi.protegex.psm.PSMTab"))
-
-([newspaper_ProjectKB_Instance_56] of  Property_List
 )
 
 ([newspaper_ProjectKB_Instance_57] of  Widget
@@ -2614,15 +2767,6 @@
 ([newspaper_ProjectKB_Instance_60] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_61] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_62])
-	(widget_class_name "ezpal.EZPalTab"))
-
-([newspaper_ProjectKB_Instance_62] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_63] of  Widget
 
 	(is_hidden TRUE)
@@ -2632,15 +2776,6 @@
 ([newspaper_ProjectKB_Instance_64] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_65] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_66])
-	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
-
-([newspaper_ProjectKB_Instance_66] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_67] of  Widget
 
 	(is_hidden TRUE)
@@ -2648,24 +2783,6 @@
 	(widget_class_name "edu.stanford.smi.protegex.changes.changesKBViewTab.ChangesKBViewTab"))
 
 ([newspaper_ProjectKB_Instance_68] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_69] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_70])
-	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
-
-([newspaper_ProjectKB_Instance_70] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_71] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_72])
-	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
-
-([newspaper_ProjectKB_Instance_72] of  Property_List
 )
 
 ([newspaper_ProjectKB_Instance_73] of  Widget
@@ -2686,33 +2803,6 @@
 ([newspaper_ProjectKB_Instance_76] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_77] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_78])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
-
-([newspaper_ProjectKB_Instance_78] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_79] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_80])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
-
-([newspaper_ProjectKB_Instance_80] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_81] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_82])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
-
-([newspaper_ProjectKB_Instance_82] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_83] of  Widget
 
 	(is_hidden TRUE)
@@ -2720,33 +2810,6 @@
 	(widget_class_name "edu.stanford.smi.protegex.changes.stats.ChangeStatisticsTab"))
 
 ([newspaper_ProjectKB_Instance_84] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_85] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_86])
-	(widget_class_name "se.liu.ida.JessTab.JessTab"))
-
-([newspaper_ProjectKB_Instance_86] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_87] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_88])
-	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
-
-([newspaper_ProjectKB_Instance_88] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_89] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_90])
-	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
-
-([newspaper_ProjectKB_Instance_90] of  Property_List
 )
 
 ([newspaper_ProjectKB_Instance_91] of  Widget
@@ -2758,15 +2821,6 @@
 ([newspaper_ProjectKB_Instance_92] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_93] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_94])
-	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
-
-([newspaper_ProjectKB_Instance_94] of  Property_List
-)
-
 ([newspaper_ProjectKB_Instance_95] of  Widget
 
 	(is_hidden TRUE)
@@ -2776,37 +2830,22 @@
 ([newspaper_ProjectKB_Instance_96] of  Property_List
 )
 
-([newspaper_ProjectKB_Instance_97] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_98])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
-
-([newspaper_ProjectKB_Instance_98] of  Property_List
-)
-
-([newspaper_ProjectKB_Instance_99] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [newspaper_ProjectKB_Instance_100])
-	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
-
 ([PROJECT] of  Project
 
 	(browser_slot_names [KB_INSTANCE_00001])
 	(customized_instance_widgets
+		[newspaper_ProjectKB_00928]
+		[newspaper_ProjectKB_01487]
+		[newspaper_ProjectKB_00678]
 		[newspaper_ProjectKB_INSTANCE_00242]
 		[SLOT_WIDGET]
 		[CLASS_WIDGET]
-		[KB_INSTANCE_00027]
 		[newspaper_ProjectKB_00444]
-		[newspaper_ProjectKB_00928]
-		[newspaper_ProjectKB_00678]
-		[newspaper_ProjectKB_00933]
-		[KB_INSTANCE_00119]
 		[newspaper_ProjectKB_00939]
-		[KB_INSTANCE_00049]
-		[newspaper_ProjectKB_01487])
+		[KB_INSTANCE_00119]
+		[newspaper_ProjectKB_00933]
+		[KB_INSTANCE_00027]
+		[KB_INSTANCE_00049])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
@@ -2821,50 +2860,42 @@
 		[SLOTS_TAB]
 		[FORMS_TAB]
 		[INSTANCES_TAB]
-		[QUERIES_TAB]
-		[newspaper_ProjectKB_Instance_57]
-		[newspaper_ProjectKB_Instance_99]
 		[newspaper_ProjectKB_Instance_67]
+		[collaborativeNewspaper_ProjectKB_Class58]
+		[newspaper_ProjectKB_Instance_57]
 		[newspaper_ProjectKB_Instance_83]
 		[newspaper_ProjectKB_00955]
-		[newspaper_ProjectKB_Instance_89]
-		[newspaper_ProjectKB_Instance_93]
-		[newspaper_ProjectKB_Instance_65]
-		[newspaper_ProjectKB_Instance_81]
-		[newspaper_ProjectKB_Instance_87]
-		[newspaper_ProjectKB_Instance_85]
+		[collaborativeNewspaper_ProjectKB_Class52]
+		[collaborativeNewspaper_ProjectKB_Class54]
+		[collaborativeNewspaper_ProjectKB_Class36]
+		[collaborativeNewspaper_ProjectKB_Class46]
+		[collaborativeNewspaper_ProjectKB_Class50]
+		[collaborativeNewspaper_ProjectKB_Class48]
 		[newspaper_ProjectKB_00949]
-		[newspaper_ProjectKB_Instance_79]
-		[newspaper_ProjectKB_Instance_45]
-		[newspaper_ProjectKB_Instance_107]
+		[collaborativeNewspaper_ProjectKB_Class44]
+		[collaborativeNewspaper_ProjectKB_Class24]
+		[collaborativeNewspaper_ProjectKB_Class64]
 		[newspaper_ProjectKB_Instance_59]
-		[newspaper_ProjectKB_Instance_77]
-		[newspaper_ProjectKB_Instance_71]
+		[collaborativeNewspaper_ProjectKB_Class42]
+		[collaborativeNewspaper_ProjectKB_Class40]
 		[newspaper_ProjectKB_Instance_75]
-		[newspaper_ProjectKB_Instance_47]
-		[newspaper_ProjectKB_Instance_55]
-		[newspaper_ProjectKB_Instance_49]
-		[newspaper_ProjectKB_Instance_43]
-		[newspaper_ProjectKB_Instance_103]
+		[collaborativeNewspaper_ProjectKB_Class26]
+		[collaborativeNewspaper_ProjectKB_Class32]
+		[collaborativeNewspaper_ProjectKB_Class28]
+		[collaborativeNewspaper_ProjectKB_Class22]
+		[collaborativeNewspaper_ProjectKB_Class62]
 		[newspaper_ProjectKB_Instance_105]
-		[newspaper_ProjectKB_Instance_69]
-		[newspaper_ProjectKB_Instance_101]
-		[newspaper_ProjectKB_Instance_61]
+		[collaborativeNewspaper_ProjectKB_Class38]
+		[collaborativeNewspaper_ProjectKB_Class60]
+		[collaborativeNewspaper_ProjectKB_Class34]
 		[newspaper_ProjectKB_Instance_95]
 		[newspaper_ProjectKB_Instance_91]
 		[newspaper_ProjectKB_Instance_53]
 		[newspaper_ProjectKB_Instance_73]
-		[newspaper_ProjectKB_Instance_109]
-		[newspaper_ProjectKB_Instance_97]
+		[collaborativeNewspaper_ProjectKB_Class66]
+		[collaborativeNewspaper_ProjectKB_Class56]
 		[newspaper_ProjectKB_Instance_63]
-		[newspaper_ProjectKB_Instance_51]))
-
-([QUERIES_TAB] of  Widget
-
-	(is_hidden FALSE)
-	(label "Queries")
-	(property_list [newspaper_ProjectKB_00260])
-	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
+		[collaborativeNewspaper_ProjectKB_Class30]))
 
 ([REFERENCERS_WIDGET] of  Widget
 
