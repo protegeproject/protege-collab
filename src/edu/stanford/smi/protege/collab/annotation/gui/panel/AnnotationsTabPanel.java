@@ -84,6 +84,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	private AllowableAction replyAction;
 
 	private AnnotationsComboBoxUtil annotComboBoxUtil;
+	private FilterTypeComboBoxUtil filterTypeComboBoxUtil;
 
 	private Instance currentInstance = null;
 	private KnowledgeBase kb;
@@ -118,7 +119,8 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 		//ratingComboBox = new JComboBox(new String[]{"Rate this ..." , "*****", "****", "***", "**", "*"});
 
-		filterComboBox = new JComboBox(FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil(ChAOKbManager.getChAOKb(kb)).getTypeFilterComboboxItems());
+		filterTypeComboBoxUtil = new FilterTypeComboBoxUtil(ChAOKbManager.getChAOKb(kb));
+		filterComboBox = new JComboBox(filterTypeComboBoxUtil.getTypeFilterComboboxItems());
 		//TT: handle this more elegantly
 		filterComboBox.setSelectedIndex(1);
 
@@ -212,7 +214,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 			if (treeFilter == null) {
 				int selectedIndex = filterComboBox.getSelectedIndex();
-				treeFilter = FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil(ChAOKbManager.getChAOKb(kb)).getTreeFilter(selectedIndex);
+				treeFilter = filterTypeComboBoxUtil.getTreeFilter(selectedIndex);
 			}
 
 			if (treeFilter != null) {
@@ -222,7 +224,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 			//move this to some utility
 			if (treeFilter instanceof SlotValueFilter) {
 				int selectedIndex = filterComboBox.getSelectedIndex();
-				Slot filterSlot = FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil(ChAOKbManager.getChAOKb(kb)).getAssociatedChangeSlot(selectedIndex);
+				Slot filterSlot = filterTypeComboBoxUtil.getAssociatedChangeSlot(selectedIndex);
 
 				((SlotValueFilter)treeFilter).setSlot(filterSlot);
 			}
@@ -242,7 +244,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		int selectedIndex = filterComboBox.getSelectedIndex();
 		treeFilter = null;
 		//reimplement this!
-		TreeFilter filter = FilterTypeComboBoxUtil.getFilterTypeComboBoxUtil(ChAOKbManager.getChAOKb(kb)).getTreeFilter(selectedIndex);
+		TreeFilter filter = filterTypeComboBoxUtil.getTreeFilter(selectedIndex);
 
 		if (filterValueComponentComponent != null) {
 			JComponent parent = (JComponent) filterValueComponentComponent.getParent();
@@ -501,6 +503,11 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 	public Icon getIcon() {
 		return null;
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
 	}
 
 }
