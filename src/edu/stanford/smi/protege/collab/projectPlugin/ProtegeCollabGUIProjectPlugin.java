@@ -25,6 +25,7 @@ import edu.stanford.smi.protege.ui.ProjectMenuBar;
 import edu.stanford.smi.protege.ui.ProjectToolBar;
 import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.ComponentFactory;
+import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.ProjectViewEvent;
 import edu.stanford.smi.protege.util.ProjectViewListener;
@@ -77,15 +78,12 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 	private void attachProjectViewListener(ProjectView view) {
 		projectViewListener = new ProjectViewListener() {
-
 			public void closed(ProjectViewEvent event) {
 				//System.out.println("Project view closed " + event);
 			}
-
 			public void saved(ProjectViewEvent event) {
 				//System.out.println("Project view saved " + event);
 			}
-
 			public void tabAdded(ProjectViewEvent event) {
 				//System.out.println("Tab added " + event);
 				UIUtil.adjustTreeFrameRenderer((TabWidget)event.getWidget());
@@ -161,6 +159,13 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		//remove menu
 		JMenuBar mainMenuBar = ProjectManager.getProjectManager().getCurrentProjectMenuBar();
 		mainMenuBar.remove(collabMenu);
+
+		//remove the annotations components
+
+		if (annotationsDisplayComponent != null) {
+			ComponentUtilities.dispose(annotationsDisplayComponent);
+			annotationsDisplayComponent = null;
+		}
 	}
 
 
@@ -169,11 +174,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		if (p == null) {
 			return;
 		}
-		if (p.isMultiUserClient() && isChangesOntologyPresent(p.getKnowledgeBase())) {
-			if (annotationsDisplayComponent != null) {
-				annotationsDisplayComponent.dispose();
-			}
-		}
+
 	}
 
 }
