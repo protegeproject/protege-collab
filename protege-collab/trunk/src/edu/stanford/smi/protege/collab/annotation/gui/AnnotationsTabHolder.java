@@ -196,6 +196,7 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	@Override
 	public void dispose() {
 		disposeTabs();
+		tabs.clear();
 		super.dispose();
 	}
 
