@@ -14,15 +14,15 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 
 public class FilterTypeComboBoxUtil {
-	private static FilterTypeComboBoxUtil filterTypeComboBoxUtil;
+	private FilterTypeComboBoxUtil filterTypeComboBoxUtil;
 
-	private static HashMap<Integer, Slot> indexToChangesSlotMap = new HashMap<Integer, Slot>();
-	private static HashMap<Integer, String> indexToDescriptionMap = new HashMap<Integer, String>();
-	private static HashMap<Integer, Class> indexToFilterClassMap = new HashMap<Integer, Class>();
+	private HashMap<Integer, Slot> indexToChangesSlotMap = new HashMap<Integer, Slot>();
+	private HashMap<Integer, String> indexToDescriptionMap = new HashMap<Integer, String>();
+	private HashMap<Integer, Class> indexToFilterClassMap = new HashMap<Integer, Class>();
 
 	private KnowledgeBase changeKb;
 
-	private FilterTypeComboBoxUtil(KnowledgeBase changeKb) {
+	public FilterTypeComboBoxUtil(KnowledgeBase changeKb) {
 		this.changeKb = changeKb;
 		initializeAllFilterTypes();
 	}
@@ -50,17 +50,6 @@ public class FilterTypeComboBoxUtil {
 		indexToDescriptionMap.put(new Integer(4), "By date...");
 		indexToFilterClassMap.put(new Integer(4), DateFilter.class);
 	}
-
-
-	//TODO: change this
-	public static FilterTypeComboBoxUtil getFilterTypeComboBoxUtil(KnowledgeBase changesKb){
-		if (filterTypeComboBoxUtil == null) {
-			filterTypeComboBoxUtil = new FilterTypeComboBoxUtil(changesKb);
-		}
-
-		return filterTypeComboBoxUtil;
-	}
-
 
 	public String[] getTypeFilterComboboxItems() {
 		Collection<String> items = new ArrayList<String>();
