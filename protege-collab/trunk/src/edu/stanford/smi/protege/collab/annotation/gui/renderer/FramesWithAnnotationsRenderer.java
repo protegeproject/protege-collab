@@ -9,9 +9,9 @@ import javax.swing.JTree;
 
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
-import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.ui.FrameRenderer;
+import edu.stanford.smi.protege.util.FrameWithBrowserText;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -32,11 +32,22 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
 		
 		String mainText = encapsulatedFrameRenderer.getMainText();
 		Icon mainIcon = encapsulatedFrameRenderer.getMainIcon();
-						
-		setMainText(mainText);
-		setMainIcon(mainIcon);
 		
-		if (!(value instanceof Frame)) {
+		if (value instanceof FrameWithBrowserText) {
+			FrameWithBrowserText fbt = (FrameWithBrowserText) value;
+			Frame frameValue = fbt.getFrame();
+			setMainText(fbt.getBrowserText());
+			if (frameValue != null) {
+				setMainIcon(frameValue.getIcon());
+			}
+			value = frameValue;
+		} else {
+			setMainText(mainText);
+			setMainIcon(mainIcon);
+		}	
+		
+		
+		if (value == null || !(value instanceof Frame)) {
 			return;
 		}
 		
