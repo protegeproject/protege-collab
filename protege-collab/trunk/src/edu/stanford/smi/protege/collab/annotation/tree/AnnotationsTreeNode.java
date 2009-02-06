@@ -2,15 +2,13 @@ package edu.stanford.smi.protege.collab.annotation.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
-import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
-import edu.stanford.bmir.protegex.chao.util.AnnotationCreationComparator;
-import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
-import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.collab.util.AnnotatableThingComparator;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 
 /**
@@ -36,26 +34,20 @@ public class AnnotationsTreeNode extends LazyTreeNode {
 
 	@Override
 	protected int getChildObjectCount() {
-		//reimplement!!
+		//TODO: reimplement!!
 		return getChildObjects().size();
 	}
 
 
 	@Override
 	protected Collection<AnnotatableThing> getChildObjects() {
-		KnowledgeBase kb = ((AbstractWrappedInstance)getAnnotatableThing()).getKnowledgeBase();
-		Collection<AnnotatableThing> allChildren = new ArrayList<AnnotatableThing>();
+		List<AnnotatableThing> allChildren = new ArrayList<AnnotatableThing>();
 		AnnotatableThing annotThing = getAnnotatableThing();
-		if (annotThing != null && annotThing instanceof AnnotatableThing) {
-			Collection<Annotation> assocAnnots = annotThing.getAssociatedAnnotations();
-			//hack because factory does  not return the most specific objects - will fix later
-			for (Annotation ann : assocAnnots) {
-				allChildren.add(OntologyJavaMappingUtil.getSpecificObject(kb,
-						((AbstractWrappedInstance)ann).getWrappedProtegeInstance(),
-						Annotation.class));
-			}
-		}
-		return filter(allChildren);
+		allChildren.addAll(annotThing.getAssociatedAnnotations());
+		//TODO: make more efficient
+		allChildren = new ArrayList<AnnotatableThing>(filter(allChildren));
+		Collections.sort(allChildren, new AnnotatableThingComparator());
+		return allChildren;
 	}
 
 
@@ -72,7 +64,7 @@ public class AnnotationsTreeNode extends LazyTreeNode {
 
 	@Override
 	protected Comparator getComparator() {
-		return new AnnotationCreationComparator();
+		return new AnnotatableThingComparator();
 	}
 
 	public TreeFilter<AnnotatableThing> getFilter() {
