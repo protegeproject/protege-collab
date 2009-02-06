@@ -15,7 +15,9 @@ import edu.stanford.smi.protegex.chatPlugin.ChatIcons;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class ChatPanel extends AnnotationsTabPanel {
+public class ChatPanel extends AnnotationsTabPanel {	
+	private static final long serialVersionUID = -8861252243145443447L;
+	
 	private ChatComponent chatComponent;
 
 	public ChatPanel(KnowledgeBase kb) {
