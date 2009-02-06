@@ -14,8 +14,8 @@ import edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel;
-import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
-import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.EntityAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel;
 import edu.stanford.smi.protege.collab.util.CollabTabsConfiguration;
 import edu.stanford.smi.protege.model.Instance;
@@ -44,11 +44,13 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	public AnnotationsTabHolder(KnowledgeBase kb) {
 		this.kb = kb;
 
+		/*
 		//disabling by default the AllCollabTab
 		if (kb.getProject().getClientInformation(AllAnnotationsPanel.class.getName()) == null) {
 			CollabTabsConfiguration.setTabEnabled(kb.getProject(), AllAnnotationsPanel.class, false);
 		}
-
+		 */
+		
 		//disabling the chat tab is not multi user client
 		if (!kb.getProject().isMultiUserClient()) {
 			CollabTabsConfiguration.setTabEnabled(kb.getProject(), ChatPanel.class, false);
@@ -100,10 +102,10 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	protected Collection<AnnotationsTabPanel> createTabs() {
 		tabs = new ArrayList<AnnotationsTabPanel>();
 
-		addTab(new OntologyComponentAnnotationsPanel(kb));
-		addTab(new ChangesAnnotationsPanel(kb));
+		addTab(new EntityAnnotationsPanel(kb));
+		addTab(new OntologyAnnotationsPanel(kb));		
 		addTab(new AllAnnotationsPanel(kb));
-		addTab(new DiscussionThreadPanel(kb));
+		addTab(new ChangesAnnotationsPanel(kb));		
 		addTab(new SearchPanel(kb));
 
 		//special treatment for chat because it initializes chat project on server - will be changed when the plugin infrastructure is avaialbe
