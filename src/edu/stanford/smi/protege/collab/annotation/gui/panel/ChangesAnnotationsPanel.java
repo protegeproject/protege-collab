@@ -23,7 +23,8 @@ import edu.stanford.smi.protege.util.LazyTreeNode;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
+public class ChangesAnnotationsPanel extends AnnotationsTabPanel {	
+	private static final long serialVersionUID = -6242832743918390294L;
 
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
 		super(kb, "Changes");
