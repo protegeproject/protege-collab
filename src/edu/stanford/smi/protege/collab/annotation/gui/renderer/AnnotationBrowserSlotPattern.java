@@ -35,7 +35,7 @@ public class AnnotationBrowserSlotPattern extends BrowserSlotPattern {
 	public String getBrowserText(Instance instance) {
 		if (!showAuthorDate || instance == null) { return super.getBrowserText(instance); }
 
-		Annotation annot = new AnnotationFactory(chaoKb).getAnnotation(instance.getName());
+		Annotation annot = AnnotationFactory.getGenericAnnotation(instance);
 		if (annot == null) { return super.getBrowserText(instance); }
 
 		String dateStr = "";
