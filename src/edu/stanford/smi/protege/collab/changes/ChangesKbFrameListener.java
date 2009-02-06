@@ -12,7 +12,6 @@ import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
 import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
-import edu.stanford.smi.protege.collab.util.ThreeValueCache;
 import edu.stanford.smi.protege.event.FrameAdapter;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Frame;
@@ -21,6 +20,13 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 
 public class ChangesKbFrameListener extends FrameAdapter {
+	
+	private KnowledgeBase domainKb;
+	
+	public ChangesKbFrameListener(KnowledgeBase domainKb) {
+		this.domainKb = domainKb;
+	}
+	
 
 	@Override
 	public void ownSlotValueChanged(FrameEvent event) {
@@ -37,7 +43,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
 
 	private void treatOntologyComponent(Ontology_Component ontComp, Slot slot) {
 		AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
-		if (slot.equals(factory.getCurrentNameSlot()) || slot.equals(factory.getAssociatedAnnotationsSlot())) {
+		if (slot.equals(factory.getCurrentNameSlot())) {
 			updateCaches(ontComp, slot.getKnowledgeBase());
 		}
 	}
@@ -51,11 +57,10 @@ public class ChangesKbFrameListener extends FrameAdapter {
 
 
 	private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
-		Collection annotatesColl = annotation.getAnnotates();
-		ThreeValueCache cache = HasAnnotationCache.getCache(changesKb);
+		Collection<AnnotatableThing> annotatesColl = annotation.getAnnotates();
 
-		for (Iterator iter = annotatesColl.iterator(); iter.hasNext();) {
-			AnnotatableThing annotThing = (AnnotatableThing) iter.next();
+		for (Iterator<AnnotatableThing> iter = annotatesColl.iterator(); iter.hasNext();) {
+			AnnotatableThing annotThing = iter.next();
 
 			String key = null;
 			if (annotThing.canAs(Ontology_Component.class)) {
@@ -69,8 +74,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
 				}
 			}
 			if (key != null) {
-				//cache.removeCacheValue(key);
-				cache.putCacheValue(key, Boolean.TRUE);
+				HasAnnotationCache.put(domainKb.getFrame(key), true);
 			}
 		}
 	}
@@ -83,11 +87,9 @@ public class ChangesKbFrameListener extends FrameAdapter {
 			return;
 		}
 
-		ThreeValueCache<String> cache =  OntologyComponentCache.getCache(changesKb);
-		cache.putCacheValue(currentName, ontoComp);
-
-		ThreeValueCache<String> annotationCache = HasAnnotationCache.getCache(changesKb);
-		annotationCache.removeCacheValue(currentName);
+		Frame domainFrame = domainKb.getFrame(currentName);
+		OntologyComponentCache.put(domainFrame, ontoComp);
+		HasAnnotationCache.put(domainFrame, false);		
 	}
 
 }
