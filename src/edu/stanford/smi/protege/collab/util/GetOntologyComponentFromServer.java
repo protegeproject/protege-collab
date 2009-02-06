@@ -10,6 +10,8 @@ import edu.stanford.smi.protege.util.ProtegeJob;
 import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
 public class GetOntologyComponentFromServer extends ProtegeJob {
+	private static final long serialVersionUID = -3635898210009873778L;
+	
 	private Frame frame;
 	private boolean createOntologyComponent;
 
