@@ -37,6 +37,7 @@ import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.SelectableContainer;
 
 public class SearchPanel extends AnnotationsTabPanel {
+	private static final long serialVersionUID = -8346737815779380929L;
 
 	private AllowableAction viewAnnotatedEntityAction;
 
