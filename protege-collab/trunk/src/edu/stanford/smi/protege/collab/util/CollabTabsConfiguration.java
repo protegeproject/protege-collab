@@ -6,14 +6,14 @@ import java.util.List;
 
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel;
-import edu.stanford.smi.protege.collab.annotation.gui.panel.DiscussionThreadPanel;
-import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyComponentAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.EntityAnnotationsPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyAnnotationsPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.plugin.PluginUtilities;
 
 /**
- * Note: This is a temporary implementation until a plugin architecture for the c
+ * Note: This is a temporary implementation until a plugin architecture for the
  * collaborative tabs is implemented.
  *
  * @author ttania
@@ -29,10 +29,10 @@ public class CollabTabsConfiguration {
 
 
 	private static void fillAllCollabTabs() {
-		allCollabTabs.add(OntologyComponentAnnotationsPanel.class);
+		allCollabTabs.add(EntityAnnotationsPanel.class);
 		allCollabTabs.add(ChangesAnnotationsPanel.class);
 		allCollabTabs.add(AllAnnotationsPanel.class);
-		allCollabTabs.add(DiscussionThreadPanel.class);
+		allCollabTabs.add(OntologyAnnotationsPanel.class);
 		allCollabTabs.add(SearchPanel.class);
 
 		//ChatTab might not be present
