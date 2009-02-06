@@ -22,7 +22,7 @@ public class TypeFilterComponent implements FilterValueComponent {
 		annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		typeComboBox = new JComboBox();
 		typeComboBox.addItem("Any type");
-		typeComboBox.setRenderer(new AnnotationsRenderer(changesKb));
+		typeComboBox.setRenderer(new AnnotationsRenderer(kb));
 
 		for (Cls annotCls : annotationsComboBoxUtil.getAllowableAnnotationTypes(null)) {
 			typeComboBox.addItem(annotCls);
