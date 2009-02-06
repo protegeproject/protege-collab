@@ -6,8 +6,7 @@ import java.util.Collection;
 import javax.swing.Icon;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
-import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
-import edu.stanford.bmir.protegex.chao.change.api.Change;
+import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
@@ -20,9 +19,10 @@ import edu.stanford.smi.protege.util.Log;
  *
  */
 public class AllAnnotationsPanel extends AnnotationsTabPanel {
+	private static final long serialVersionUID = -7940956103461357906L;
 
 	public AllAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "All (Ann. & Chg.)");
+		super(kb, "All annotations");
 	}
 
 
@@ -37,12 +37,9 @@ public class AllAnnotationsPanel extends AnnotationsTabPanel {
 
 		getLabeledComponent().setHeaderLabel("Annotations and Changes on " + getCurrentInstance().getBrowserText());
 
-		Collection<Change> changeAnnotationsRoots = ChAOUtil.getTopLevelChanges(getCurrentInstance());
-		Collection<Annotation> ontologyCompAnnotationsRoots = ChAOUtil.getTopLevelAnnotationInstances(getCurrentInstance());
-
 		Collection<AnnotatableThing> annotationsRoots = new ArrayList<AnnotatableThing>();
-		annotationsRoots.addAll(changeAnnotationsRoots);
-		annotationsRoots.addAll(ontologyCompAnnotationsRoots);
+		annotationsRoots.addAll(ChAOUtil.getTopLevelDiscussionThreads(getKnowledgeBase()));
+		annotationsRoots.addAll(ChAOUtil.getOntologyComponentsWithAnnotations(getKnowledgeBase()));
 
 		Collection filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 
@@ -65,8 +62,7 @@ public class AllAnnotationsPanel extends AnnotationsTabPanel {
 
 	@Override
 	public Icon getIcon() {
-		//return AnnotationsIcons.getOntologyAnnotationAndChangeIcon();
-		return null;
+		return AnnotationsIcons.getCommentIcon();
 	}
 
 
