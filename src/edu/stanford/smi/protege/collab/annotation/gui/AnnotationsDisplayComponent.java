@@ -46,8 +46,10 @@ import edu.stanford.smi.protege.widget.TabWidget;
  *
  */
 public class AnnotationsDisplayComponent extends SelectableContainer {
+	
+	private static final long serialVersionUID = -4241048417267452940L;
 
-	private KnowledgeBase kb;
+	private KnowledgeBase domainKb;
 
 	private Instance currentInstance;
 	private Selectable selectable;
@@ -61,9 +63,10 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	private ChangeListener protegeTabChangeListener;
 	private ChangeListener collabTabChangeListener;
 	private SelectionListener annotTreeSelectionListener;
-
+	
+	
 	public AnnotationsDisplayComponent(KnowledgeBase kb) {
-		this.kb = kb;
+		this.domainKb = kb;
 
 		annotationsTabHolder = createAnnotationsTabHolder();
 		annotationBodyTextComponent = createAnnotationBodyComponent();
@@ -84,6 +87,8 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		attachChangeKbListeners();
 
 		add(topBottomSplitPane);
+		
+		HasAnnotationCache.fillHasAnnotationCache(domainKb);
 	}
 
 	/*
@@ -91,9 +96,9 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	 */
 
 	protected void attachChangeKbListeners() {
-		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
+		KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
 
-		changesKbFrameListener = new ChangesKbFrameListener();
+		changesKbFrameListener = new ChangesKbFrameListener(domainKb);
 		changesKb.addFrameListener(changesKbFrameListener);
 	}
 
@@ -108,7 +113,6 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	protected SelectionListener getAnnotationTreeSelectionListener() {
 		if (annotTreeSelectionListener == null) {
 			annotTreeSelectionListener = new SelectionListener() {
-
 				public void selectionChanged(SelectionEvent event) {
 					AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelectedTab().getAnnotationsTree().getSelection());
 					if (thing == null) {
@@ -128,7 +132,6 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		if (protegeTabChangeListener != null) {
 			return protegeTabChangeListener;
 		}
-
 		protegeTabChangeListener = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				//System.out.println("Tab changed " + ((JTabbedPane)e.getSource()).getSelectedComponent()  + "\nselectable before = " + selectable);
@@ -156,23 +159,18 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	protected ChangeListener getCollabTabChangeListener() {
 		if (collabTabChangeListener == null) {
 			collabTabChangeListener = new ChangeListener() {
-
 				public void stateChanged(ChangeEvent arg0) {
 					AnnotationsTabPanel annotTabPanel = annotationsTabHolder.getSelectedTab();
 					//why??
-					if (annotTabPanel == null) {
-						return;
-					}
-
+					if (annotTabPanel == null) { return; }
 					annotTabPanel.setInstance(currentInstance);
 					setSelectable(annotTabPanel.getSelectable());
 					AnnotatableThing annot = (AnnotatableThing) CollectionUtilities.getFirstItem(annotTabPanel.getSelection());
-					Instance wrappedInst = new AnnotationFactory(ChAOUtil.getChangesKb(kb)).getWrappedProtegeInstance(annot);
+					Instance wrappedInst = new AnnotationFactory(ChAOUtil.getChangesKb(domainKb)).getWrappedProtegeInstance(annot);
 					((InstanceDisplay)annotationBodyTextComponent).setInstance(wrappedInst);
 				}
 			};
 		}
-
 		return collabTabChangeListener;
 	}
 
@@ -180,15 +178,12 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	protected SelectionListener getClsTreeSelectionListener() {
 		if (clsTreeSelectionListener == null) {
 			clsTreeSelectionListener = new SelectionListener() {
-
 				public void selectionChanged(SelectionEvent event) {
 					setInstances(event.getSelectable().getSelection());
 				}
-
 			};
 		}
 		return clsTreeSelectionListener;
-
 	}
 
 	protected ClassChangeListener getClassChangeListener() {
@@ -213,7 +208,6 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 			selectable.addSelectionListener(clsTreeSelectionListener);
 			setInstances(selectable.getSelection());
 		}
-
 		init();
 	}
 
@@ -223,19 +217,18 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	 */
 
 	protected AnnotationsTabHolder createAnnotationsTabHolder() {
-		annotationsTabHolder = new AnnotationsTabHolder(kb);
+		annotationsTabHolder = new AnnotationsTabHolder(domainKb);
 		return annotationsTabHolder;
 	}
 
 
 	protected JComponent createAnnotationBodyComponent() {
-		if (!ChAOUtil.isChangesOntologyPresent(kb)) {
+		if (!ChAOUtil.isChangesOntologyPresent(domainKb)) {
 			Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
 			annotationBodyTextComponent = new InstanceDisplay(ProjectManager.getProjectManager().getCurrentProject());
 		} else {
-			annotationBodyTextComponent = new InstanceDisplay(ChAOUtil.getChangesKb(kb).getProject(), false, false);
+			annotationBodyTextComponent = new InstanceDisplay(ChAOUtil.getChangesKb(domainKb).getProject(), false, false);
 		}
-
 		return annotationBodyTextComponent;
 	}
 
@@ -243,13 +236,10 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		if (currentInstance != null) {
 			currentInstance.removeFrameListener(classChangeListener);
 		}
-
 		currentInstance = instance;
-
 		if (currentInstance != null) {
 			currentInstance.addFrameListener(classChangeListener);
 		}
-
 		annotationsTabHolder.setInstance(currentInstance);
 	}
 
@@ -261,9 +251,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	//TODO: find a better solution for the initialization
 	public void init() {
 		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
-
 		protegeTabChangeListener = getProtegeTabChangeListener();
-
 		view.removeChangeListener(protegeTabChangeListener);
 		view.addChangeListener(protegeTabChangeListener);
 	}
@@ -288,9 +276,14 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	}
 
 	public KnowledgeBase getKnowledgeBase() {
-		return kb;
+		return domainKb;
 	}
 
+	
+	/*
+	 * ********** Dispose ***********
+	 */
+	
 	@Override
 	public void dispose() {
 		/*
@@ -350,7 +343,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		/*
 		 * ChAO Kb related listeners
 		 */
-		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
+		KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
 		if (changesKb == null) {
 			Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
 		} else {
@@ -360,8 +353,8 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 				Log.getLogger().warning("Error at disposing changes ontology kb listener");
 			}
 			//clear caches
-			OntologyComponentCache.getCache(changesKb).clearCache();
-			HasAnnotationCache.getCache(changesKb).clearCache();
+			OntologyComponentCache.clearCache();
+			HasAnnotationCache.clearCache();
 		}
 
 		super.dispose();
