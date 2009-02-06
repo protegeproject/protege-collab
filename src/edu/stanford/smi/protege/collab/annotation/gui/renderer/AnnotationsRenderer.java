@@ -1,5 +1,6 @@
 package edu.stanford.smi.protege.collab.annotation.gui.renderer;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.Advice;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
@@ -11,11 +12,16 @@ import edu.stanford.bmir.protegex.chao.annotation.api.Question;
 import edu.stanford.bmir.protegex.chao.annotation.api.SeeAlso;
 import edu.stanford.bmir.protegex.chao.annotation.api.Vote;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Class;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Individual;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Property;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.model.Cls;
+import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
 
 /**
@@ -24,11 +30,13 @@ import edu.stanford.smi.protege.ui.FrameRenderer;
  */
 public class AnnotationsRenderer extends FrameRenderer {
 
+	private KnowledgeBase kb;
 	private KnowledgeBase chaoKb;
 	private AnnotationFactory factory;
 
-	public AnnotationsRenderer(KnowledgeBase chaoKb) {
-		this.chaoKb = chaoKb;
+	public AnnotationsRenderer(KnowledgeBase kb) {
+		this.kb = kb;
+		this.chaoKb = ChAOKbManager.getChAOKb(kb);
 		this.factory = new AnnotationFactory(chaoKb);
 	}
 
@@ -43,8 +51,9 @@ public class AnnotationsRenderer extends FrameRenderer {
 
 		if (inst.canAs(Change.class)) {
 			setMainIcon(AnnotationsIcons.getChangeAnnotationIcon());
-		} else if (inst.canAs(Ontology_Component.class)) {
-			setMainIcon(AnnotationsIcons.getOntologyAnnotationIcon());
+		}else if (inst.canAs(Ontology_Component.class)) {
+			renderOntologyComponent(inst.as(Ontology_Component.class));
+			return;
 		}else if (inst.canAs(Vote.class)) {
 			setMainIcon(AnnotationsIcons.getIcon("v"));
 		}else if (inst.canAs(Proposal.class)) {
@@ -68,6 +77,31 @@ public class AnnotationsRenderer extends FrameRenderer {
 		setMainText(inst.getWrappedProtegeInstance().getBrowserText());
 	}
 
+	protected void renderOntologyComponent(Ontology_Component oComp) {
+		if (oComp.canAs(Ontology_Class.class)) {
+			setMainIcon(Icons.getClsIcon());
+		} else if (oComp.canAs(Ontology_Property.class)) {
+			setMainIcon(Icons.getSlotIcon());
+		} else if (oComp.canAs(Ontology_Individual.class)) {
+			setMainIcon(Icons.getInstanceIcon());
+		} else {
+			setMainIcon(AnnotationsIcons.getOntologyAnnotationIcon());	
+		}
+		
+		String name = oComp.getCurrentName();
+		if (name == null) {
+			setMainText(((AbstractWrappedInstance)oComp).getWrappedProtegeInstance().getBrowserText());
+		} else {
+			Frame frame = kb.getFrame(name);
+			if (name == null) {
+				setMainText(((AbstractWrappedInstance)oComp).getWrappedProtegeInstance().getBrowserText());
+			} else {
+				setMainText(frame.getBrowserText());
+			}
+		}				
+	}
+	
+	
 	@Override
 	protected void loadCls(Cls cls) {
 		if (cls.equals(factory.getExplanationClass())) {
