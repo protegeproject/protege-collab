@@ -82,13 +82,13 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 	private AllowableAction viewAction;
 	private AllowableAction createAction;
 	private AllowableAction replyAction;
+	private AllowableAction refreshAction;
 
 	private AnnotationsComboBoxUtil annotComboBoxUtil;
 	private FilterTypeComboBoxUtil filterTypeComboBoxUtil;
 
 	private Instance currentInstance = null;
 	private KnowledgeBase kb;
-
 
 	public AnnotationsTabPanel(KnowledgeBase kb) {
 		this(kb, "Annotation Tab");
@@ -110,11 +110,12 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 		getCreateAction().setAllowed(true);
 		labeledComponent.addHeaderButton(getViewAction());
-
+		labeledComponent.addHeaderButton(getRefreshAction());
+		
 		annotComboBoxUtil = new AnnotationsComboBoxUtil(ChAOKbManager.getChAOKb(kb));
 
 		annotationsComboBox = new JComboBox();
-		annotationsComboBox.setRenderer(new AnnotationsRenderer(ChAOKbManager.getChAOKb(kb)));
+		annotationsComboBox.setRenderer(new AnnotationsRenderer(kb));
 		updateAnnotationsComboBoxItems();
 
 		//ratingComboBox = new JComboBox(new String[]{"Rate this ..." , "*****", "****", "***", "**", "*"});
@@ -123,21 +124,10 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		filterComboBox = new JComboBox(filterTypeComboBoxUtil.getTypeFilterComboboxItems());
 		//TT: handle this more elegantly
 		filterComboBox.setSelectedIndex(1);
-
-		//TT change this!!!
+		
 		treeFilter = null;
 		filterValueComponent = new StringFilterComponent();
 		filterValueComponentComponent = filterValueComponent.getValueComponent();
-
-		/*
-		filterValueComponent.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					onFilterTree();
-				}
-			}
-		});
-		*/
 
 		JPanel smallerPanel = new JPanel(new BorderLayout());
 		JPanel filterComboPanel = new JPanel();
@@ -154,18 +144,15 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		smallerPanel.add(filterButton, BorderLayout.EAST);
 
 		filterComboBox.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				onFilterTypeChange();
 			}
 		});
 
 		filterButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {
 				onFilterTree();
 			}
-
 		});
 
 		annotationsComboBox.addActionListener(new ActionListener(){
@@ -173,14 +160,6 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 				onAnnotationTypeChange();
 			}
 		});
-
-		/*
-		ratingComboBox.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				onAnnotationRatingChange();
-			}
-		});
-		*/
 
 		JPanel annotationsTypeHeaderPanel = new JPanel(new BorderLayout());
 		annotationsTypeHeaderPanel.add(annotationsComboBox, BorderLayout.EAST);
@@ -195,7 +174,12 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 				onAnnotationTreeSelectionChange();
 			}
 		});
-
+		
+		/*
+		KnowledgeBase changesKB = ChAOKbManager.getChAOKb(kb);
+		changesKB.addKnowledgeBaseListener(annotationCreationListener);
+		 */
+		
 		toolbar = new JToolBar(JToolBar.HORIZONTAL);
 		toolbar.add(smallerPanel);
 
@@ -318,7 +302,7 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		annotationsTree.setSelectionRow(0);
 		annotationsTree.setAutoscrolls(true);
 		annotationsTree.setShowsRootHandles(true);
-		annotationsTree.setCellRenderer(new AnnotationsRenderer(ChAOKbManager.getChAOKb(kb)));
+		annotationsTree.setCellRenderer(new AnnotationsRenderer(kb));
 		return annotationsTree;
 	}
 
@@ -327,13 +311,11 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		if (replyAction != null) {
 			return replyAction;
 		}
-
 		replyAction = new AllowableAction("Reply", AnnotationsIcons.getReplyIcon(), getAnnotationsTree()) {
 			public void actionPerformed(ActionEvent arg0) {
 				onReplyAnnotation();
 			}
 		};
-
 		return replyAction;
 	}
 
@@ -341,7 +323,6 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 		if (viewAction != null) {
 			return viewAction;
 		}
-
 		viewAction = new ViewAction("View Annotation", this) {
 			@Override
 			public void onView(Object o) {
@@ -350,8 +331,19 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 				}
 			}
 		};
-
 		return viewAction;
+	}
+	
+	protected AllowableAction getRefreshAction() {
+		if (refreshAction != null) {
+			return refreshAction;
+		}
+		refreshAction = new AllowableAction("Refresh", Icons.getRedoIcon(), null) {
+			public void actionPerformed(ActionEvent e) {
+				refreshDisplay();
+			}
+		};
+		return refreshAction;
 	}
 
 	protected void onViewAnnotation(AnnotatableThing thing) {
@@ -507,6 +499,12 @@ public abstract class AnnotationsTabPanel extends SelectableContainer {
 
 	@Override
 	public void dispose() {
+		/*
+		KnowledgeBase changesKb = ChAOKbManager.getChAOKb(kb);
+		if (changesKb != null) {
+			changesKb.removeKnowledgeBaseListener(annotationCreationListener);
+		}
+		*/
 		super.dispose();
 	}
 
