@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 
 import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
@@ -13,6 +14,7 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.bmir.protegex.chao.change.api.ChangeFactory;
 import edu.stanford.bmir.protegex.chao.change.api.Composite_Change;
+import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
@@ -249,7 +251,32 @@ public class ChAOUtil {
 		return filteredCollection;
 	}
 
+	
+	public static Collection<Ontology_Component> getOntologyComponents(KnowledgeBase kb) {
+		List<Ontology_Component> oComps = new ArrayList<Ontology_Component>();
+		KnowledgeBase changesKb = ChAOKbManager.getChAOKb(kb);
+		if (changesKb == null) { return oComps;	}
+		
+		OntologyComponentFactory factory = new OntologyComponentFactory(changesKb);
+		return factory.getAllOntology_ComponentObjects(true);
+	}
+	
+	
+	public static Collection<Ontology_Component> getOntologyComponentsWithAnnotations(KnowledgeBase kb) {
+		List<Ontology_Component> oComps = new ArrayList<Ontology_Component>();
+		KnowledgeBase changesKb = ChAOKbManager.getChAOKb(kb);
+		if (changesKb == null) { return oComps;	}		
+		OntologyComponentFactory factory = new OntologyComponentFactory(changesKb);		
+		Collection<Ontology_Component> comps = factory.getAllOntology_ComponentObjects(true);
+		for (Ontology_Component comp : comps) {
+			if (comp.hasAssociatedAnnotations()) {
+				oComps.add(comp);
+			}
+		}
+		return oComps;
+	}
 
+	
 	public static void fillAnnotationSystemFields(KnowledgeBase kb, Annotation annotation) {
 		AnnotationFactory factory = new AnnotationFactory(getChangesKb(kb));
 		factory.fillDefaultValues(annotation);
