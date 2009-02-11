@@ -7,7 +7,6 @@ import javax.swing.Icon;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.LabeledComponent;
-import edu.stanford.smi.protege.util.SelectableContainer;
 import edu.stanford.smi.protegex.chatPlugin.ChatComponent;
 import edu.stanford.smi.protegex.chatPlugin.ChatIcons;
 
@@ -15,29 +14,22 @@ import edu.stanford.smi.protegex.chatPlugin.ChatIcons;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class ChatPanel extends AnnotationsTabPanel {	
+public class ChatPanel extends AbstractAnnotationsTabPanel {	
 	private static final long serialVersionUID = -8861252243145443447L;
 	
 	private ChatComponent chatComponent;
 
 	public ChatPanel(KnowledgeBase kb) {
 		super(kb, "Chat");
-		
+		setLabel("Chat with other Protege clients");
 		fixGUI();
 	}
 
 	protected void fixGUI() {
-		LabeledComponent labledComponent = getLabeledComponent();
-		labledComponent.setFooterComponent(null);
-			
-		SelectableContainer parent = (SelectableContainer) labledComponent.getParent();
-		
-		parent.remove(labledComponent);
-		parent.remove(getToolbar());
-
+		LabeledComponent outerLC = (LabeledComponent) this.getComponent(0);
+		this.remove(outerLC);	
 		chatComponent = new ChatComponent(getKnowledgeBase());		
-		
-		parent.add(chatComponent, BorderLayout.CENTER);		
+		add(chatComponent, BorderLayout.CENTER);		
 	}
 
 	@Override
@@ -48,14 +40,10 @@ public class ChatPanel extends AnnotationsTabPanel {
 	
 
 	@Override
-	protected void onCreateAnnotation() {
-		//	TODO Auto-generated method stub
-	}
+	protected void onCreateAnnotation() {}
 
 	@Override
-	public void refreshDisplay() {		
-		// TODO Auto-generated method stub		
-	}
+	public void refreshDisplay() {}
 	
 	@Override
 	public Icon getIcon() {	
