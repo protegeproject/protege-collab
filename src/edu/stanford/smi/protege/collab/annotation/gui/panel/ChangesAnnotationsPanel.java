@@ -23,13 +23,11 @@ import edu.stanford.smi.protege.util.LazyTreeNode;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class ChangesAnnotationsPanel extends AnnotationsTabPanel {	
+public class ChangesAnnotationsPanel extends AbstractAnnotationsTabPanel {	
 	private static final long serialVersionUID = -6242832743918390294L;
 
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
 		super(kb, "Changes");
-
-		//just a guess
 		getLabeledComponent().removeHeaderButton(1);
 	}
 
@@ -37,13 +35,13 @@ public class ChangesAnnotationsPanel extends AnnotationsTabPanel {
 	@Override
 	public void refreshDisplay() {
 		if (getCurrentInstance() == null) {
-			getLabeledComponent().setHeaderLabel("Changes (nothing selected)");
+			setLabel("Change history (nothing selected)");
 			getAnnotationsTree().setRoot(null);
 			repaint();
 			return;
 		}
 
-		getLabeledComponent().setHeaderLabel("Changes for " + getCurrentInstance().getBrowserText());
+		setLabel("Change history for " + getCurrentInstance().getBrowserText());
 		Collection<Change> annotationsRoots = ChAOUtil.getTopLevelChanges(getCurrentInstance());
 		Collection<? extends AnnotatableThing> filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 
