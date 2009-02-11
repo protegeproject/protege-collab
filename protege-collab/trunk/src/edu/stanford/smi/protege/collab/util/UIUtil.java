@@ -12,8 +12,10 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationBrowserSlotPattern;
 import edu.stanford.smi.protege.collab.annotation.gui.renderer.FramesWithAnnotationsRenderer;
+import edu.stanford.smi.protege.collab.projectPlugin.ProtegeCollabGUIProjectPlugin;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.ui.FrameRenderer;
 import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.ui.ProjectView;
@@ -165,5 +167,14 @@ public class UIUtil {
 
 		return instDispl;
 	}
+	
+	public static boolean isCollaborationPanelEnabled(Project p) {
+		Boolean value = (Boolean) p.getClientInformation(ProtegeCollabGUIProjectPlugin.SHOW_COLLAB_PANEL_PRJ_INFO);
+		return value == null ? false : Boolean.valueOf(value);
+	}
 
+	public static void setCollaborationPanelEnabled(Project p, boolean enabled) {
+		p.setClientInformation(ProtegeCollabGUIProjectPlugin.SHOW_COLLAB_PANEL_PRJ_INFO, Boolean.valueOf(enabled));
+	}
+	
 }
