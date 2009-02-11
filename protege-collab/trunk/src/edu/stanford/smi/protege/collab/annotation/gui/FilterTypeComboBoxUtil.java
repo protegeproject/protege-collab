@@ -12,10 +12,9 @@ import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TypeFilter;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
+import edu.stanford.smi.protege.util.Disposable;
 
-public class FilterTypeComboBoxUtil {
-	private FilterTypeComboBoxUtil filterTypeComboBoxUtil;
-
+public class FilterTypeComboBoxUtil implements Disposable {
 	private HashMap<Integer, Slot> indexToChangesSlotMap = new HashMap<Integer, Slot>();
 	private HashMap<Integer, String> indexToDescriptionMap = new HashMap<Integer, String>();
 	private HashMap<Integer, Class> indexToFilterClassMap = new HashMap<Integer, Class>();
@@ -59,16 +58,13 @@ public class FilterTypeComboBoxUtil {
 
 		for (Integer index : keys) {
 			String value = indexToDescriptionMap.get(index);
-
 			if (value != null) {
 				items.add(value);
 			}
 		}
 
 		String[] itemsStringList = new String[indexToDescriptionMap.keySet().size()];
-
 		items.toArray(itemsStringList);
-
 		return itemsStringList;
 	}
 
@@ -85,21 +81,21 @@ public class FilterTypeComboBoxUtil {
 
 	public TreeFilter getTreeFilter(int index) {
 		Class filterClass = getFilterClass(index);
-
-		if (filterClass == null) {
-			return null;
-		}
-
+		if (filterClass == null) { return null; }
 		TreeFilter filter = null;
-
 		try {
 			filter = (TreeFilter) filterClass.newInstance();
 		} catch (Exception e) {
 			// do nothing
 		}
-
 		return filter;
-
+	}
+	
+	public void dispose() {
+		indexToChangesSlotMap.clear();
+		indexToDescriptionMap.clear();
+		indexToFilterClassMap.clear();		
+		changeKb = null;
 	}
 
 
