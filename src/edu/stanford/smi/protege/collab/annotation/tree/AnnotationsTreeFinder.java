@@ -27,6 +27,7 @@ import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.ui.FrameComparator;
 import edu.stanford.smi.protege.ui.FrameTreeFinder;
 import edu.stanford.smi.protege.util.CollectionUtilities;
+import edu.stanford.smi.protege.util.Disposable;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 import edu.stanford.smi.protege.util.LazyTreeRoot;
 import edu.stanford.smi.protege.util.Log;
@@ -36,7 +37,7 @@ import edu.stanford.smi.protege.util.StringMatcher;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class AnnotationsTreeFinder extends FrameTreeFinder {
+public class AnnotationsTreeFinder extends FrameTreeFinder implements Disposable {
 	private JTree tree;
 	private Slot ancestorSlot;
 
@@ -190,5 +191,9 @@ public class AnnotationsTreeFinder extends FrameTreeFinder {
 		}
 		return annotThings;
 	}
-
+	
+	public void dispose() {
+		ancestorSlot = null;
+		tree = null;		
+	}
 }
