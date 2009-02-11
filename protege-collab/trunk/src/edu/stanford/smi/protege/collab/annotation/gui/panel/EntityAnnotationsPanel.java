@@ -32,24 +32,24 @@ import edu.stanford.smi.protege.util.LazyTreeRoot;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class EntityAnnotationsPanel extends AnnotationsTabPanel {
+public class EntityAnnotationsPanel extends AbstractAnnotationsTabPanel {
 	private static final long serialVersionUID = -5672164068804094696L;
 
 	public EntityAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Entity annotations");
+		super(kb, "Entity notes");
 	}
 
 
 	@Override
 	public void refreshDisplay() {
 		if (getCurrentInstance() == null) {
-			getLabeledComponent().setHeaderLabel("Annotations (nothing selected)");
+			setLabel("Notes (nothing selected)");
 			getAnnotationsTree().setRoot(null);
 			repaint();
 			return;
 		}
 
-		getLabeledComponent().setHeaderLabel("Annotations on " + getCurrentInstance().getBrowserText());
+		setLabel("Notes for " + getCurrentInstance().getBrowserText());
 		Collection<Annotation> annotationsRoots = ChAOUtil.getTopLevelAnnotationInstances(getCurrentInstance());
 		Collection filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
 
@@ -85,7 +85,7 @@ public class EntityAnnotationsPanel extends AnnotationsTabPanel {
 
 		Annotation annotation = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
 		ChAOUtil.fillAnnotationSystemFields(kb, annotation);
-		annotation.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
+		annotation.setBody(AbstractAnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
 		if (firstSelection instanceof AnnotatableThing) {
 			AnnotatableThing annotatableThing = (AnnotatableThing) firstSelection;
