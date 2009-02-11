@@ -1,72 +1,72 @@
-; Thu Oct 23 22:27:37 GMT-08:00 2008
+; Wed Feb 11 13:16:14 GMT-08:00 2009
 ; 
 ;+ (version "3.4")
-;+ (build "Build 509")
+;+ (build "Build 521")
 
-([annotation_collaborativePizza.owl_ProjectKB_Class46] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class47] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class48] of  String
-
-	(name "Change")
-	(string_value "context"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class49] of  String
-
-	(name "Ontology_Component")
-	(string_value "currentName"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class50] of  String
-
-	(name "Timestamp")
-	(string_value "date"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class51] of  String
-
-	(name "Proposal")
-	(string_value "subject"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class52] of  String
-
-	(name "Vote")
-	(string_value "subject"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class53] of  String
-
-	(name "Annotation")
-	(string_value "subject"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class54] of  String
+([annotation_collaborativePizza.owl_ProjectKB_Class10] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([annotation_collaborativePizza.owl_ProjectKB_Class55] of  Map_Entry
+([annotation_collaborativePizza.owl_ProjectKB_Class11] of  Map_Entry
 
 	(key "annotation_proj_exists")
 	(key_class "java.lang.String")
 	(value "yes")
 	(value_class "java.lang.String"))
 
+([annotation_collaborativePizza.owl_ProjectKB_Class2] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class3] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class4] of  String
+
+	(name "Change")
+	(string_value "context"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class5] of  String
+
+	(name "Timestamp")
+	(string_value "date"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class6] of  String
+
+	(name "Ontology_Component")
+	(string_value "currentName"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class7] of  String
+
+	(name "Vote")
+	(string_value "subject"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class8] of  String
+
+	(name "Proposal")
+	(string_value "subject"))
+
+([annotation_collaborativePizza.owl_ProjectKB_Class9] of  String
+
+	(name "Annotation")
+	(string_value "subject"))
+
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[annotation_collaborativePizza.owl_ProjectKB_Class46]
-		[annotation_collaborativePizza.owl_ProjectKB_Class47]
-		[annotation_collaborativePizza.owl_ProjectKB_Class48]
-		[annotation_collaborativePizza.owl_ProjectKB_Class49]
-		[annotation_collaborativePizza.owl_ProjectKB_Class50]
-		[annotation_collaborativePizza.owl_ProjectKB_Class51]
-		[annotation_collaborativePizza.owl_ProjectKB_Class52]
-		[annotation_collaborativePizza.owl_ProjectKB_Class53]
-		[annotation_collaborativePizza.owl_ProjectKB_Class54]))
+		[annotation_collaborativePizza.owl_ProjectKB_Class2]
+		[annotation_collaborativePizza.owl_ProjectKB_Class3]
+		[annotation_collaborativePizza.owl_ProjectKB_Class4]
+		[annotation_collaborativePizza.owl_ProjectKB_Class5]
+		[annotation_collaborativePizza.owl_ProjectKB_Class6]
+		[annotation_collaborativePizza.owl_ProjectKB_Class7]
+		[annotation_collaborativePizza.owl_ProjectKB_Class8]
+		[annotation_collaborativePizza.owl_ProjectKB_Class9]
+		[annotation_collaborativePizza.owl_ProjectKB_Class10]))
 
 ([changes_ProjectKB_Class10177] of  Property_List
 
@@ -706,7 +706,7 @@
 
 ([changes_ProjectKB_Instance_10131] of  Map
 
-	(entries [annotation_collaborativePizza.owl_ProjectKB_Class55]))
+	(entries [annotation_collaborativePizza.owl_ProjectKB_Class11]))
 
 ([changes_ProjectKB_Instance_102] of  Property_List
 )
@@ -3671,6 +3671,9 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
+([KB_605115_Class1] of  Map
+)
+
 ([KB_690954_Instance_0] of  String
 
 	(name "renaming_namespaces"))
@@ -4058,9 +4061,6 @@
 	(x 0)
 	(y 120))
 
-([KB_897158_Class1] of  Map
-)
-
 ([KB_994297_Instance_0] of  String
 
 	(name "factory_class_name")
@@ -4123,8 +4123,8 @@
 		[changes_ProjectKB_Instance_81267]
 		[changes_ProjectKB_Instance_51393]
 		[changes_ProjectKB_Instance_51020]
-		[changes_ProjectKB_Instance_50854]
-		[changes_ProjectKB_Instance_16])
+		[changes_ProjectKB_Instance_16]
+		[changes_ProjectKB_Instance_50854])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
