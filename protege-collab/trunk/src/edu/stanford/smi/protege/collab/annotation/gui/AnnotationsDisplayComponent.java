@@ -7,13 +7,14 @@ import java.util.logging.Level;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
-import edu.stanford.smi.protege.collab.annotation.gui.panel.AnnotationsTabPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.panel.AbstractAnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
@@ -27,7 +28,6 @@ import edu.stanford.smi.protege.ui.InstanceDisplay;
 import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.ui.ProjectView;
 import edu.stanford.smi.protege.util.CollectionUtilities;
-import edu.stanford.smi.protege.util.ComponentFactory;
 import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.Selectable;
@@ -74,9 +74,13 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Collaboration", annotationsTabHolder, true);
 		LabeledComponent labeledComponentText = new LabeledComponent("Details", annotationBodyTextComponent, true);
 
-		JSplitPane topBottomSplitPane = ComponentFactory.createTopBottomSplitPane(labeledComponentTabHolder, labeledComponentText, true);
-		labeledComponentText.setPreferredSize(new Dimension(100, 200));
-		topBottomSplitPane.setResizeWeight(1);
+		final JSplitPane topBottomSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		topBottomSplitPane.setTopComponent(labeledComponentTabHolder);
+		topBottomSplitPane.setBottomComponent(labeledComponentText);
+		labeledComponentTabHolder.setMinimumSize(new Dimension(0,0));
+		labeledComponentText.setMinimumSize(new Dimension(0,0));
+		topBottomSplitPane.setDividerLocation(0.75);
+		topBottomSplitPane.setResizeWeight(0.50);
 		topBottomSplitPane.setOneTouchExpandable(true);
 
 		classChangeListener = getClassChangeListener();
@@ -86,9 +90,15 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		attachProtegeTabTreeListener();
 		attachChangeKbListeners();
 
-		add(topBottomSplitPane);
+		add(topBottomSplitPane);		
 		
 		HasAnnotationCache.fillHasAnnotationCache(domainKb);
+		
+		SwingUtilities.invokeLater(new Runnable()  {
+			public void run() {
+				refreshDisplay();
+			}			
+		});
 	}
 
 	/*
@@ -104,7 +114,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
 
 	protected void attachAnnotationTreeSelectionListener() {
-		for (AnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
+		for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
 			annotationPanel.addSelectionListener(getAnnotationTreeSelectionListener());
 		}
 	}
@@ -160,7 +170,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		if (collabTabChangeListener == null) {
 			collabTabChangeListener = new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
-					AnnotationsTabPanel annotTabPanel = annotationsTabHolder.getSelectedTab();
+					AbstractAnnotationsTabPanel annotTabPanel = annotationsTabHolder.getSelectedTab();
 					//why??
 					if (annotTabPanel == null) { return; }
 					annotTabPanel.setInstance(currentInstance);
@@ -247,6 +257,10 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		//TODO: handle multiple selections
 		setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
 	}
+	
+	public Instance getInstance() {
+		return currentInstance;
+	}
 
 	//TODO: find a better solution for the initialization
 	public void init() {
@@ -257,7 +271,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	}
 
 
-	protected void refreshDisplay() {
+	public void refreshDisplay() {
 		annotationsTabHolder.refreshDisplay();
 		Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
 		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
@@ -287,6 +301,17 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 	@Override
 	public void dispose() {
 		/*
+		 * Class tree selection listener
+		 */
+		if (selectable != null) {
+			try {
+				selectable.removeSelectionListener(clsTreeSelectionListener);
+			} catch (Throwable t) {
+				Log.getLogger().log(Level.WARNING, "Could not detach class tree selection listener when disposing the collaboration panel.", t);
+			}
+		}
+		
+		/*
 		 * Frame listener on currently selected instance
 		 */
 		try {
@@ -301,7 +326,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 		 * Annotation tree selection listener
 		 */
 		if (annotTreeSelectionListener != null) {
-			for (AnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
+			for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
 				try {
 					annotationPanel.removeSelectionListener(annotTreeSelectionListener);
 				} catch (Exception e) {
