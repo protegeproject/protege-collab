@@ -34,9 +34,8 @@ import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.resource.ResourceKey;
 import edu.stanford.smi.protege.util.AllowableAction;
 import edu.stanford.smi.protege.util.LabeledComponent;
-import edu.stanford.smi.protege.util.SelectableContainer;
 
-public class SearchPanel extends AnnotationsTabPanel {
+public class SearchPanel extends AbstractAnnotationsTabPanel {
 	private static final long serialVersionUID = -8346737815779380929L;
 
 	private AllowableAction viewAnnotatedEntityAction;
@@ -46,7 +45,7 @@ public class SearchPanel extends AnnotationsTabPanel {
 
 	public SearchPanel(KnowledgeBase kb) {
 		super(kb, "Search");
-
+		setLabel("Search notes");
 		fixGUI();
 	}
 
@@ -58,21 +57,14 @@ public class SearchPanel extends AnnotationsTabPanel {
 		for (int i=0; i < headerButtonCollection.size(); i++) {
 			labledComponent.removeHeaderButton(0);
 		}
-
 		labledComponent.addHeaderButton(getViewAction());
 		labledComponent.addHeaderButton(getViewAnnotatedObjectAction());
 		labledComponent.setHeaderComponent(null);
 		labledComponent.setHeaderLabel("Search Results");
 
-
-		SelectableContainer parent = (SelectableContainer) labledComponent.getParent();
-
-		parent.remove(labledComponent);
-		parent.remove(getToolbar());
-
 		complexFilterComp = new ComplexFilterComponent(getKnowledgeBase());
-
-		LabeledComponent searchPanel = new LabeledComponent("Search", complexFilterComp.getValueComponent());
+		LabeledComponent searchPanel = new LabeledComponent(null, complexFilterComp.getValueComponent());
+		searchPanel.setHeaderComponent(null);
 		JButton searchButton = new JButton("Search");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,7 +84,11 @@ public class SearchPanel extends AnnotationsTabPanel {
 		splitPane.setDividerLocation(175 + splitPane.getInsets().bottom);
 		splitPane.setOneTouchExpandable(true);
 
-		parent.add(splitPane, BorderLayout.CENTER);
+		LabeledComponent outerLC = (LabeledComponent) this.getComponent(0);
+		this.remove(outerLC);
+		
+		this.add(splitPane, BorderLayout.CENTER);
+		//labledComponent.getParent().add(splitPane, BorderLayout.CENTER);
 
 	}
 
@@ -100,7 +96,6 @@ public class SearchPanel extends AnnotationsTabPanel {
 		if (viewAnnotatedEntityAction == null) {
 			viewAnnotatedEntityAction = new AllowableAction("View annotated entity",
 					AnnotationsIcons.getOntologyAnnotationIcon(), getAnnotationsTree()) {
-
 						public void actionPerformed(ActionEvent arg0) {
 							onViewAnnotatedEntities(getSelection());
 						}
@@ -129,7 +124,6 @@ public class SearchPanel extends AnnotationsTabPanel {
 
 	protected void onViewAnnotatedEntity(AnnotatableThing annotatedEntity) {
 		Project prj = getKnowledgeBase().getProject();
-
 		if (annotatedEntity instanceof Ontology_Component) {
 			Ontology_Component oc = (Ontology_Component) annotatedEntity;
 
@@ -142,7 +136,6 @@ public class SearchPanel extends AnnotationsTabPanel {
 				}
 			}
 		}
-
 		//all other cases just show the form
 		ChAOKbManager.getChAOKb(getKnowledgeBase()).getProject().show(((AbstractWrappedInstance)annotatedEntity).getWrappedProtegeInstance());
 	}
