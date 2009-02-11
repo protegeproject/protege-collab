@@ -24,13 +24,14 @@ import edu.stanford.smi.protege.ui.InstanceDisplay;
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class OntologyAnnotationsPanel extends AnnotationsTabPanel {	
+public class OntologyAnnotationsPanel extends AbstractAnnotationsTabPanel {	
 	private static final long serialVersionUID = 3435086007615287847L;
 	
 	private OntologyAnnotationsCache ontologyAnnotationsCache;
 
 	public OntologyAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Ontology annotations");
+		super(kb, "Ontology notes");
+		setLabel("Notes on the ontology itself");
 		ontologyAnnotationsCache = new OntologyAnnotationsCache(ChAOKbManager.getChAOKb(kb));
 	}
 
@@ -57,7 +58,7 @@ public class OntologyAnnotationsPanel extends AnnotationsTabPanel {
 
 		Annotation annot = ChAOUtil.createAnnotationOnAnnotation(getKnowledgeBase(), null, pickedAnnotationCls);
 		ChAOUtil.fillAnnotationSystemFields(getKnowledgeBase(), annot);
-		annot.setBody(AnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
+		annot.setBody(AbstractAnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
 
 		InstanceDisplay instDispl = UIUtil.createAnnotationInstanceDisplay(annot, ChAOKbManager.getChAOKb(getKnowledgeBase()));
 		Instance annotInst = ((AbstractWrappedInstance)annot).getWrappedProtegeInstance();
