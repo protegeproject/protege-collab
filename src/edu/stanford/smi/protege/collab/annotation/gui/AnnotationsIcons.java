@@ -16,8 +16,18 @@ public class AnnotationsIcons {
 
     private static Icon lookupIcon(String key) {
         Icon icon = key2icon.get(key);
-        if (icon == null || icon.getIconWidth() == -1) {
+        if (icon == null || icon.getIconWidth() == -1) {        	
             String fileName = key.toString() + ".gif";
+            icon = ComponentUtilities.loadImageIcon(AnnotationsIcons.class, "images/" + fileName);
+            key2icon.put(key, icon);
+        }
+        return icon;
+    }
+    
+    private static Icon lookupPngIcon(String key) {
+        Icon icon = key2icon.get(key);
+        if (icon == null || icon.getIconWidth() == -1) {        	
+            String fileName = key.toString() + ".png";
             icon = ComponentUtilities.loadImageIcon(AnnotationsIcons.class, "images/" + fileName);
             key2icon.put(key, icon);
         }
@@ -31,6 +41,15 @@ public class AnnotationsIcons {
         }
         return icon;
     }
+    
+    public static Icon getPngIcon(String key) {
+        Icon icon = lookupPngIcon(key);
+        if (icon == null) {
+            icon = Icons.getUglyIcon();
+        }
+        return icon;
+    }
+
 
 	public static Icon getCommentIcon() {
 		return getIcon("instance_comment_icon");
@@ -66,6 +85,10 @@ public class AnnotationsIcons {
 
 	public static Icon getReplyIcon() {
 		return getIcon("reply");
+	}
+	
+	public static Icon getReloadIcon() {
+		return getPngIcon("reload");
 	}
 
 
