@@ -1,72 +1,72 @@
-; Thu Oct 23 21:55:49 GMT-08:00 2008
+; Wed Feb 11 13:16:29 GMT-08:00 2009
 ; 
 ;+ (version "3.4")
-;+ (build "Build 509")
+;+ (build "Build 521")
 
-([annotation_collaborativeNewspaper_ProjectKB_Class232] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class233] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class234] of  String
-
-	(name "Change")
-	(string_value "context"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class235] of  String
-
-	(name "Ontology_Component")
-	(string_value "currentName"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class236] of  String
-
-	(name "Timestamp")
-	(string_value "date"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class237] of  String
-
-	(name "Proposal")
-	(string_value "subject"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class238] of  String
-
-	(name "Vote")
-	(string_value "subject"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class239] of  String
-
-	(name "Annotation")
-	(string_value "subject"))
-
-([annotation_collaborativeNewspaper_ProjectKB_Class240] of  String
+([annotation_collaborativeNewspaper_ProjectKB_Class10] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([annotation_collaborativeNewspaper_ProjectKB_Class241] of  Map_Entry
+([annotation_collaborativeNewspaper_ProjectKB_Class11] of  Map_Entry
 
 	(key "annotation_proj_exists")
 	(key_class "java.lang.String")
 	(value "yes")
 	(value_class "java.lang.String"))
 
+([annotation_collaborativeNewspaper_ProjectKB_Class2] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class3] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class4] of  String
+
+	(name "Change")
+	(string_value "context"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class5] of  String
+
+	(name "Timestamp")
+	(string_value "date"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class6] of  String
+
+	(name "Ontology_Component")
+	(string_value "currentName"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class7] of  String
+
+	(name "Vote")
+	(string_value "subject"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class8] of  String
+
+	(name "Proposal")
+	(string_value "subject"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class9] of  String
+
+	(name "Annotation")
+	(string_value "subject"))
+
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[annotation_collaborativeNewspaper_ProjectKB_Class232]
-		[annotation_collaborativeNewspaper_ProjectKB_Class233]
-		[annotation_collaborativeNewspaper_ProjectKB_Class234]
-		[annotation_collaborativeNewspaper_ProjectKB_Class235]
-		[annotation_collaborativeNewspaper_ProjectKB_Class236]
-		[annotation_collaborativeNewspaper_ProjectKB_Class237]
-		[annotation_collaborativeNewspaper_ProjectKB_Class238]
-		[annotation_collaborativeNewspaper_ProjectKB_Class239]
-		[annotation_collaborativeNewspaper_ProjectKB_Class240]))
+		[annotation_collaborativeNewspaper_ProjectKB_Class2]
+		[annotation_collaborativeNewspaper_ProjectKB_Class3]
+		[annotation_collaborativeNewspaper_ProjectKB_Class4]
+		[annotation_collaborativeNewspaper_ProjectKB_Class5]
+		[annotation_collaborativeNewspaper_ProjectKB_Class6]
+		[annotation_collaborativeNewspaper_ProjectKB_Class7]
+		[annotation_collaborativeNewspaper_ProjectKB_Class8]
+		[annotation_collaborativeNewspaper_ProjectKB_Class9]
+		[annotation_collaborativeNewspaper_ProjectKB_Class10]))
 
 ([changes_ProjectKB_Class10177] of  Property_List
 
@@ -706,7 +706,7 @@
 
 ([changes_ProjectKB_Instance_10131] of  Map
 
-	(entries [annotation_collaborativeNewspaper_ProjectKB_Class241]))
+	(entries [annotation_collaborativeNewspaper_ProjectKB_Class11]))
 
 ([changes_ProjectKB_Instance_102] of  Property_List
 )
@@ -3671,9 +3671,6 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_158408_Class1] of  Map
-)
-
 ([KB_690954_Instance_0] of  String
 
 	(name "renaming_namespaces"))
@@ -3682,6 +3679,9 @@
 
 	(name "namespaces")
 	(string_value "rdfs http://www.w3.org/2000/01/rdf-schema# rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# "))
+
+([KB_752909_Class1] of  Map
+)
 
 ([KB_806078_Instance_0] of  Property_List
 
@@ -4123,8 +4123,8 @@
 		[changes_ProjectKB_Instance_81267]
 		[changes_ProjectKB_Instance_51393]
 		[changes_ProjectKB_Instance_51020]
-		[changes_ProjectKB_Instance_50854]
-		[changes_ProjectKB_Instance_16])
+		[changes_ProjectKB_Instance_16]
+		[changes_ProjectKB_Instance_50854])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
