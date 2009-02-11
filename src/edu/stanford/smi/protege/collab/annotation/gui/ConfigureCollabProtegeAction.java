@@ -4,24 +4,31 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import edu.stanford.smi.protege.collab.projectPlugin.ProtegeCollabGUIProjectPlugin;
+import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.ui.ProjectManager;
 import edu.stanford.smi.protege.util.ModalDialog;
-import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 
 
-public class ConfigureCollabProtegeAction extends AbstractAction {
+public class ConfigureCollabProtegeAction extends AbstractAction {	
+	private static final long serialVersionUID = 4809014681677159624L;
 	
-	private AnnotationsDisplayComponent annotationsDisplayComponent;
+	private KnowledgeBase kb;
+	private ProtegeCollabGUIProjectPlugin collabPlugin;
 	
-	public ConfigureCollabProtegeAction(AnnotationsDisplayComponent annotDispComp) {
-		super("Configure", OWLIcons.getPreferencesIcon());
-		this.annotationsDisplayComponent = annotDispComp;
+	public ConfigureCollabProtegeAction(KnowledgeBase kb, ProtegeCollabGUIProjectPlugin collabPlugin) {
+		super("Configure...");
+		this.kb = kb;
+		this.collabPlugin = collabPlugin;
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-		ConfigureCollabProtegePanel configPanel = new ConfigureCollabProtegePanel(annotationsDisplayComponent.getKnowledgeBase().getProject());
-		int sel = ModalDialog.showDialog(annotationsDisplayComponent, configPanel, "Configure Collaborative Protege", ModalDialog.MODE_OK_CANCEL);
+	public void actionPerformed(ActionEvent arg0) {	
+		ConfigureCollabProtegePanel configPanel = new ConfigureCollabProtegePanel(kb.getProject());
+		int sel = ModalDialog.showDialog(ProjectManager.getProjectManager().getMainPanel(), 
+				configPanel, "Configure Collaborative Protege", ModalDialog.MODE_OK_CANCEL);
 		
-		if (sel == ModalDialog.OPTION_OK) {
+		AnnotationsDisplayComponent annotationsDisplayComponent = collabPlugin.getAnnotationsDisplayComponent();
+		if (sel == ModalDialog.OPTION_OK && annotationsDisplayComponent != null) {
 			annotationsDisplayComponent.reloadCollabTabs();
 		}		
 	}
