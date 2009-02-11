@@ -13,18 +13,16 @@ import edu.stanford.bmir.protegex.chao.annotation.api.FiveStarsVoteProposal;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.util.Disposable;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class AnnotationsComboBoxUtil {
+public class AnnotationsComboBoxUtil implements Disposable {
 	private KnowledgeBase changesKb;
-	private AnnotationsComboBoxUtil annotationsComboBoxUtil;
-
 	private ArrayList<Cls> allAnnotationTypes = new ArrayList<Cls>();
 	private Set<Cls> filteredOutAnnotationTypes = new HashSet<Cls>();
-
 
 	public AnnotationsComboBoxUtil(KnowledgeBase changesKb) {
 		this.changesKb = changesKb;
@@ -34,21 +32,18 @@ public class AnnotationsComboBoxUtil {
 	private void initializeAllAnnoatationTypes() {
 		AnnotationFactory factory = new AnnotationFactory(changesKb);
 		Cls annotCls = factory.getAnnotationClass();
-
 		for (Object obj : annotCls.getSubclasses()) {
 			Cls annotSubCls = (Cls) obj;
 			if (!annotSubCls.isAbstract()) {
 				allAnnotationTypes.add(annotSubCls);
 			}
 		}
-
 		filterOutUnneededAnnotationTypes();
 	}
 
 	private void filterOutUnneededAnnotationTypes() {
 		AnnotationFactory factory = new AnnotationFactory(changesKb);
 		filteredOutAnnotationTypes.add(factory.getSimpleProposalClass());
-
 		allAnnotationTypes.removeAll(filteredOutAnnotationTypes);
 	}
 
@@ -86,4 +81,10 @@ public class AnnotationsComboBoxUtil {
 		return allowableAnnotations;
 	}
 
+	public void dispose() {
+		allAnnotationTypes.clear();
+		filteredOutAnnotationTypes.clear();		
+		changesKb = null;
+	}
+	
 }
