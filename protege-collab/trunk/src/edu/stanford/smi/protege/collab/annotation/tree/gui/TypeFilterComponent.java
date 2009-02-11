@@ -9,11 +9,13 @@ import edu.stanford.smi.protege.collab.annotation.gui.renderer.AnnotationsRender
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
+import edu.stanford.smi.protege.util.Disposable;
 
-public class TypeFilterComponent implements FilterValueComponent {
+public class TypeFilterComponent implements FilterValueComponent, Disposable {
 	private KnowledgeBase kb;
 	private JComboBox typeComboBox;
 	private AnnotationsComboBoxUtil annotationsComboBoxUtil;
+	private AnnotationsRenderer annotationsRenderer;
 
 	public TypeFilterComponent(KnowledgeBase kb) {
 		this.kb = kb;
@@ -22,7 +24,8 @@ public class TypeFilterComponent implements FilterValueComponent {
 		annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		typeComboBox = new JComboBox();
 		typeComboBox.addItem("Any type");
-		typeComboBox.setRenderer(new AnnotationsRenderer(kb));
+		annotationsRenderer = new AnnotationsRenderer(kb);
+		typeComboBox.setRenderer(annotationsRenderer);	
 
 		for (Cls annotCls : annotationsComboBoxUtil.getAllowableAnnotationTypes(null)) {
 			typeComboBox.addItem(annotCls);
@@ -47,6 +50,17 @@ public class TypeFilterComponent implements FilterValueComponent {
 	private Cls getSelectedAnnotationType(){
 		Object selection = typeComboBox.getSelectedItem();
 		return selection instanceof Cls ? (Cls) selection : null;
+	}
+	
+	public void dispose() {
+		annotationsRenderer.dispose();
+		annotationsRenderer = null;
+		annotationsComboBoxUtil.dispose();
+		annotationsComboBoxUtil = null;
+		typeComboBox.setRenderer(null);
+		typeComboBox.removeAllItems();
+		typeComboBox = null;
+		kb = null;
 	}
 
 }
