@@ -10,6 +10,7 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.annotation.api.impl.DefaultAnnotation;
+import edu.stanford.bmir.protegex.chao.util.AnnotatableThingComparator;
 import edu.stanford.smi.protege.event.FrameAdapter;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.event.FrameListener;
@@ -89,8 +90,7 @@ public class OntologyAnnotationsCache implements Disposable {
 		 } catch (Throwable t) {
 			 Log.getLogger().log(Level.WARNING, "Could not get top ontology annotations from server", t);
 			 return;
-		 }
-		 //TODO: maybe fix the returned collection
+		 }		
 		 topOntologyAnnotations.addAll(topOntAnnots);
 	 }
 	
