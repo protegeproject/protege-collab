@@ -23,12 +23,13 @@ import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.ui.FrameRenderer;
+import edu.stanford.smi.protege.util.Disposable;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
-public class AnnotationsRenderer extends FrameRenderer {
+public class AnnotationsRenderer extends FrameRenderer implements Disposable {
 
 	private KnowledgeBase kb;
 	private KnowledgeBase chaoKb;
@@ -135,5 +136,13 @@ public class AnnotationsRenderer extends FrameRenderer {
 			super.loadCls(cls);
 		}
 	}
+	
+	public void dispose() {
+		_value = null;
+		chaoKb = null;
+		factory = null;
+		kb = null;
+	}	
+	
 
 }
