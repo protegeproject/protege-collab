@@ -1,4 +1,4 @@
-; Wed Feb 11 13:16:28 GMT-08:00 2009
+; Thu Feb 12 12:16:18 GMT-08:00 2009
 ; 
 ;+ (version "3.4")
 ;+ (build "Build 521")
@@ -26,13 +26,13 @@
 		(allowed-values administrative editorial)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot salary
+		(type FLOAT)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot expiration_date
 ;+		(comment "Expiration date is really only relevant if an article isn't urgent. For example, an article on the Spring fashions in Paris probably isn't urgent (and could thus be bumped from an issue if urgent news came up). But, it shouldn't be included in Autumn-- thus it needs an expiration date. ")
 		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot salary
-		(type FLOAT)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot height
@@ -138,14 +138,14 @@
 		(allowed-values good ok poor)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot text
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(multislot contents
 ;+		(comment "Lists what's in the paper")
 		(type INSTANCE)
 ;+		(allowed-classes Content)
-		(create-accessor read-write))
-	(single-slot text
-		(type STRING)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot layout
 		(type INSTANCE)
@@ -179,23 +179,23 @@
 ;+		(allowed-classes Salesperson)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot article_type
-		(type SYMBOL)
-		(allowed-values Advice Opinion News)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot contact_person
 		(type INSTANCE)
 ;+		(allowed-classes Person)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot cost_chart
-		(type FLOAT)
+	(single-slot article_type
+		(type SYMBOL)
+		(allowed-values Advice Opinion News)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot prototype_billing_chart
 		(type INSTANCE)
 ;+		(allowed-classes Billing_Chart)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot cost_chart
+		(type FLOAT)
 		(create-accessor read-write))
 	(single-slot reading_level
 ;+		(comment "We want to have a good mix in our paper-- from 3'rd grade through adult reading levels. ")
@@ -240,13 +240,13 @@
 		(allowed-values good ok poor)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot name_
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot supervision_type
 		(type SYMBOL)
 		(allowed-values administrative editorial)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot name_
+		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -355,15 +355,15 @@
 (defclass Article "Articles are included here as soon as they are written--they could go for a while without being published. For example, an article on gardening could be submitted on Monday and not be published until Thursday (when the gardening section is included in the paper). "
 	(is-a Content)
 	(role concrete)
+	(single-slot article_type
+		(type SYMBOL)
+		(allowed-values Advice Opinion News)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot author
 ;+		(comment "Usually a reporter or editor. Could be left blank if it's from one of the big 3 (UP, API, Reuters). ")
 		(type INSTANCE)
 ;+		(allowed-classes Author)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot article_type
-		(type SYMBOL)
-		(allowed-values Advice Opinion News)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot reading_level
@@ -475,13 +475,13 @@
 		(type INSTANCE)
 ;+		(allowed-classes Newspaper)
 		(create-accessor read-write))
-	(multislot prototypes
-		(type INSTANCE)
-;+		(allowed-classes Prototype_Newspaper)
-		(create-accessor read-write))
 	(multislot articles
 		(type INSTANCE)
 ;+		(allowed-classes Article)
+		(create-accessor read-write))
+	(multislot prototypes
+		(type INSTANCE)
+;+		(allowed-classes Prototype_Newspaper)
 		(create-accessor read-write))
 	(multislot advertisements
 		(type INSTANCE)
