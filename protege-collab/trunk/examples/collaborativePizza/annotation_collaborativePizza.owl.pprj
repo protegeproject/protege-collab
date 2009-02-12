@@ -1,4 +1,4 @@
-; Wed Feb 11 13:16:14 GMT-08:00 2009
+; Thu Feb 12 12:15:42 GMT-08:00 2009
 ; 
 ;+ (version "3.4")
 ;+ (build "Build 521")
@@ -32,22 +32,22 @@
 
 ([annotation_collaborativePizza.owl_ProjectKB_Class5] of  String
 
-	(name "Timestamp")
-	(string_value "date"))
-
-([annotation_collaborativePizza.owl_ProjectKB_Class6] of  String
-
 	(name "Ontology_Component")
 	(string_value "currentName"))
 
+([annotation_collaborativePizza.owl_ProjectKB_Class6] of  String
+
+	(name "Timestamp")
+	(string_value "date"))
+
 ([annotation_collaborativePizza.owl_ProjectKB_Class7] of  String
 
-	(name "Vote")
+	(name "Proposal")
 	(string_value "subject"))
 
 ([annotation_collaborativePizza.owl_ProjectKB_Class8] of  String
 
-	(name "Proposal")
+	(name "Vote")
 	(string_value "subject"))
 
 ([annotation_collaborativePizza.owl_ProjectKB_Class9] of  String
@@ -3671,7 +3671,7 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_605115_Class1] of  Map
+([KB_394228_Class1] of  Map
 )
 
 ([KB_690954_Instance_0] of  String
@@ -4123,8 +4123,8 @@
 		[changes_ProjectKB_Instance_81267]
 		[changes_ProjectKB_Instance_51393]
 		[changes_ProjectKB_Instance_51020]
-		[changes_ProjectKB_Instance_16]
-		[changes_ProjectKB_Instance_50854])
+		[changes_ProjectKB_Instance_50854]
+		[changes_ProjectKB_Instance_16])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")

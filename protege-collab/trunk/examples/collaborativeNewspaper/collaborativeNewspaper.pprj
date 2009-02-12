@@ -1,4 +1,4 @@
-; Wed Feb 11 13:16:29 GMT-08:00 2009
+; Thu Feb 12 12:16:18 GMT-08:00 2009
 ; 
 ;+ (version "3.4")
 ;+ (build "Build 521")
@@ -55,118 +55,134 @@
 	(x 0)
 	(y 0))
 
-([collaborativeNewspaper_ProjectKB_Class10022] of  String
+([collaborativeNewspaper_ProjectKB_Class10024] of  String
 
 	(name "Manager Supervision Relation")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10023] of  String
+([collaborativeNewspaper_ProjectKB_Class10025] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([collaborativeNewspaper_ProjectKB_Class10024] of  String
+([collaborativeNewspaper_ProjectKB_Class10026] of  String
 
 	(name "Organization")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10025] of  String
+([collaborativeNewspaper_ProjectKB_Class10027] of  String
 
 	(name "Prototype_Newspaper")
 	(string_value "weekday"))
 
-([collaborativeNewspaper_ProjectKB_Class10026] of  String
+([collaborativeNewspaper_ProjectKB_Class10028] of  String
 
 	(name "Advertisement")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10027] of  String
+([collaborativeNewspaper_ProjectKB_Class10029] of  String
 
 	(name ":STANDARD-SLOT")
 	(string_value "%3ANAME"))
 
-([collaborativeNewspaper_ProjectKB_Class10028] of  String
+([collaborativeNewspaper_ProjectKB_Class10030] of  String
 
 	(name "Rectangle")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10029] of  String
+([collaborativeNewspaper_ProjectKB_Class10031] of  String
 
 	(name "Billing_Chart")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10030] of  String
+([collaborativeNewspaper_ProjectKB_Class10032] of  String
 
 	(name ":STANDARD-CLASS")
 	(string_value "%3ANAME"))
 
-([collaborativeNewspaper_ProjectKB_Class10031] of  String
+([collaborativeNewspaper_ProjectKB_Class10033] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([collaborativeNewspaper_ProjectKB_Class10032] of  String
+([collaborativeNewspaper_ProjectKB_Class10034] of  String
 
 	(name "Article")
 	(string_value "headline"))
 
-([collaborativeNewspaper_ProjectKB_Class10033] of  String
+([collaborativeNewspaper_ProjectKB_Class10035] of  String
 
 	(name "Columnist")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10034] of  String
+([collaborativeNewspaper_ProjectKB_Class10036] of  String
 
 	(name "Person")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10035] of  String
+([collaborativeNewspaper_ProjectKB_Class10037] of  String
 
 	(name "Section")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10036] of  String
+([collaborativeNewspaper_ProjectKB_Class10038] of  String
 
 	(name "Editor")
 	(string_value "name"))
 
-([collaborativeNewspaper_ProjectKB_Class10037] of  String
-
-	(name "Reporter")
-	(string_value "name"))
-
-([collaborativeNewspaper_ProjectKB_Class10038] of  String
+([collaborativeNewspaper_ProjectKB_Class10039] of  String
 
 	(name "Newspaper")
 	(string_value "date"))
 
-([collaborativeNewspaper_ProjectKB_Class10039] of  String
+([collaborativeNewspaper_ProjectKB_Class10040] of  String
+
+	(name "Reporter")
+	(string_value "name"))
+
+([collaborativeNewspaper_ProjectKB_Class10041] of  String
 
 	(name "Library")
 	(string_value "organization"))
 
-([collaborativeNewspaper_ProjectKB_Class10040] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10042] of  Map_Entry
 
-	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel")
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.SearchPanel")
 	(key_class "java.lang.String")
-	(value "false")
+	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativeNewspaper_ProjectKB_Class10041] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10043] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChangesAnnotationsPanel")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10044] of  Map_Entry
 
 	(key "show_collaboration_panel")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.Boolean"))
 
-([collaborativeNewspaper_ProjectKB_Class10042] of  Map
+([collaborativeNewspaper_ProjectKB_Class10045] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.AllAnnotationsPanel")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10046] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10047] of  Map
 
 	(entries
-		[collaborativeNewspaper_ProjectKB_Class10043]
-		[collaborativeNewspaper_ProjectKB_Class10044]
-		[collaborativeNewspaper_ProjectKB_Class10045]
-		[collaborativeNewspaper_ProjectKB_Class10046]
-		[collaborativeNewspaper_ProjectKB_Class10047]
 		[collaborativeNewspaper_ProjectKB_Class10048]
 		[collaborativeNewspaper_ProjectKB_Class10049]
 		[collaborativeNewspaper_ProjectKB_Class10050]
@@ -175,142 +191,154 @@
 		[collaborativeNewspaper_ProjectKB_Class10053]
 		[collaborativeNewspaper_ProjectKB_Class10054]
 		[collaborativeNewspaper_ProjectKB_Class10055]
-		[collaborativeNewspaper_ProjectKB_Class10056]))
+		[collaborativeNewspaper_ProjectKB_Class10056]
+		[collaborativeNewspaper_ProjectKB_Class10057]
+		[collaborativeNewspaper_ProjectKB_Class10058]
+		[collaborativeNewspaper_ProjectKB_Class10059]
+		[collaborativeNewspaper_ProjectKB_Class10060]
+		[collaborativeNewspaper_ProjectKB_Class10061]))
 
-([collaborativeNewspaper_ProjectKB_Class10043] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10048] of  Map_Entry
 
 	(key "instance_00067")
 	(key_class "java.lang.String")
 	(value "220 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10044] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10049] of  Map_Entry
 
 	(key "newspaper_00021")
 	(key_class "java.lang.String")
 	(value "520 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10045] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10050] of  Map_Entry
 
 	(key "newspaper_00010")
 	(key_class "java.lang.String")
 	(value "220 70 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10046] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10051] of  Map_Entry
 
 	(key "instance_00068")
 	(key_class "java.lang.String")
 	(value "370 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10047] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10052] of  Map_Entry
 
 	(key "instance_00045")
 	(key_class "java.lang.String")
 	(value "70 520 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10048] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10053] of  Map_Entry
 
 	(key "instance_00039")
 	(key_class "java.lang.String")
 	(value "170 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10049] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10054] of  Map_Entry
 
 	(key "newspaper_00013")
 	(key_class "java.lang.String")
 	(value "370 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10050] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10055] of  Map_Entry
 
 	(key "newspaper_00012")
 	(key_class "java.lang.String")
 	(value "220 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10051] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10056] of  Map_Entry
 
 	(key "instance_00093")
 	(key_class "java.lang.String")
 	(value "320 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10052] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10057] of  Map_Entry
 
 	(key "instance_00055")
 	(key_class "java.lang.String")
 	(value "220 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10053] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10058] of  Map_Entry
 
 	(key "newspaper_00011")
 	(key_class "java.lang.String")
 	(value "70 220 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10054] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10059] of  Map_Entry
 
 	(key "newspaper_00020")
 	(key_class "java.lang.String")
 	(value "370 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10055] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10060] of  Map_Entry
 
 	(key "instance_00051")
 	(key_class "java.lang.String")
 	(value "70 370 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10056] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10061] of  Map_Entry
 
 	(key "instance_00043")
 	(key_class "java.lang.String")
 	(value "470 670 60 60")
 	(value_class "java.awt.Rectangle"))
 
-([collaborativeNewspaper_ProjectKB_Class10057] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10062] of  Map_Entry
 
 	(key "InstanceGraphWidget.instance_00064.employees")
 	(key_class "java.lang.String")
-	(value "collaborativeNewspaper_ProjectKB_Class10042")
+	(value "collaborativeNewspaper_ProjectKB_Class10047")
 	(value_class "java.util.Map"))
 
-([collaborativeNewspaper_ProjectKB_Class10058] of  Map_Entry
-
-	(key "suppress_instance_counting")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([collaborativeNewspaper_ProjectKB_Class10059] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10063] of  Map_Entry
 
 	(key "chaoProject")
 	(key_class "java.lang.String")
 	(value "annotation_collaborativeNewspaper.pprj")
 	(value_class "java.lang.String"))
 
-([collaborativeNewspaper_ProjectKB_Class10060] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10064] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10065] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativeNewspaper_ProjectKB_Class10061] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10066] of  Map_Entry
 
-	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel")
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.OntologyAnnotationsPanel")
 	(key_class "java.lang.String")
-	(value "false")
+	(value "true")
 	(value_class "java.lang.String"))
 
-([collaborativeNewspaper_ProjectKB_Class10062] of  Map_Entry
+([collaborativeNewspaper_ProjectKB_Class10067] of  Map_Entry
+
+	(key "edu.stanford.smi.protege.collab.annotation.gui.panel.EntityAnnotationsPanel")
+	(key_class "java.lang.String")
+	(value "true")
+	(value_class "java.lang.String"))
+
+([collaborativeNewspaper_ProjectKB_Class10068] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
@@ -990,14 +1018,12 @@
 	(x 0)
 	(y 120))
 
-([KB_595836_Class21] of  Map
+([KB_645786_Class23] of  Map
 )
 
 ([KB_INSTANCE_00001] of  Property_List
 
 	(properties
-		[collaborativeNewspaper_ProjectKB_Class10022]
-		[collaborativeNewspaper_ProjectKB_Class10023]
 		[collaborativeNewspaper_ProjectKB_Class10024]
 		[collaborativeNewspaper_ProjectKB_Class10025]
 		[collaborativeNewspaper_ProjectKB_Class10026]
@@ -1013,7 +1039,9 @@
 		[collaborativeNewspaper_ProjectKB_Class10036]
 		[collaborativeNewspaper_ProjectKB_Class10037]
 		[collaborativeNewspaper_ProjectKB_Class10038]
-		[collaborativeNewspaper_ProjectKB_Class10039]))
+		[collaborativeNewspaper_ProjectKB_Class10039]
+		[collaborativeNewspaper_ProjectKB_Class10040]
+		[collaborativeNewspaper_ProjectKB_Class10041]))
 
 ([KB_INSTANCE_00002] of  String
 
@@ -1823,15 +1851,19 @@
 ([newspaper_ProjectKB_01008] of  Map
 
 	(entries
-		[collaborativeNewspaper_ProjectKB_Class10040]
-		[collaborativeNewspaper_ProjectKB_Class10041]
-		[collaborativeNewspaper_ProjectKB_Class10057]
-		[collaborativeNewspaper_ProjectKB_Class10058]
-		[collaborativeNewspaper_ProjectKB_Class10059]
-		[collaborativeNewspaper_ProjectKB_Class10060]
-		[collaborativeNewspaper_ProjectKB_Class10061]
-		[collaborativeNewspaper_ProjectKB_Class10062])
-	(referenced_maps [collaborativeNewspaper_ProjectKB_Class10042]))
+		[collaborativeNewspaper_ProjectKB_Class10042]
+		[collaborativeNewspaper_ProjectKB_Class10043]
+		[collaborativeNewspaper_ProjectKB_Class10044]
+		[collaborativeNewspaper_ProjectKB_Class10045]
+		[collaborativeNewspaper_ProjectKB_Class10046]
+		[collaborativeNewspaper_ProjectKB_Class10062]
+		[collaborativeNewspaper_ProjectKB_Class10063]
+		[collaborativeNewspaper_ProjectKB_Class10064]
+		[collaborativeNewspaper_ProjectKB_Class10065]
+		[collaborativeNewspaper_ProjectKB_Class10066]
+		[collaborativeNewspaper_ProjectKB_Class10067]
+		[collaborativeNewspaper_ProjectKB_Class10068])
+	(referenced_maps [collaborativeNewspaper_ProjectKB_Class10047]))
 
 ([newspaper_ProjectKB_01072] of  Boolean
 
@@ -2852,14 +2884,14 @@
 	(customized_instance_widgets
 		[KB_INSTANCE_00119]
 		[newspaper_ProjectKB_00933]
-		[KB_INSTANCE_00027]
-		[newspaper_ProjectKB_01487]
 		[newspaper_ProjectKB_00928]
+		[newspaper_ProjectKB_01487]
+		[KB_INSTANCE_00027]
 		[newspaper_ProjectKB_00678]
-		[SLOT_WIDGET]
 		[newspaper_ProjectKB_INSTANCE_00242]
-		[KB_INSTANCE_00049]
+		[SLOT_WIDGET]
 		[CLASS_WIDGET]
+		[KB_INSTANCE_00049]
 		[newspaper_ProjectKB_00444]
 		[newspaper_ProjectKB_00939])
 	(default_cls_metaclass ":STANDARD-CLASS")
