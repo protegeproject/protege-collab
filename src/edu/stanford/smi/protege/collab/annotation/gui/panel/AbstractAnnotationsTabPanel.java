@@ -170,14 +170,14 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 		getCreateAction().setAllowed(true);
 		adjustFont(createButton, Font.PLAIN, -2);
 		JLabel usingLabel = new JLabel(" using a ");
-		adjustFont(usingLabel, Font.ITALIC, -1);
+		adjustFont(usingLabel, Font.PLAIN, -2);
 		JLabel orLabel = new JLabel(" or ");
-		adjustFont(orLabel, Font.ITALIC, -1);
+		adjustFont(orLabel, Font.PLAIN, -2);
 		annotationsTypeHeaderPanel.add(createButton);
 		annotationsTypeHeaderPanel.add(orLabel);
 		annotationsTypeHeaderPanel.add(replyButton);		
 		annotationsTypeHeaderPanel.add(usingLabel);
-		annotationsTypeHeaderPanel.add(annotationsComboBox);
+		annotationsTypeHeaderPanel.add(annotationsComboBox);		
 		
 		labeledComponent.setHeaderComponent(annotationsTypeHeaderPanel);
 
