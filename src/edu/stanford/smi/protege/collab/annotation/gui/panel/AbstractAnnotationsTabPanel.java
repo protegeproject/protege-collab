@@ -161,25 +161,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			public void actionPerformed(ActionEvent e) {
 				onAnnotationTypeChange();
 			}
-		});
-
-		JPanel annotationsTypeHeaderPanel = new JPanel(new GridBagLayout());				
-		JButton replyButton = new JButton(getReplyAction());
-		adjustFont(replyButton, Font.PLAIN, -2);
-		JButton createButton = new JButton(getCreateAction());
-		getCreateAction().setAllowed(true);
-		adjustFont(createButton, Font.PLAIN, -2);
-		JLabel usingLabel = new JLabel(" using a ");
-		adjustFont(usingLabel, Font.PLAIN, -2);
-		JLabel orLabel = new JLabel(" or ");
-		adjustFont(orLabel, Font.PLAIN, -2);
-		annotationsTypeHeaderPanel.add(createButton);
-		annotationsTypeHeaderPanel.add(orLabel);
-		annotationsTypeHeaderPanel.add(replyButton);		
-		annotationsTypeHeaderPanel.add(usingLabel);
-		annotationsTypeHeaderPanel.add(annotationsComboBox);		
+		});		
 		
-		labeledComponent.setHeaderComponent(annotationsTypeHeaderPanel);
+		labeledComponent.setHeaderComponent( createPanelHeader());
 
 		AnnotationFactory factory = new AnnotationFactory(ChAOKbManager.getChAOKb(kb));
 		
@@ -202,6 +186,41 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 		add(outerLC);
 	}
 
+	protected JComponent createPanelHeader() {
+		JPanel annotationsTypeHeaderPanel = new JPanel(new GridBagLayout());				
+		JButton replyButton = createReplyButton();		
+		JButton createButton = createNewThreadButton();
+		JLabel usingLabel = new JLabel(" using a ");
+		adjustFont(usingLabel, Font.PLAIN, -2);
+		JLabel orLabel = new JLabel(" or ");
+		adjustFont(orLabel, Font.PLAIN, -2);
+		if (createButton != null) {
+			annotationsTypeHeaderPanel.add(createButton);
+			annotationsTypeHeaderPanel.add(orLabel);
+		}
+		if (replyButton != null) {
+			annotationsTypeHeaderPanel.add(replyButton);
+		}
+		if (createButton != null || replyButton != null) {
+			annotationsTypeHeaderPanel.add(usingLabel);
+		}
+		annotationsTypeHeaderPanel.add(annotationsComboBox);
+		return annotationsTypeHeaderPanel;
+	}
+	
+	protected JButton createNewThreadButton() {
+		JButton createButton = new JButton(getCreateAction());
+		adjustFont(createButton, Font.PLAIN, -2);
+		getCreateAction().setAllowed(true);		
+		return createButton;
+	}
+	
+	protected JButton createReplyButton() {
+		JButton replyButton = new JButton(getReplyAction());
+		adjustFont(replyButton, Font.PLAIN, -2);
+		return replyButton;
+	}
+	
 	
 	private void adjustFont(JComponent comp, int style, int delta) {
 		Font font = comp.getFont();
@@ -259,7 +278,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 
 	protected void onAnnotationTypeChange() {
 		Cls annotationType = getSelectedAnnotationType();
-		createAction.setAllowed(annotationType != null);
+		if (createAction != null) {
+			createAction.setAllowed(annotationType != null);
+		}
 	}
 
 
@@ -342,11 +363,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			return;
 		}
 
-		Collection selection = getAnnotationsTree().getSelection();
-
-		Annotation annot = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
-		annot.setAnnotates(selection);
-		ChAOUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annot);
+		Collection selection = getAnnotationsTree().getSelection();		
+		Annotation annot = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);		
+		ChAOUtil.fillAnnotationSystemFields(currentInstance.getKnowledgeBase(), annot);		
 
 		try {
 			AnnotatableThing repliedToAnnotThing = (AnnotatableThing) CollectionUtilities.getFirstItem(selection);
@@ -374,7 +393,8 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 				options,
 				options[0]);
 
-		if (ret == JOptionPane.OK_OPTION) {
+		if (ret == JOptionPane.OK_OPTION) {	
+			annot.setAnnotates(selection);
 			LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();
 			selectedNode.childAdded(annot);
 			ComponentUtilities.extendSelection(getAnnotationsTree(), annot);
