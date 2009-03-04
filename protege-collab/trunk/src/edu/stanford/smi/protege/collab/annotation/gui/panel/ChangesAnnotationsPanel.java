@@ -3,21 +3,16 @@ package edu.stanford.smi.protege.collab.annotation.gui.panel;
 import java.util.Collection;
 
 import javax.swing.Icon;
+import javax.swing.JButton;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
-import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
-import edu.stanford.smi.protege.model.Cls;
-import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.util.CollectionUtilities;
-import edu.stanford.smi.protege.util.ComponentUtilities;
-import edu.stanford.smi.protege.util.LazyTreeNode;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -29,6 +24,11 @@ public class ChangesAnnotationsPanel extends AbstractAnnotationsTabPanel {
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
 		super(kb, "Changes");
 		getLabeledComponent().removeHeaderButton(1);
+	}
+	
+	@Override
+	protected JButton createNewThreadButton() {
+		return null;
 	}
 
 
@@ -56,29 +56,6 @@ public class ChangesAnnotationsPanel extends AbstractAnnotationsTabPanel {
 
 	@Override
 	protected void onCreateAnnotation() {
-		Cls pickedAnnotationCls = getSelectedAnnotationType();
-		if (pickedAnnotationCls == null) {
-			return;
-		}
-
-		Collection selection = getAnnotationsTree().getSelection();
-		Frame parentAnnotation = null;
-
-		if (selection != null && selection.size() > 0) {
-			parentAnnotation = (Frame) CollectionUtilities.getFirstItem(selection);
-		}
-
-		KnowledgeBase kb = getCurrentInstance().getKnowledgeBase();
-
-		Annotation annotInstance = ChAOUtil.createAnnotationOnAnnotation(kb, parentAnnotation, pickedAnnotationCls);
-		ChAOUtil.fillAnnotationSystemFields(kb, annotInstance);
-
-		annotInstance.setBody("(Enter the annotation text here)");
-
-		LazyTreeNode selectedNode = (LazyTreeNode) getAnnotationsTree().getLastSelectedPathComponent();
-		selectedNode.childAdded(annotInstance);
-		ComponentUtilities.extendSelection(getAnnotationsTree(), annotInstance);
-
 	}
 
 	@Override
