@@ -86,23 +86,7 @@ public class EntityAnnotationsPanel extends AbstractAnnotationsTabPanel {
 		Annotation annotation = OntologyJavaMappingUtil.createObject(ChAOKbManager.getChAOKb(kb), null, pickedAnnotationCls.getName(), Annotation.class);
 		ChAOUtil.fillAnnotationSystemFields(kb, annotation);
 		annotation.setBody(AbstractAnnotationsTabPanel.NEW_ANNOTATION_DEFAULT_BODY_TEXT);
-
-		if (firstSelection instanceof AnnotatableThing) {
-			AnnotatableThing annotatableThing = (AnnotatableThing) firstSelection;
-			Collection<Annotation> annotations = new ArrayList<Annotation>(annotatableThing.getAssociatedAnnotations());
-
-			annotations.add(annotation);
-
-			annotatableThing.setAssociatedAnnotations(annotations);
-		} else {
-			Frame selectedFrame = (Frame) firstSelection;
-			Ontology_Component ontoComp = ChAOUtil.getOntologyComponent(selectedFrame, true);
-
-			Collection<AnnotatableThing> ontologyComponents = new ArrayList<AnnotatableThing>(annotation.getAnnotates());
-			ontologyComponents.add(ontoComp);
-			annotation.setAnnotates(ontologyComponents);
-		}
-
+		
 		InstanceDisplay instDispl = UIUtil.createAnnotationInstanceDisplay(annotation, ChAOKbManager.getChAOKb(kb));
 
 		Instance annotInst = ((AbstractWrappedInstance)annotation).getWrappedProtegeInstance();
@@ -116,6 +100,23 @@ public class EntityAnnotationsPanel extends AbstractAnnotationsTabPanel {
 				options[0]);
 
 		if (ret == JOptionPane.OK_OPTION) {
+			
+			if (firstSelection instanceof AnnotatableThing) {
+				AnnotatableThing annotatableThing = (AnnotatableThing) firstSelection;
+				Collection<Annotation> annotations = new ArrayList<Annotation>(annotatableThing.getAssociatedAnnotations());
+
+				annotations.add(annotation);
+
+				annotatableThing.setAssociatedAnnotations(annotations);
+			} else {
+				Frame selectedFrame = (Frame) firstSelection;
+				Ontology_Component ontoComp = ChAOUtil.getOntologyComponent(selectedFrame, true);
+
+				Collection<AnnotatableThing> ontologyComponents = new ArrayList<AnnotatableThing>(annotation.getAnnotates());
+				ontologyComponents.add(ontoComp);
+				annotation.setAnnotates(ontologyComponents);
+			}
+			
 			refreshDisplay();
 			((LazyTreeRoot)getAnnotationsTree().getModel().getRoot()).reload();
 			ComponentUtilities.setSelectedObjectPath(getAnnotationsTree(), CollectionUtilities.createCollection(annotation));
