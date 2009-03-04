@@ -33,7 +33,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
 		Frame frame = event.getFrame();
 		Slot slot = event.getSlot();
 		AnnotationFactory factory = new AnnotationFactory(frame.getKnowledgeBase());
-		if (((Instance)frame).hasType(factory.getAnnotationClass())) {
+		if (((Instance)frame).hasType(factory.getAnnotationClass()) && slot.equals(factory.getAnnotatesSlot())) {
 			treatAnnotation(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Annotation.class), slot);
 		} else if (((Instance)frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase()).getOntology_ClassClass())) {
 			treatOntologyComponent(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Ontology_Component.class), slot);
