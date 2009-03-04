@@ -64,16 +64,28 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 	private boolean ensureChAOKBLoaded(KnowledgeBase kb) {
 		KnowledgeBase chaoKB = ChAOKbManager.getChAOKb(kb);
-		if (chaoKB != null) {return true;}
+		boolean validChaoKB = isValidChaoKB(chaoKB);
+		if (chaoKB != null && validChaoKB) {return true;}
 
 		if (kb.getProject().isMultiUserClient()) {
-			ModalDialog.showMessageDialog(ProjectManager.getProjectManager().getCurrentProjectView(),
-					"The Collaboration panel could not find the annotation/changes knowledge base (ChAO KB) \n" +
-					"associated to this project. One possible reason is that the\n" +
-					"annotations/changes knowledge base was not configured on the server.\n" +
-					"Please check the configuration of the project on the server side.\n" +
-					"The Collaboration panel will not work at the current time.",
-					"No annotation/changes knowledge base", ModalDialog.MODE_CLOSE);
+			if (chaoKB == null) {
+				ModalDialog.showMessageDialog(ProjectManager.getProjectManager().getCurrentProjectView(),
+						"The Collaboration panel could not find the changes/annotation knowledge base (ChAO KB) \n" +
+						"associated to this project. One possible reason is that the\n" +
+						"changes/annotations knowledge base was not configured on the server.\n" +
+						"Please check the configuration of the project on the server side.\n" +
+						"The Collaboration panel will not work at the current time.",
+						"No annotation/changes knowledge base", ModalDialog.MODE_CLOSE);
+				return false;
+			}
+			
+			if (!validChaoKB) {
+				ModalDialog.showMessageDialog(ProjectManager.getProjectManager().getCurrentProjectView(),
+						"The changes/annotations knowledge base is not configured correctly on the server.\n" +
+						"Please check the configuration of the project on the server side.\n" +
+						"The Collaboration panel will not work at the current time.",
+						"Misconfigured annotation/changes knowledge base", ModalDialog.MODE_CLOSE);				
+			}
 			return false;
 		}
 
@@ -81,10 +93,11 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		dialog.showDialog();
 		chaoKB = dialog.getChangesKb();
 
-		if (chaoKB == null) {
+		if (chaoKB == null || !isValidChaoKB(chaoKB)) {
 			ModalDialog.showMessageDialog(ProjectManager.getProjectManager().getCurrentProjectView(),
 					"Could not find or create the changes and annotations\n" +
-					"ontology. The collaboration panel will not work in this session.", "No ChAO");
+					"ontology (ChAO), or attached ChAO is invalid.\n" +
+					"The collaboration panel will not work in this session.", "No ChAO");
 			return false;
 		}
 
@@ -92,6 +105,12 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		return chaoKB != null;
 	}
 
+	private boolean isValidChaoKB(KnowledgeBase chaoKB) {
+		if (chaoKB == null) { return false; }
+		AnnotationFactory factory = new AnnotationFactory(chaoKB);
+		return factory.getAnnotatableThingClass() != null;
+	}
+	
 
 	private void backwardCompatibilityFix(KnowledgeBase kb) {
 		//add subject if not added as a template slot of annotation
@@ -124,11 +143,12 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
 		if (view != null) {			
-			insertCollabPanel(view);
-			attachProjectViewListener(view);
-
-			UIUtil.adjustTreeFrameRenderers(view);
-			UIUtil.adjustAnnotationBrowserPattern(kb);
+			annotationsDisplayComponent = insertCollabPanel(view);
+			if (annotationsDisplayComponent != null) {
+				attachProjectViewListener(view);
+				UIUtil.adjustTreeFrameRenderers(view);
+				UIUtil.adjustAnnotationBrowserPattern(kb);
+			}
 		}
 	}
 
@@ -217,6 +237,14 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
 
 	private AnnotationsDisplayComponent insertCollabPanel(ProjectView view) {
+		try {
+			annotationsDisplayComponent = new AnnotationsDisplayComponent(view.getProject().getKnowledgeBase());
+		} catch (Throwable t) {
+			Log.getLogger().log(Level.WARNING, "Could not insert the collaboration panel", t);
+		}
+		
+		if (annotationsDisplayComponent == null) { return null; }
+		
 		JComponent parent = (JComponent)view.getParent();
 		parent.remove(view);
 
@@ -224,8 +252,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 		pane.setResizeWeight(0.50);
 		pane.setDividerLocation(0.75);
 		pane.setOneTouchExpandable(true);
-		pane.setLeftComponent(view);
-		annotationsDisplayComponent = new AnnotationsDisplayComponent(view.getProject().getKnowledgeBase());
+		pane.setLeftComponent(view);		
 		pane.setRightComponent(annotationsDisplayComponent);
 		annotationsDisplayComponent.setMinimumSize(new Dimension(0,0));
 		
