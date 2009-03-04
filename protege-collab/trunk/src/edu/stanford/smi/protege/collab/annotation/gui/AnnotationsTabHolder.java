@@ -46,7 +46,9 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		}
 
 		tabbedPane = createTabbedPane();
-		setSelectable(getSelectedTab().getSelectable());
+		if (getSelectedTab() != null) {
+			setSelectable(getSelectedTab().getSelectable());
+		}
 		add(tabbedPane);
 	}
 
@@ -72,7 +74,9 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	protected JTabbedPane createTabbedPane() {
 		tabbedPane = ComponentFactory.createTabbedPane(true);
 		addTabs();
-		tabbedPane.setSelectedIndex(0);
+		if (tabbedPane.getTabCount() > 0) {
+			tabbedPane.setSelectedIndex(0);
+		}
 		return tabbedPane;
 	}
 
