@@ -22,8 +22,7 @@ public class ChangesAnnotationsPanel extends AbstractAnnotationsTabPanel {
 	private static final long serialVersionUID = -6242832743918390294L;
 
 	public ChangesAnnotationsPanel(KnowledgeBase kb) {
-		super(kb, "Changes");
-		getLabeledComponent().removeHeaderButton(1);
+		super(kb, "Changes");		
 	}
 	
 	@Override
