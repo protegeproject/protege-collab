@@ -10,7 +10,7 @@
    <property name = "plugins"         value = "${build}/plugins"/>
    <property name = "lib"             value = "./lib"/>
    <property name = "plugin_dist"     value = "edu.stanford.smi.protege.collab"/>
-   <property name = "pluginName"      value = "collab"/>
+   <property name = "pluginName"      value = "protege-collab"/>
 
 
     <!-- 
