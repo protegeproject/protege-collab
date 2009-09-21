@@ -36,353 +36,350 @@ import edu.stanford.smi.protege.util.SelectionEvent;
 import edu.stanford.smi.protege.util.SelectionListener;
 import edu.stanford.smi.protege.widget.TabWidget;
 
-
 /**
- * Main class for displaying the collaboration component. It contains the logic for
- * refreshing the tabs when the Protege Tab is switched, listeners for changes in the
- * ChAO Kb, tree selection listeners for changes in the classes tree.
- *
+ * Main class for displaying the collaboration component. It contains the logic
+ * for refreshing the tabs when the Protege Tab is switched, listeners for
+ * changes in the ChAO Kb, tree selection listeners for changes in the classes
+ * tree.
+ * 
  * @author Tania Tudorache <tudorache@stanford.edu>
- *
+ * 
  */
 public class AnnotationsDisplayComponent extends SelectableContainer {
-	
-	private static final long serialVersionUID = -4241048417267452940L;
 
-	private KnowledgeBase domainKb;
+    private static final long serialVersionUID = -4241048417267452940L;
 
-	private Instance currentInstance;
-	private Selectable selectable;
+    private KnowledgeBase domainKb;
 
-	private JComponent annotationBodyTextComponent;
-	private AnnotationsTabHolder annotationsTabHolder;
+    private Instance currentInstance;
+    private Selectable selectable;
 
-	private ClassChangeListener classChangeListener;
-	private SelectionListener clsTreeSelectionListener;
-	private ChangesKbFrameListener changesKbFrameListener;
-	private ChangeListener protegeTabChangeListener;
-	private ChangeListener collabTabChangeListener;
-	private SelectionListener annotTreeSelectionListener;
-	
-	
-	public AnnotationsDisplayComponent(KnowledgeBase kb) {
-		this.domainKb = kb;
+    private JComponent annotationBodyTextComponent;
+    private AnnotationsTabHolder annotationsTabHolder;
 
-		annotationsTabHolder = createAnnotationsTabHolder();
-		annotationBodyTextComponent = createAnnotationBodyComponent();
+    private ClassChangeListener classChangeListener;
+    private SelectionListener clsTreeSelectionListener;
+    private ChangesKbFrameListener changesKbFrameListener;
+    private ChangeListener protegeTabChangeListener;
+    private ChangeListener collabTabChangeListener;
+    private SelectionListener annotTreeSelectionListener;
 
-		LabeledComponent labeledComponentTabHolder = new LabeledComponent("Collaboration", annotationsTabHolder, true);
-		LabeledComponent labeledComponentText = new LabeledComponent("Details", annotationBodyTextComponent, true);
+    public AnnotationsDisplayComponent(KnowledgeBase kb) {
+        this.domainKb = kb;
 
-		final JSplitPane topBottomSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		topBottomSplitPane.setTopComponent(labeledComponentTabHolder);
-		topBottomSplitPane.setBottomComponent(labeledComponentText);
-		labeledComponentTabHolder.setMinimumSize(new Dimension(0,0));
-		labeledComponentText.setMinimumSize(new Dimension(0,0));
-		topBottomSplitPane.setDividerLocation(0.75);
-		topBottomSplitPane.setResizeWeight(0.50);
-		topBottomSplitPane.setOneTouchExpandable(true);
+        annotationsTabHolder = createAnnotationsTabHolder();
+        annotationBodyTextComponent = createAnnotationBodyComponent();
 
-		classChangeListener = getClassChangeListener();
-		setSelectable(annotationsTabHolder);
-		attachAnnotationTreeSelectionListener();
-		annotationsTabHolder.getTabbedPane().addChangeListener(getCollabTabChangeListener());
-		attachProtegeTabTreeListener();
-		attachChangeKbListeners();
+        LabeledComponent labeledComponentTabHolder = new LabeledComponent("Collaboration", annotationsTabHolder, true);
+        LabeledComponent labeledComponentText = new LabeledComponent("Details", annotationBodyTextComponent, true);
 
-		add(topBottomSplitPane);		
-		
-		HasAnnotationCache.fillHasAnnotationCache(domainKb);
-		
-		SwingUtilities.invokeLater(new Runnable()  {
-			public void run() {
-				refreshDisplay();
-			}			
-		});
-	}
+        final JSplitPane topBottomSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        topBottomSplitPane.setTopComponent(labeledComponentTabHolder);
+        topBottomSplitPane.setBottomComponent(labeledComponentText);
+        labeledComponentTabHolder.setMinimumSize(new Dimension(0, 0));
+        labeledComponentText.setMinimumSize(new Dimension(0, 0));
+        topBottomSplitPane.setDividerLocation(0.75);
+        topBottomSplitPane.setResizeWeight(0.50);
+        topBottomSplitPane.setOneTouchExpandable(true);
 
-	/*
-	 * Listeners
-	 */
+        classChangeListener = getClassChangeListener();
+        setSelectable(annotationsTabHolder);
+        attachAnnotationTreeSelectionListener();
+        annotationsTabHolder.getTabbedPane().addChangeListener(getCollabTabChangeListener());
+        attachProtegeTabTreeListener();
+        attachChangeKbListeners();
 
-	protected void attachChangeKbListeners() {
-		KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
+        add(topBottomSplitPane);
 
-		changesKbFrameListener = new ChangesKbFrameListener(domainKb);
-		changesKb.addFrameListener(changesKbFrameListener);
-	}
+        HasAnnotationCache.fillHasAnnotationCache(domainKb);
 
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                refreshDisplay();
+            }
+        });
+    }
 
-	protected void attachAnnotationTreeSelectionListener() {
-		for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
-			annotationPanel.addSelectionListener(getAnnotationTreeSelectionListener());
-		}
-	}
+    /*
+     * Listeners
+     */
 
+    protected void attachChangeKbListeners() {
+        KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
 
-	protected SelectionListener getAnnotationTreeSelectionListener() {
-		if (annotTreeSelectionListener == null) {
-			annotTreeSelectionListener = new SelectionListener() {
-				public void selectionChanged(SelectionEvent event) {
-					AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelectedTab().getAnnotationsTree().getSelection());
-					if (thing == null) {
-						((InstanceDisplay)annotationBodyTextComponent).setInstance(null);
-					} else {
-						Instance annotInstance = ((AbstractWrappedInstance)thing).getWrappedProtegeInstance();
-						((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
-					}
-				}
-			};
-		}
-		return annotTreeSelectionListener;
-	}
+        changesKbFrameListener = new ChangesKbFrameListener(domainKb);
+        changesKb.addFrameListener(changesKbFrameListener);
+    }
 
+    protected void attachAnnotationTreeSelectionListener() {
+        for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
+            annotationPanel.addSelectionListener(getAnnotationTreeSelectionListener());
+        }
+    }
 
-	protected ChangeListener getProtegeTabChangeListener() {
-		if (protegeTabChangeListener != null) {
-			return protegeTabChangeListener;
-		}
-		protegeTabChangeListener = new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				//System.out.println("Tab changed " + ((JTabbedPane)e.getSource()).getSelectedComponent()  + "\nselectable before = " + selectable);
-				clsTreeSelectionListener = getClsTreeSelectionListener();
+    protected SelectionListener getAnnotationTreeSelectionListener() {
+        if (annotTreeSelectionListener == null) {
+            annotTreeSelectionListener = new SelectionListener() {
+                public void selectionChanged(SelectionEvent event) {
+                    AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTabHolder
+                            .getSelectedTab().getAnnotationsTree().getSelection());
+                    if (thing == null) {
+                        ((InstanceDisplay) annotationBodyTextComponent).setInstance(null);
+                    } else {
+                        Instance annotInstance = ((AbstractWrappedInstance) thing).getWrappedProtegeInstance();
+                        ((InstanceDisplay) annotationBodyTextComponent).setInstance(annotInstance);
+                    }
+                }
+            };
+        }
+        return annotTreeSelectionListener;
+    }
 
-				if (selectable != null) {
-					selectable.removeSelectionListener(clsTreeSelectionListener);
-				}
+    protected ChangeListener getProtegeTabChangeListener() {
+        if (protegeTabChangeListener != null) {
+            return protegeTabChangeListener;
+        }
+        protegeTabChangeListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                //System.out.println("Tab changed " + ((JTabbedPane)e.getSource()).getSelectedComponent()  + "\nselectable before = " + selectable);
+                clsTreeSelectionListener = getClsTreeSelectionListener();
 
-				TabWidget tabWidget = (TabWidget) ((JTabbedPane)e.getSource()).getSelectedComponent();
-				selectable = UIUtil.getSelectableForTab(tabWidget);
+                if (selectable != null) {
+                    selectable.removeSelectionListener(clsTreeSelectionListener);
+                }
 
-				//do I need this here?
-				setInstances(selectable == null ? null : selectable.getSelection());
+                TabWidget tabWidget = (TabWidget) ((JTabbedPane) e.getSource()).getSelectedComponent();
+                selectable = UIUtil.getSelectableForTab(tabWidget);
 
-				if (selectable != null) {
-					selectable.addSelectionListener(clsTreeSelectionListener);
-				}
-			}
-		};
-		return protegeTabChangeListener;
-	}
+                //do I need this here?
+                setInstances(selectable == null ? null : selectable.getSelection());
 
+                if (selectable != null) {
+                    selectable.addSelectionListener(clsTreeSelectionListener);
+                }
+            }
+        };
+        return protegeTabChangeListener;
+    }
 
-	protected ChangeListener getCollabTabChangeListener() {
-		if (collabTabChangeListener == null) {
-			collabTabChangeListener = new ChangeListener() {
-				public void stateChanged(ChangeEvent arg0) {
-					AbstractAnnotationsTabPanel annotTabPanel = annotationsTabHolder.getSelectedTab();
-					//why??
-					if (annotTabPanel == null) { return; }
-					annotTabPanel.setInstance(currentInstance);
-					setSelectable(annotTabPanel.getSelectable());
-					AnnotatableThing annot = (AnnotatableThing) CollectionUtilities.getFirstItem(annotTabPanel.getSelection());
-					Instance wrappedInst = new AnnotationFactory(ChAOUtil.getChangesKb(domainKb)).getWrappedProtegeInstance(annot);
-					((InstanceDisplay)annotationBodyTextComponent).setInstance(wrappedInst);
-				}
-			};
-		}
-		return collabTabChangeListener;
-	}
+    protected ChangeListener getCollabTabChangeListener() {
+        if (collabTabChangeListener == null) {
+            collabTabChangeListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent arg0) {
+                    AbstractAnnotationsTabPanel annotTabPanel = annotationsTabHolder.getSelectedTab();
+                    //why??
+                    if (annotTabPanel == null) {
+                        return;
+                    }
+                    annotTabPanel.setInstance(currentInstance);
+                    setSelectable(annotTabPanel.getSelectable());
+                    AnnotatableThing annot = (AnnotatableThing) CollectionUtilities.getFirstItem(annotTabPanel
+                            .getSelection());
+                    Instance wrappedInst = new AnnotationFactory(ChAOUtil.getChangesKb(domainKb))
+                            .getWrappedProtegeInstance(annot);
+                    ((InstanceDisplay) annotationBodyTextComponent).setInstance(wrappedInst);
+                }
+            };
+        }
+        return collabTabChangeListener;
+    }
 
+    protected SelectionListener getClsTreeSelectionListener() {
+        if (clsTreeSelectionListener == null) {
+            clsTreeSelectionListener = new SelectionListener() {
+                public void selectionChanged(SelectionEvent event) {
+                    setInstances(event.getSelectable().getSelection());
+                }
+            };
+        }
+        return clsTreeSelectionListener;
+    }
 
-	protected SelectionListener getClsTreeSelectionListener() {
-		if (clsTreeSelectionListener == null) {
-			clsTreeSelectionListener = new SelectionListener() {
-				public void selectionChanged(SelectionEvent event) {
-					setInstances(event.getSelectable().getSelection());
-				}
-			};
-		}
-		return clsTreeSelectionListener;
-	}
+    protected ClassChangeListener getClassChangeListener() {
+        if (classChangeListener == null) {
+            classChangeListener = new ClassChangeListener() {
+                @Override
+                public void refreshClassDisplay(FrameEvent event) {
+                    refreshAllTabs();
+                }
+            };
+        }
+        return classChangeListener;
+    }
 
-	protected ClassChangeListener getClassChangeListener() {
-		if (classChangeListener == null) {
-			classChangeListener = new ClassChangeListener() {
-				@Override
-				public void refreshClassDisplay(FrameEvent event) {
-					refreshAllTabs();
-				}
-			};}
-		return classChangeListener;
-	}
+    private void attachProtegeTabTreeListener() {
+        ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
+        TabWidget currentTab = view.getSelectedTab();
 
+        selectable = UIUtil.getSelectableForTab(currentTab);
+        if (selectable != null) {
+            clsTreeSelectionListener = getClsTreeSelectionListener();
+            selectable.addSelectionListener(clsTreeSelectionListener);
+            setInstances(selectable.getSelection());
+        }
+        init();
+    }
 
-	private void attachProtegeTabTreeListener() {
-		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
-		TabWidget currentTab = view.getSelectedTab();
+    /*
+     * GUI components
+     */
 
-		selectable = UIUtil.getSelectableForTab(currentTab);
-		if (selectable != null) {
-			clsTreeSelectionListener = getClsTreeSelectionListener();
-			selectable.addSelectionListener(clsTreeSelectionListener);
-			setInstances(selectable.getSelection());
-		}
-		init();
-	}
+    protected AnnotationsTabHolder createAnnotationsTabHolder() {
+        annotationsTabHolder = new AnnotationsTabHolder(domainKb);
+        return annotationsTabHolder;
+    }
 
+    protected JComponent createAnnotationBodyComponent() {
+        if (!ChAOUtil.isChangesOntologyPresent(domainKb)) {
+            Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
+            annotationBodyTextComponent = new InstanceDisplay(ProjectManager.getProjectManager().getCurrentProject());
+        } else {
+            annotationBodyTextComponent = new InstanceDisplay(ChAOUtil.getChangesKb(domainKb).getProject(), false,
+                    false);
+        }
+        return annotationBodyTextComponent;
+    }
 
-	/*
-	 * GUI components
-	 */
+    public void setInstance(Instance instance) {
+        if (currentInstance != null) {
+            currentInstance.removeFrameListener(classChangeListener);
+        }
+        currentInstance = instance;
+        if (currentInstance != null) {
+            currentInstance.addFrameListener(classChangeListener);
+        }
+        annotationsTabHolder.setInstance(currentInstance);
+    }
 
-	protected AnnotationsTabHolder createAnnotationsTabHolder() {
-		annotationsTabHolder = new AnnotationsTabHolder(domainKb);
-		return annotationsTabHolder;
-	}
+    public void setInstances(Collection instances) {
+        //TODO: handle multiple selections
+        setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
+    }
 
+    public Instance getInstance() {
+        return currentInstance;
+    }
 
-	protected JComponent createAnnotationBodyComponent() {
-		if (!ChAOUtil.isChangesOntologyPresent(domainKb)) {
-			Log.getLogger().warning("Change ontology is not present. Cannot display annotations for it.");
-			annotationBodyTextComponent = new InstanceDisplay(ProjectManager.getProjectManager().getCurrentProject());
-		} else {
-			annotationBodyTextComponent = new InstanceDisplay(ChAOUtil.getChangesKb(domainKb).getProject(), false, false);
-		}
-		return annotationBodyTextComponent;
-	}
+    //TODO: find a better solution for the initialization
+    public void init() {
+        ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
+        protegeTabChangeListener = getProtegeTabChangeListener();
+        view.removeChangeListener(protegeTabChangeListener);
+        view.addChangeListener(protegeTabChangeListener);
+    }
 
-	public void setInstance(Instance instance) {
-		if (currentInstance != null) {
-			currentInstance.removeFrameListener(classChangeListener);
-		}
-		currentInstance = instance;
-		if (currentInstance != null) {
-			currentInstance.addFrameListener(classChangeListener);
-		}
-		annotationsTabHolder.setInstance(currentInstance);
-	}
+    public void refreshDisplay() {
+        annotationsTabHolder.refreshDisplay();
+        Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
+        ((InstanceDisplay) annotationBodyTextComponent).setInstance(annotInstance);
+    }
 
-	public void setInstances(Collection instances) {
-		//TODO: handle multiple selections
-		setInstance(instances == null ? null : (Instance) CollectionUtilities.getFirstItem(instances));
-	}
-	
-	public Instance getInstance() {
-		return currentInstance;
-	}
+    protected void refreshAllTabs() {
+        annotationsTabHolder.refreshAllTabs();
+        Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
+        ((InstanceDisplay) annotationBodyTextComponent).setInstance(annotInstance);
+    }
 
-	//TODO: find a better solution for the initialization
-	public void init() {
-		ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
-		protegeTabChangeListener = getProtegeTabChangeListener();
-		view.removeChangeListener(protegeTabChangeListener);
-		view.addChangeListener(protegeTabChangeListener);
-	}
+    public void reloadCollabTabs() {
+        annotationsTabHolder.reload();
+        attachAnnotationTreeSelectionListener();
+    }
 
+    public KnowledgeBase getKnowledgeBase() {
+        return domainKb;
+    }
 
-	public void refreshDisplay() {
-		annotationsTabHolder.refreshDisplay();
-		Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
-		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
-	}
+    /*
+     * ********** Dispose ***********
+     */
 
-	protected void refreshAllTabs() {
-		annotationsTabHolder.refreshAllTabs();
-		Instance annotInstance = (Instance) CollectionUtilities.getFirstItem(annotationsTabHolder.getSelection());
-		((InstanceDisplay)annotationBodyTextComponent).setInstance(annotInstance);
-	}
+    @Override
+    public void dispose() {
+        /*
+         * Class tree selection listener
+         */
+        if (selectable != null) {
+            try {
+                selectable.removeSelectionListener(clsTreeSelectionListener);
+            } catch (Throwable t) {
+                Log.getLogger().log(Level.WARNING,
+                        "Could not detach class tree selection listener when disposing the collaboration panel.", t);
+            }
+        }
 
+        /*
+         * Frame listener on currently selected instance
+         */
+        try {
+            if (currentInstance != null && classChangeListener != null) {
+                currentInstance.removeFrameListener(classChangeListener);
+            }
+        } catch (Exception e) {
+            Log.getLogger().log(Level.WARNING, "Error at removing frame listener on " + currentInstance, e);
+        }
 
-	public void reloadCollabTabs() {
-		annotationsTabHolder.reload();
-		attachAnnotationTreeSelectionListener();
-	}
+        /*
+         * Annotation tree selection listener
+         */
+        if (annotTreeSelectionListener != null) {
+            for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
+                try {
+                    annotationPanel.removeSelectionListener(annotTreeSelectionListener);
+                } catch (Exception e) {
+                    Log.getLogger().log(Level.WARNING,
+                            "Error at removing annotation tree listener on " + annotationPanel, e);
+                }
+            }
+        }
 
-	public KnowledgeBase getKnowledgeBase() {
-		return domainKb;
-	}
+        /*
+         * Protege Tab change listener
+         */
+        try {
+            ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
+            if (view != null && protegeTabChangeListener != null) {
+                view.removeChangeListener(protegeTabChangeListener);
+            }
+        } catch (Exception e) {
+            Log.getLogger().log(Level.WARNING, "Error at removing Protege tab listener", e);
+        }
 
-	
-	/*
-	 * ********** Dispose ***********
-	 */
-	
-	@Override
-	public void dispose() {
-		/*
-		 * Class tree selection listener
-		 */
-		if (selectable != null) {
-			try {
-				selectable.removeSelectionListener(clsTreeSelectionListener);
-			} catch (Throwable t) {
-				Log.getLogger().log(Level.WARNING, "Could not detach class tree selection listener when disposing the collaboration panel.", t);
-			}
-		}
-		
-		/*
-		 * Frame listener on currently selected instance
-		 */
-		try {
-			if (currentInstance != null && classChangeListener != null) {
-				currentInstance.removeFrameListener(classChangeListener);
-			}
-		} catch (Exception e) {
-			Log.getLogger().log(Level.WARNING, "Error at removing frame listener on " + currentInstance, e);
-		}
+        /*
+         * Collaborative Tab change listeners
+         */
+        try {
+            annotationsTabHolder.getTabbedPane().removeChangeListener(collabTabChangeListener);
+        } catch (Exception e) {
+            Log.getLogger().log(Level.WARNING, "Error at removing collab tab change listener", e);
+        }
 
-		/*
-		 * Annotation tree selection listener
-		 */
-		if (annotTreeSelectionListener != null) {
-			for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
-				try {
-					annotationPanel.removeSelectionListener(annotTreeSelectionListener);
-				} catch (Exception e) {
-					Log.getLogger().log(Level.WARNING, "Error at removing annotation tree listener on " + annotationPanel, e);
-				}
-			}
-		}
+        /*
+         * Annotations Tab holder
+         */
+        try {
+            annotationsTabHolder.dispose();
+        } catch (Exception e) {
+            Log.getLogger().warning("Error at disposing the annotations tab holder");
+        }
 
-		/*
-		 * Protege Tab change listener
-		 */
-		try {
-			ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
-			if (view != null && protegeTabChangeListener != null) {
-				view.removeChangeListener(protegeTabChangeListener);
-			}
-		} catch (Exception e) {
-			Log.getLogger().log(Level.WARNING, "Error at removing Protege tab listener", e);
-		}
+        /*
+         * ChAO Kb related listeners
+         */
+        KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
+        if (changesKb == null) {
+            Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
+        } else {
+            try {
+                changesKb.removeFrameListener(changesKbFrameListener);
+            } catch (Exception e) {
+                Log.getLogger().warning("Error at disposing changes ontology kb listener");
+            }
+            //clear caches
+            OntologyComponentCache.clearCache();
+            HasAnnotationCache.clearCache();
+        }
 
-		/*
-		 * Collaborative Tab change listeners
-		 */
-		try {
-			annotationsTabHolder.getTabbedPane().removeChangeListener(collabTabChangeListener);
-		} catch (Exception e) {
-			Log.getLogger().log(Level.WARNING, "Error at removing collab tab change listener", e);
-		}
-
-		/*
-		 * Annotations Tab holder
-		 */
-		try {
-			annotationsTabHolder.dispose();
-		} catch (Exception e) {
-			Log.getLogger().warning("Error at disposing the annotations tab holder");
-		}
-
-		/*
-		 * ChAO Kb related listeners
-		 */
-		KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
-		if (changesKb == null) {
-			Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
-		} else {
-			try {
-				changesKb.removeFrameListener(changesKbFrameListener);
-			} catch (Exception e) {
-				Log.getLogger().warning("Error at disposing changes ontology kb listener");
-			}
-			//clear caches
-			OntologyComponentCache.clearCache();
-			HasAnnotationCache.clearCache();
-		}
-
-		super.dispose();
-	}
+        super.dispose();
+    }
 
 }
