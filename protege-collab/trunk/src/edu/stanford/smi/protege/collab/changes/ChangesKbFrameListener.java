@@ -1,7 +1,8 @@
 package edu.stanford.smi.protege.collab.changes;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Set;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
@@ -20,76 +21,105 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 
 public class ChangesKbFrameListener extends FrameAdapter {
-	
-	private KnowledgeBase domainKb;
-	
-	public ChangesKbFrameListener(KnowledgeBase domainKb) {
-		this.domainKb = domainKb;
-	}
-	
 
-	@Override
-	public void ownSlotValueChanged(FrameEvent event) {
-		Frame frame = event.getFrame();
-		Slot slot = event.getSlot();
-		AnnotationFactory factory = new AnnotationFactory(frame.getKnowledgeBase());
-		if (((Instance)frame).hasType(factory.getAnnotationClass()) && slot.equals(factory.getAnnotatesSlot())) {
-			treatAnnotation(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Annotation.class), slot);
-		} else if (((Instance)frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase()).getOntology_ClassClass())) {
-			treatOntologyComponent(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Ontology_Component.class), slot);
-		}
-	}
+    private KnowledgeBase domainKb;
 
+    public ChangesKbFrameListener(KnowledgeBase domainKb) {
+        this.domainKb = domainKb;
+    }
 
-	private void treatOntologyComponent(Ontology_Component ontComp, Slot slot) {
-		AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
-		if (slot.equals(factory.getCurrentNameSlot())) {
-			updateCaches(ontComp, slot.getKnowledgeBase());
-		}
-	}
+    @Override
+    public void ownSlotValueChanged(FrameEvent event) {
+        Frame frame = event.getFrame();
+        Slot slot = event.getSlot();
+        AnnotationFactory factory = new AnnotationFactory(frame.getKnowledgeBase());
+        if (((Instance) frame).hasType(factory.getAnnotationClass()) && slot.equals(factory.getAnnotatesSlot())) {
+            treatAnnotation(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame,
+                    Annotation.class), slot);
+        } else if (((Instance) frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase())
+                .getOntology_ClassClass())) {
+            treatOntologyComponent(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(),
+                    (Instance) frame, Ontology_Component.class), slot);
+        }
+    }
 
-	private void treatAnnotation(Annotation annot, Slot slot) {
-		AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
-		if (slot.equals(factory.getAnnotatesSlot())){
-			updateCaches(annot, slot.getKnowledgeBase());
-		}
-	}
+    private void treatOntologyComponent(Ontology_Component ontComp, Slot slot) {
+        AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
+        if (slot.equals(factory.getCurrentNameSlot())) {
+            updateCaches(ontComp, slot.getKnowledgeBase());
+        }
+    }
 
+    private void treatAnnotation(Annotation annot, Slot slot) {
+        AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
+        if (slot.equals(factory.getAnnotatesSlot())) {
+            updateCaches(annot, slot.getKnowledgeBase());
+        }
+    }
 
-	private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
-		Collection<AnnotatableThing> annotatesColl = annotation.getAnnotates();
+    private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
+        Collection<AnnotatableThing> annotatesColl = annotation.getAnnotates();
 
-		for (Iterator<AnnotatableThing> iter = annotatesColl.iterator(); iter.hasNext();) {
-			AnnotatableThing annotThing = iter.next();
+        for (AnnotatableThing annotThing : annotatesColl) {
+            String key = null;
+            if (annotThing.canAs(Ontology_Component.class)) {
+                Ontology_Component oc = annotThing.as(Ontology_Component.class);
+                key = oc.getCurrentName();
+            } else if (annotThing.canAs(Change.class)) {
+                Change c = annotThing.as(Change.class);
+                Ontology_Component applyTo = c.getApplyTo();
+                if (applyTo != null) {
+                    key = applyTo.getCurrentName();
+                }
+            } else if (annotThing.canAs(Annotation.class)) {
+                //go up the annotation tree and increase counter for annotation in cache for the ontology component
+                handleAnnotationAdded(annotThing.as(Annotation.class));
+            }
+            if (key != null) {
+                HasAnnotationCache.addAnnotation(domainKb.getFrame(key));
+            }
+        }
+    }
 
-			String key = null;
-			if (annotThing.canAs(Ontology_Component.class)) {
-				Ontology_Component oc = annotThing.as(Ontology_Component.class);
-				key = oc.getCurrentName();
-			} else if (annotThing.canAs(Change.class)) {
-				Change c = annotThing.as(Change.class);
-				Ontology_Component applyTo = c.getApplyTo();
-				if (applyTo != null) {
-					key = applyTo.getCurrentName();
-				}
-			}
-			if (key != null) {
-				HasAnnotationCache.put(domainKb.getFrame(key), true);
-			}
-		}
-	}
+    private void handleAnnotationAdded(Annotation annotation) {
+        Set<AnnotatableThing> visited = new HashSet<AnnotatableThing>();
+        Collection<Ontology_Component> annotatedOcs = getOntologyComp(annotation, visited);
+        for (Ontology_Component oc : annotatedOcs) {
+            String key = oc.getCurrentName();
+            if (key != null) {
+                HasAnnotationCache.addAnnotation(domainKb.getFrame(key));
+            }
+        }
+    }
 
-	private void updateCaches(Ontology_Component ontoComp, KnowledgeBase changesKb) {
-		String currentName = ontoComp.getCurrentName();
+    private Collection<Ontology_Component> getOntologyComp(Annotation annotation, Set<AnnotatableThing> visited) {
+        Collection<AnnotatableThing> annotedThings = annotation.getAnnotates();
+        Set<Ontology_Component> annotatedOcs = new HashSet<Ontology_Component>();
+        if (!visited.contains(annotation)) {
+            visited.add(annotation);
+            for (AnnotatableThing annotatableThing : annotedThings) {
+                if (annotatableThing.canAs(Ontology_Component.class)) {
+                    annotatedOcs.add(annotatableThing.as(Ontology_Component.class));
+                } else if (annotatableThing.canAs(Annotation.class)) {
+                    annotatedOcs.addAll(getOntologyComp(annotatableThing.as(Annotation.class), visited));
+                }
+            }
+        }
+        return annotatedOcs;
+    }
 
-		if (currentName == null) {
-			//Log.getLogger().warning("Cannot find current name for " + ontoComp);
-			return;
-		}
+    private void updateCaches(Ontology_Component ontoComp, KnowledgeBase changesKb) {
+        String currentName = ontoComp.getCurrentName();
 
-		Frame domainFrame = domainKb.getFrame(currentName);
-		OntologyComponentCache.put(domainFrame, ontoComp);
-		HasAnnotationCache.put(domainFrame, false);		
-	}
+        if (currentName == null) {
+            //Log.getLogger().warning("Cannot find current name for " + ontoComp);
+            return;
+        }
+
+        Frame domainFrame = domainKb.getFrame(currentName);
+        OntologyComponentCache.put(domainFrame, ontoComp);
+        //TODO: was this right?
+        //HasAnnotationCache.put(domainFrame, false);		
+    }
 
 }
