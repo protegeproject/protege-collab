@@ -14,8 +14,6 @@ import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.Cls;
@@ -29,6 +27,9 @@ import edu.stanford.smi.protege.util.ComponentUtilities;
 import edu.stanford.smi.protege.util.LazyTreeRoot;
 
 /**
+ * The entity notes panel that shows the notes attached to ontology
+ * components (e.g. classes, properties or individuals). 
+ * 
  * @author Tania Tudorache <tudorache@stanford.edu>
  *
  */
@@ -50,15 +51,10 @@ public class EntityAnnotationsPanel extends AbstractAnnotationsTabPanel {
 		}
 
 		setLabel("Notes for " + getCurrentInstance().getBrowserText());
-		Collection<Annotation> annotationsRoots = ChAOUtil.getTopLevelAnnotationInstances(getCurrentInstance());
-		Collection filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
-
-		//hack, reimplement later
-		TreeFilter filter = getTreeFilter();
-		if (filter != null) {
-			filter = new UnsatisfiableFilter();
-		}
-		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
+		
+		Collection<Annotation> filteredRoots = (Collection<Annotation>) ChAOUtil.getFilteredTopLevelNode(getCurrentInstance(), getTreeFilter());
+		
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, getTreeFilter());
 		getAnnotationsTree().setRoot(root);
 	}
 
