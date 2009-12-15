@@ -18,18 +18,18 @@ import edu.stanford.smi.protege.util.LazyTreeRoot;
  *
  */
 public class AnnotationsTreeRoot extends LazyTreeRoot {
-	private TreeFilter filter;
+	private TreeFilter<AnnotatableThing> filter;
 
 	public AnnotationsTreeRoot(Collection roots) {
 		this(roots, null);
 	}
 
-	public AnnotationsTreeRoot(Collection roots, TreeFilter filter) {
+	public AnnotationsTreeRoot(Collection roots, TreeFilter<AnnotatableThing> filter) {
 		super(getSortedRoots(roots));
 		this.filter = filter;
 	}
 
-	protected static List<AnnotatableThing> getSortedRoots(Collection roots) {
+	protected static List<AnnotatableThing> getSortedRoots(Collection<AnnotatableThing> roots) {
 		List<AnnotatableThing> list = new ArrayList<AnnotatableThing>(roots);
 		Collections.sort(list, new AnnotatableThingComparator());
 		return list;
@@ -39,7 +39,7 @@ public class AnnotationsTreeRoot extends LazyTreeRoot {
 		this(root, null);
 	}
 
-	public AnnotationsTreeRoot(Frame root, TreeFilter filter) {
+	public AnnotationsTreeRoot(Frame root, TreeFilter<AnnotatableThing> filter) {
 		super(root);
 		this.filter = filter;
 	}
@@ -50,15 +50,15 @@ public class AnnotationsTreeRoot extends LazyTreeRoot {
 	}
 
 	@Override
-	protected Comparator getComparator() {
+	protected Comparator<AnnotatableThing> getComparator() {
 		return new AnnotatableThingComparator();
 	}
 
-	public TreeFilter getFilter() {
+	public TreeFilter<AnnotatableThing> getFilter() {
 		return filter;
 	}
 
-	public void setFilter(TreeFilter filter) {
+	public void setFilter(TreeFilter<AnnotatableThing> filter) {
 		this.filter = filter;
 	}
 	
