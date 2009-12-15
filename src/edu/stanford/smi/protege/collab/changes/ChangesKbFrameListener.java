@@ -12,13 +12,13 @@ import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
-import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
 import edu.stanford.smi.protege.event.FrameAdapter;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
+import edu.stanford.smi.protegex.server_changes.OntologyComponentCache;
 
 public class ChangesKbFrameListener extends FrameAdapter {
 
@@ -33,9 +33,13 @@ public class ChangesKbFrameListener extends FrameAdapter {
         Frame frame = event.getFrame();
         Slot slot = event.getSlot();
         AnnotationFactory factory = new AnnotationFactory(frame.getKnowledgeBase());
-        if (((Instance) frame).hasType(factory.getAnnotationClass()) && slot.equals(factory.getAnnotatesSlot())) {
-            treatAnnotation(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame,
-                    Annotation.class), slot);
+        if (((Instance) frame).hasType(factory.getAnnotationClass())) {
+        	Annotation annotation = OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Annotation.class);
+        	if (slot.equals(factory.getAnnotatesSlot())) {        
+        		treatAnnotation(annotation, slot);
+        	} else if (slot.equals(factory.getArchivedSlot())) {
+        		treatArchived(annotation);
+        	}
         } else if (((Instance) frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase())
                 .getOntology_ClassClass())) {
             treatOntologyComponent(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(),
@@ -43,7 +47,8 @@ public class ChangesKbFrameListener extends FrameAdapter {
         }
     }
 
-    private void treatOntologyComponent(Ontology_Component ontComp, Slot slot) {
+
+	private void treatOntologyComponent(Ontology_Component ontComp, Slot slot) {
         AnnotationFactory factory = new AnnotationFactory(slot.getKnowledgeBase());
         if (slot.equals(factory.getCurrentNameSlot())) {
             updateCaches(ontComp, slot.getKnowledgeBase());
@@ -57,6 +62,11 @@ public class ChangesKbFrameListener extends FrameAdapter {
         }
     }
 
+
+    private void treatArchived(Annotation annotation) {
+    	HasAnnotationCache.archiveStatusChanged(domainKb.getProject(), annotation, getOntologyComp(annotation, new HashSet<AnnotatableThing>()));		
+	}
+    
     private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
         Collection<AnnotatableThing> annotatesColl = annotation.getAnnotates();
 
@@ -117,9 +127,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
         }
 
         Frame domainFrame = domainKb.getFrame(currentName);
-        OntologyComponentCache.put(domainFrame, ontoComp);
-        //TODO: was this right?
-        //HasAnnotationCache.put(domainFrame, false);		
+        OntologyComponentCache.put(domainFrame, ontoComp); 
     }
 
 }
