@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,8 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
+import edu.stanford.smi.protege.collab.annotation.gui.ConfigureOptionsTabPanel;
+import edu.stanford.smi.protege.collab.annotation.gui.StatusComboBoxUtil;
 import edu.stanford.smi.protege.exception.ProtegeException;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Frame;
@@ -23,6 +26,7 @@ import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Localizable;
 import edu.stanford.smi.protege.model.ModelUtilities;
+import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.util.LocalizeUtils;
 import edu.stanford.smi.protege.util.Log;
@@ -81,7 +85,25 @@ public class HasAnnotationCache {
             }
         }
     }
+    
+    public static void removeAnnotation(Frame frame) {
+        if (frame == null) {
+            return;
+        }
+        int existingAnn = getAnnotationCount(frame);
+        frame2AnnCountMap.put(frame, existingAnn - 1);
 
+        //update the annotation counts of all parents
+        if (frame instanceof Cls) {
+            Cls cls = (Cls) frame;
+            Collection<Cls> parents = cls.getSuperclasses();
+            for (Cls parent : parents) {
+                int count = getChildrenAnnotationCount(parent);
+                frame2ChildrenAnnCountMap.put(parent, count - 1);
+            }
+        }
+    }
+    
     public static void clearCache() { //TODO: add a listener on the kb
         frame2AnnCountMap.clear();
         frame2ChildrenAnnCountMap.clear();
@@ -187,7 +209,31 @@ public class HasAnnotationCache {
                 frame2ChildrenAnnCountMap.put(parent, count - 1);
             }
         }
-
+    }
+    
+    public static void archiveStatusChanged(Project prj, Annotation annotation, Collection<Ontology_Component> annotatedFramesOC) {    	
+    	if (hideArchived(prj)) {
+    		boolean isArchived = annotation.getArchived();
+    		for (Ontology_Component oc : annotatedFramesOC) {
+    			Instance domainAnnotatedFrame = null;           
+    			String key = oc.getCurrentName();
+    			if (key != null) {
+    				domainAnnotatedFrame = prj.getKnowledgeBase().getInstance(key);
+    			}            
+    			if (domainAnnotatedFrame != null) {
+    				if (isArchived) {
+    					removeAnnotation(domainAnnotatedFrame);
+    				} else {
+    					addAnnotation(domainAnnotatedFrame);
+    				}
+    			}
+    		}
+    	}    	
+    }
+     
+    
+    public static boolean hideArchived(Project prj) {
+    	return StatusComboBoxUtil.getHideArchived(prj);
     }
 
     /*
@@ -213,11 +259,15 @@ public class HasAnnotationCache {
             if (chaoKb == null) {
                 return frames2annCount;
             }
+                        
             OntologyComponentFactory ocf = new OntologyComponentFactory(chaoKb);
             Collection<Ontology_Component> ocs = ocf.getAllOntology_ComponentObjects(true);
 
             Slot associatedAnnotationsSlot = new AnnotationFactory(chaoKb).getAssociatedAnnotationsSlot();
-
+            Slot archivedSlot = new AnnotationFactory(chaoKb).getArchivedSlot();
+            
+            boolean hideArchived = getHideArchived(getKnowledgeBase().getProject());
+            
             //calculate the number of local annotations
             for (Ontology_Component oc : ocs) {
                 Collection<Annotation> annots = oc.getAssociatedAnnotations();
@@ -225,7 +275,8 @@ public class HasAnnotationCache {
                     String currentName = oc.getCurrentName();
                     if (currentName != null) {
                         AnnotationCount ac = new AnnotationCount();
-                        ac.setAnnCount(getAnnotatesTransitive(oc, associatedAnnotationsSlot));
+						ac.setAnnCount(getAnnotatesTransitive(oc, associatedAnnotationsSlot, 
+                        		archivedSlot, hideArchived));
                         frames2annCount.put(currentName, ac);
                     }
                 }
@@ -240,11 +291,28 @@ public class HasAnnotationCache {
             return frames2annCount;
         }
 
-        private int getAnnotatesTransitive(Ontology_Component oc, Slot associatedAnnotationsSlot) {
+        private int getAnnotatesTransitive(Ontology_Component oc, Slot associatedAnnotationsSlot, 
+        		Slot archivedSlot, boolean hideArchived) {
             Instance inst = ((AbstractWrappedInstance) oc).getWrappedProtegeInstance();
             Set closure = inst.getKnowledgeBase().getDirectOwnSlotValuesClosure(inst, associatedAnnotationsSlot);
-            return (closure == null) ? 0 : closure.size();
+            if (closure == null) { return 0; }
+            int size = closure.size();
+            if (hideArchived) {
+            	for (Iterator iterator = closure.iterator(); iterator.hasNext();) {
+					Instance annInst = (Instance) iterator.next();
+					Boolean b = (Boolean) annInst.getOwnSlotValue(archivedSlot);
+					if (b != null && b == Boolean.TRUE) {
+						size = size - 1;
+					}
+				}
+            }
+            return size;
         }
+        
+        private boolean getHideArchived(Project project) {
+    		String hide = (String) project.getClientInformation(ConfigureOptionsTabPanel.HIDE_ARCHIVED);
+    		return hide == null ? false : hide.equalsIgnoreCase("false") ? false : true;
+    	}
 
         private void updateParentAnnotationCount(String frameName) {
             Frame frame = getKnowledgeBase().getFrame(frameName);
