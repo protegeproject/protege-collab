@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -24,7 +22,6 @@ import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.annotation.tree.gui.ComplexFilterComponent;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.Instance;
@@ -81,7 +78,7 @@ public class SearchPanel extends AbstractAnnotationsTabPanel {
 		Dimension nullDim = new Dimension(0, 0);
 		searchScrollPane.setMinimumSize(nullDim);
 		labledComponent.setMinimumSize(nullDim);
-		splitPane.setDividerLocation(175 + splitPane.getInsets().bottom);
+		splitPane.setDividerLocation(210 + splitPane.getInsets().bottom);
 		splitPane.setOneTouchExpandable(true);
 
 		LabeledComponent outerLC = (LabeledComponent) this.getComponent(0);
@@ -141,7 +138,7 @@ public class SearchPanel extends AbstractAnnotationsTabPanel {
 	}
 
 	protected void onSearch() {
-		complexFilter = complexFilterComp.getComplexFilter();
+		complexFilter = complexFilterComp.getComplexFilter();		
 		refreshDisplayAfterSearch();
 	}
 
@@ -157,24 +154,13 @@ public class SearchPanel extends AbstractAnnotationsTabPanel {
 
 	private void refreshDisplayAfterSearch() {
 		//TODO: the search should be executed on the server
-		Collection<Annotation> annotationsRoots = ChAOUtil.getAnnotations(getKnowledgeBase());
+		Collection<Annotation> annotationsRoots = ChAOUtil.getTopLevelAnnotationInstances(getKnowledgeBase());
 		//TT: Took out the search through the changes - it is too expensive to do on the client side
-		//Collection<Change> changeAnnotationsRoots = ChangeOntologyUtil.getChangeInstances(getKnowledgeBase());
-
-		List allRoots = new ArrayList(annotationsRoots);
-		//allRoots.addAll(changeAnnotationsRoots);
-
-		Collection filteredRoots = ChAOUtil.getFilteredCollection(allRoots, complexFilter);
-		//Collections.sort(filteredRoots, new AnnotationCreationComparator());
-
-		//hack, reimplement later
-		TreeFilter<AnnotatableThing> filter = complexFilter;
-
-		if (filter != null) {
-			filter = new UnsatisfiableFilter();
-		}
-		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
-		getAnnotationsTree().setRoot(root);
+	
+		Collection<Annotation> filteredRoots = (Collection<Annotation>) ChAOUtil.getFilteredTopLevelNode(getChaoKb(), annotationsRoots, complexFilter);		
+	
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, getTreeFilter());
+		getAnnotationsTree().setRoot(root);		
 	}
 
 	@Override
