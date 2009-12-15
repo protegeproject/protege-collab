@@ -40,7 +40,11 @@ public class SlotValueFilter extends AbstractFilter<AnnotatableThing> {
 		Object frameSlotValue = inst.getOwnSlotValue(slot);
 
 		if (frameSlotValue == null) {
-			return false;
+			if (slot.getValueType() == ValueType.BOOLEAN) {
+				frameSlotValue = false;
+			} else {
+				return false;
+			}
 		}
 		//put some extra checks
 		if (value instanceof String && slot.getValueType() == ValueType.STRING) {
