@@ -5,12 +5,9 @@ import java.util.Collection;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 
@@ -42,15 +39,11 @@ public class ChangesAnnotationsPanel extends AbstractAnnotationsTabPanel {
 
 		setLabel("Change history for " + getCurrentInstance().getBrowserText());
 		Collection<Change> annotationsRoots = ChAOUtil.getTopLevelChanges(getCurrentInstance());
-		Collection<? extends AnnotatableThing> filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
-
-		//hack, reimplement later
-		TreeFilter<AnnotatableThing> filter = getTreeFilter();
-		if (filter != null) {
-			filter = new UnsatisfiableFilter();
-		}
-		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
-		getAnnotationsTree().setRoot(root);
+						
+		Collection<Change> filteredRoots = getTreeFilter() == null ? annotationsRoots : getTreeFilter().getFilteredCollection(annotationsRoots);
+	
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, getTreeFilter());
+		getAnnotationsTree().setRoot(root);		
 	}
 
 	@Override
