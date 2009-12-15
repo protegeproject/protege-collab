@@ -3,30 +3,35 @@ package edu.stanford.smi.protege.collab.changes;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
+import edu.stanford.bmir.protegex.chao.annotation.api.impl.DefaultAnnotatableThing;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.bmir.protegex.chao.change.api.ChangeFactory;
 import edu.stanford.bmir.protegex.chao.change.api.Composite_Change;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
+import edu.stanford.bmir.protegex.chao.util.AnnotatableThingComparator;
+import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
-import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
-import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.DefaultKnowledgeBase;
 import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
+import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.model.framestore.FrameStoreManager;
 import edu.stanford.smi.protege.server.RemoteProjectManager;
 import edu.stanford.smi.protege.server.RemoteServer;
@@ -36,6 +41,7 @@ import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.LazyTreeNode;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protegex.server_changes.GetAnnotationProjectName;
+import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
@@ -44,11 +50,11 @@ import edu.stanford.smi.protegex.server_changes.GetAnnotationProjectName;
 public class ChAOUtil {
 
     public static Ontology_Component getOntologyComponent(Frame frame) {
-        return OntologyComponentCache.getOntologyComponent(frame);
+        return ServerChangesUtil.getOntologyComponent(frame);
     }
 
     public static Ontology_Component getOntologyComponent(Frame frame, boolean create) {
-        return OntologyComponentCache.getOntologyComponent(frame, create);
+        return ServerChangesUtil.getOntologyComponent(frame, create);
     }
 
     static Collection<Annotation> getAnnotationInstances(Frame frame) {
@@ -93,7 +99,9 @@ public class ChAOUtil {
     }
 
     public static Collection<Annotation> getTopLevelAnnotationInstances(Frame frame) {
-        Collection<Annotation> allAnnotations = getAnnotationInstances(frame);
+        Collection<Annotation> allAnnotations = getAnnotationInstances(frame);        
+       
+        /*
         if (allAnnotations == null) {
             return null;
         }
@@ -103,6 +111,7 @@ public class ChAOUtil {
             toRemove.addAll(annotInstance.getAssociatedAnnotations());
         }
         allAnnotations.removeAll(toRemove);
+        */
         return allAnnotations;
     }
 
@@ -211,26 +220,57 @@ public class ChAOUtil {
         }
         return annot;
     }
+    
+    public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(KnowledgeBase kb, TreeFilter<AnnotatableThing> filter) {
+    	return getFilteredTopLevelNode(ChAOKbManager.getChAOKb(kb), getTopLevelAnnotationInstances(kb), filter);
+    }
+    
+    public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(Frame frame, TreeFilter<AnnotatableThing> filter) {
+    	Ontology_Component oc = getOntologyComponent(frame);
+    	if (oc == null) {
+    		return new ArrayList<AnnotatableThing>();
+    	}    	    	
+    	KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(frame.getKnowledgeBase());    	  	
+    	Collection<Annotation> unfilteredRoots = oc.getAssociatedAnnotations();    	
+    	return getFilteredTopLevelNode(chaoKb, unfilteredRoots, filter);
+    }
+    
 
-    /**
-     * This will return a collection of all the tree nodes that have the root
-     * the collection argument that fullfill the filter condition.
-     * 
-     * @param collection
-     * @param filter
-     * @return
-     */
-    public static <X> Collection<? extends X> getFilteredCollection(Collection<? extends X> collection,
-            TreeFilter<X> filter) {
-        if (filter == null) {
-            return collection;
+    public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(KnowledgeBase chaoKb, Collection<? extends AnnotatableThing> unfilteredRoots, TreeFilter<AnnotatableThing> filter) {       
+    	if (filter == null) {
+            return unfilteredRoots;
         }
-
-        Collection<X> filteredCollection = new ArrayList<X>();
-        AnnotationsTreeRoot treeRoot = new AnnotationsTreeRoot(collection);
-        filteredCollection.addAll(filterNodes(treeRoot, filter));
-
-        return filteredCollection;
+    	Slot associatedAnnotationsSlot = new AnnotationFactory(chaoKb).getAssociatedAnnotationsSlot();  
+    	
+    	Collection<AnnotatableThing> allAnnotations = new HashSet<AnnotatableThing>();
+        //optimization for client-server
+    	for (AnnotatableThing annotation : unfilteredRoots) {
+			Instance wrappedProtegeInstance = ((AbstractWrappedInstance) annotation).getWrappedProtegeInstance();
+			if (filter.isValid(annotation)) {
+				allAnnotations.add(annotation);
+			}
+			Set directOwnSlotValuesClosure = chaoKb.getFrameStoreManager().getHeadFrameStore().getDirectOwnSlotValuesClosure(wrappedProtegeInstance, associatedAnnotationsSlot);
+			for (Iterator iterator = directOwnSlotValuesClosure.iterator(); iterator.hasNext();) {
+				Instance inst = (Instance) iterator.next();
+				AnnotatableThing at = new DefaultAnnotatableThing(inst);
+				if (filter.isValid(at)) {
+					allAnnotations.add(at);
+				}
+			}
+        }
+    	
+    	Collection<AnnotatableThing> toRemove = new HashSet<AnnotatableThing>();
+    	for (Iterator<AnnotatableThing> iterator = allAnnotations.iterator(); iterator.hasNext();) {
+			AnnotatableThing at = (AnnotatableThing) iterator.next();
+			toRemove.addAll(at.getAssociatedAnnotations());			
+		}
+    	
+    	allAnnotations.removeAll(toRemove); 
+    	
+    	allAnnotations = new ArrayList<AnnotatableThing>(allAnnotations);
+    	Collections.sort((List<AnnotatableThing>)allAnnotations, new AnnotatableThingComparator());
+        
+        return allAnnotations;
     }
 
     private static <X> Collection<X> filterNodes(LazyTreeNode node, TreeFilter<X> filter) {
