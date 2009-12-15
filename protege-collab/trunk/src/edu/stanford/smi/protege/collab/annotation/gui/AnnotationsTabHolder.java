@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AbstractAnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.ChatPanel;
 import edu.stanford.smi.protege.collab.util.CollabTabsConfiguration;
+import edu.stanford.smi.protege.collab.util.OntologyAnnotationsCache;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.CollectionUtilities;
@@ -36,6 +37,8 @@ public class AnnotationsTabHolder extends SelectableContainer {
 
 	private JTabbedPane tabbedPane;
 	private Collection<AbstractAnnotationsTabPanel> tabs;
+	
+	private OntologyAnnotationsCache ontologyAnnotationsCache;
 
 
 	public AnnotationsTabHolder(KnowledgeBase kb) {
@@ -52,6 +55,18 @@ public class AnnotationsTabHolder extends SelectableContainer {
 		add(tabbedPane);
 	}
 
+	
+	public OntologyAnnotationsCache getOntologyAnnotationsCache() {
+		return ontologyAnnotationsCache;
+	}
+	
+	public void setOntologyAnnotationsCache(
+			OntologyAnnotationsCache ontologyAnnotationsCache) {
+		this.ontologyAnnotationsCache = ontologyAnnotationsCache;
+		for (AbstractAnnotationsTabPanel tab : tabs) {
+			tab.setOntologyAnnotationsCache(ontologyAnnotationsCache);
+		}
+	}
 
 	private JPopupMenu getPopupMenu() {
 		JPopupMenu popup = new JPopupMenu();
@@ -106,7 +121,8 @@ public class AnnotationsTabHolder extends SelectableContainer {
 			} catch (Throwable t) {
 				Log.getLogger().log(Level.WARNING, "Error at constructing collaboratve panel: " + tabClass, t);
 			}
-			if (panel != null) {			
+			if (panel != null) {
+				panel.setOntologyAnnotationsCache(ontologyAnnotationsCache);
 				tabs.add(panel);
 			}
 		}			
@@ -114,6 +130,7 @@ public class AnnotationsTabHolder extends SelectableContainer {
 	
 
 	protected void reload() {
+		getSelectable().clearSelection();
 		disposeTabs();
 		addTabs();
 		//tabbedPane.setSelectedIndex(0);
@@ -194,7 +211,7 @@ public class AnnotationsTabHolder extends SelectableContainer {
 			try {
 				tab.dispose();
 			} catch (Exception e) {
-				Log.getLogger().warning("Error at disposing collaborative tab: " + tab);
+				Log.getLogger().log(Level.WARNING, "Error at disposing collaborative tab: " + tab, e);
 			}
 		}
 	}
