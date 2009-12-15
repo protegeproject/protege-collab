@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.stanford.bmir.protegex.chao.ChAOKbManager;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
@@ -19,7 +20,7 @@ import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
-import edu.stanford.smi.protege.collab.util.OntologyComponentCache;
+import edu.stanford.smi.protege.collab.util.OntologyAnnotationsCache;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.event.FrameEvent;
 import edu.stanford.smi.protege.model.Instance;
@@ -32,6 +33,7 @@ import edu.stanford.smi.protege.util.LabeledComponent;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.Selectable;
 import edu.stanford.smi.protege.util.SelectableContainer;
+import edu.stanford.smi.protege.util.SelectableTree;
 import edu.stanford.smi.protege.util.SelectionEvent;
 import edu.stanford.smi.protege.util.SelectionListener;
 import edu.stanford.smi.protege.widget.TabWidget;
@@ -63,9 +65,13 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
     private ChangeListener protegeTabChangeListener;
     private ChangeListener collabTabChangeListener;
     private SelectionListener annotTreeSelectionListener;
+    
+    private OntologyAnnotationsCache ontologyAnnotationsCache;
 
     public AnnotationsDisplayComponent(KnowledgeBase kb) {
         this.domainKb = kb;
+        
+        ontologyAnnotationsCache = new OntologyAnnotationsCache(ChAOKbManager.getChAOKb(kb));
 
         annotationsTabHolder = createAnnotationsTabHolder();
         annotationBodyTextComponent = createAnnotationBodyComponent();
@@ -90,9 +96,9 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
         attachChangeKbListeners();
 
         add(topBottomSplitPane);
-
-        HasAnnotationCache.fillHasAnnotationCache(domainKb);
-
+        
+        HasAnnotationCache.fillHasAnnotationCache(domainKb);       
+        
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 refreshDisplay();
@@ -118,21 +124,25 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
     }
 
     protected SelectionListener getAnnotationTreeSelectionListener() {
-        if (annotTreeSelectionListener == null) {
-            annotTreeSelectionListener = new SelectionListener() {
-                public void selectionChanged(SelectionEvent event) {
-                    AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTabHolder
-                            .getSelectedTab().getAnnotationsTree().getSelection());
-                    if (thing == null) {
-                        ((InstanceDisplay) annotationBodyTextComponent).setInstance(null);
-                    } else {
-                        Instance annotInstance = ((AbstractWrappedInstance) thing).getWrappedProtegeInstance();
-                        ((InstanceDisplay) annotationBodyTextComponent).setInstance(annotInstance);
-                    }
-                }
-            };
-        }
-        return annotTreeSelectionListener;
+    	if (annotTreeSelectionListener == null) {
+    		annotTreeSelectionListener = new SelectionListener() {
+    			public void selectionChanged(SelectionEvent event) {
+    				SelectableTree annotationsTree = annotationsTabHolder.getSelectedTab().getAnnotationsTree();
+    				if (annotationsTree == null) {
+    					((InstanceDisplay) annotationBodyTextComponent).setInstance(null);
+    				} else {
+    					AnnotatableThing thing = (AnnotatableThing) CollectionUtilities.getFirstItem(annotationsTree.getSelection());
+    					if (thing == null) {
+    						((InstanceDisplay) annotationBodyTextComponent).setInstance(null);
+    					} else {
+    						Instance annotInstance = ((AbstractWrappedInstance) thing).getWrappedProtegeInstance();
+    						((InstanceDisplay) annotationBodyTextComponent).setInstance(annotInstance);
+    					}
+    				}
+    			}
+    		};
+    	}
+    	return annotTreeSelectionListener;
     }
 
     protected ChangeListener getProtegeTabChangeListener() {
@@ -226,6 +236,7 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
     protected AnnotationsTabHolder createAnnotationsTabHolder() {
         annotationsTabHolder = new AnnotationsTabHolder(domainKb);
+        annotationsTabHolder.setOntologyAnnotationsCache(ontologyAnnotationsCache);
         return annotationsTabHolder;
     }
 
@@ -374,10 +385,11 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
             } catch (Exception e) {
                 Log.getLogger().warning("Error at disposing changes ontology kb listener");
             }
-            //clear caches
-            OntologyComponentCache.clearCache();
+            //clear caches        
             HasAnnotationCache.clearCache();
         }
+        
+        ontologyAnnotationsCache.dispose();
 
         super.dispose();
     }
