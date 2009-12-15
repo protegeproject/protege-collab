@@ -61,13 +61,12 @@ public class FramesWithAnnotationsRenderer extends FrameRenderer {
         if (annCount > 0) {
             appendText(" ");
             appendIcon(AnnotationsIcons.getCommentIcon());
-            appendText("(" + annCount + ")");
+            appendText(annCount + "");
         }
 
         int chdAnnCount = HasAnnotationCache.getChildrenAnnotationCount(frame);
         if (chdAnnCount > 0) {
-            appendText(" chd:");
-            appendText("(" + chdAnnCount + ")");
+            appendText(" (" + chdAnnCount + ")");
         }
 
     }
