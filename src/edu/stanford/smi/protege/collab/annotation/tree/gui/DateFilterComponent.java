@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import com.toedter.calendar.JDateChooser;
 
+import edu.stanford.smi.protege.util.Log;
+
 
 public class DateFilterComponent implements FilterValueComponent {
 	public static final String DATE_FORMAT = "MM/dd/yyyy";
@@ -44,7 +46,14 @@ public class DateFilterComponent implements FilterValueComponent {
 	}
 
 	public void setValue(Object value) {
-		throw new UnsupportedOperationException();
+		if (value == null) {
+			fromDate.setDate(null);
+			toDate.setDate(null);
+		} else if (value instanceof Date) {
+			fromDate.setDate((Date)value);
+		} else {
+			Log.getLogger().warning("Invalid date passed to the date filter component: " + value);
+		}
 	}
 
 }
