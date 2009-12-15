@@ -10,10 +10,7 @@ import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
-import edu.stanford.smi.protege.collab.util.OntologyAnnotationsCache;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
@@ -27,26 +24,18 @@ import edu.stanford.smi.protege.ui.InstanceDisplay;
 public class OntologyAnnotationsPanel extends AbstractAnnotationsTabPanel {	
 	private static final long serialVersionUID = 3435086007615287847L;
 	
-	private OntologyAnnotationsCache ontologyAnnotationsCache;
-
 	public OntologyAnnotationsPanel(KnowledgeBase kb) {
 		super(kb, "Ontology notes");
-		setLabel("Notes on the ontology itself");
-		ontologyAnnotationsCache = new OntologyAnnotationsCache(ChAOKbManager.getChAOKb(kb));
+		setLabel("Notes on the ontology itself");		
 	}
 
 	@Override
-	public void refreshDisplay() {
-		Collection<Annotation> annotationsRoots = ontologyAnnotationsCache.getTopOntologyAnnotations();
-		Collection filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
-
-		//hack, reimplement later
-		TreeFilter filter = getTreeFilter();
-		if (filter != null) {
-			filter = new UnsatisfiableFilter();
-		}
-		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
-		getAnnotationsTree().setRoot(root);
+	public void refreshDisplay() {		
+		Collection<Annotation> annotationsRoots = getOntologyAnnotationsCache().getTopOntologyAnnotations();			
+		Collection<Annotation> filteredRoots = (Collection<Annotation>) ChAOUtil.getFilteredTopLevelNode(getChaoKb(), annotationsRoots, getTreeFilter());
+	
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, getTreeFilter());
+		getAnnotationsTree().setRoot(root);	
 	}
 
 	@Override
@@ -81,12 +70,4 @@ public class OntologyAnnotationsPanel extends AbstractAnnotationsTabPanel {
 	public Icon getIcon() {
 		return AnnotationsIcons.getCommentIcon();
 	}
-
-	@Override
-	public void dispose() {
-		ontologyAnnotationsCache.dispose();
-		super.dispose();
-	}
-
-
 }
