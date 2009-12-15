@@ -33,5 +33,9 @@ public class AndFilter extends AbstractFilter<AnnotatableThing> {
 	public void setFilters(Collection<TreeFilter<AnnotatableThing>> filters) {
 		this.filters = filters;
 	}
+	
+	public void addFilter(TreeFilter<AnnotatableThing> filter) {
+		this.filters.add(filter);
+	}
 
 }
