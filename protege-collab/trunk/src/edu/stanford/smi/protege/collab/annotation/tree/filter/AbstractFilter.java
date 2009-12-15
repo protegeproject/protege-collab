@@ -6,10 +6,10 @@ import java.util.Collection;
 public abstract class AbstractFilter<X> implements TreeFilter<X> {
 	private Object filterValue;
 
-	public Collection<X> getFilteredCollection(Collection<X> frames) {
-		Collection<X> filteredFrames = new ArrayList<X>();
+	public <Y extends X> Collection<Y> getFilteredCollection(Collection<Y> frames) {
+		Collection<Y> filteredFrames = new ArrayList<Y>();
 
-		for (X frame : frames) {
+		for (Y frame : frames) {
 			if (isValid(frame)) {
 				filteredFrames.add(frame);
 			}
