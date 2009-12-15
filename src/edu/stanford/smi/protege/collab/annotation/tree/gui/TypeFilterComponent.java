@@ -12,6 +12,9 @@ import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.util.Disposable;
 
 public class TypeFilterComponent implements FilterValueComponent, Disposable {
+	
+	private static final String ANY_TYPE = "Any type";
+	
 	private KnowledgeBase kb;
 	private JComboBox typeComboBox;
 	private AnnotationsComboBoxUtil annotationsComboBoxUtil;
@@ -23,7 +26,7 @@ public class TypeFilterComponent implements FilterValueComponent, Disposable {
 		KnowledgeBase changesKb = ChAOUtil.getChangesKb(kb);
 		annotationsComboBoxUtil = new AnnotationsComboBoxUtil(changesKb);
 		typeComboBox = new JComboBox();
-		typeComboBox.addItem("Any type");
+		typeComboBox.addItem(ANY_TYPE);
 		annotationsRenderer = new AnnotationsRenderer(kb);
 		typeComboBox.setRenderer(annotationsRenderer);	
 
@@ -42,7 +45,9 @@ public class TypeFilterComponent implements FilterValueComponent, Disposable {
 	}
 
 	public void setValue(Object value) {
-		if (value instanceof Annotation) {
+		if (value == null) {
+			typeComboBox.setSelectedItem(ANY_TYPE);
+		} else 	if (value instanceof Annotation) {
 			typeComboBox.setSelectedItem(value);
 		}
 	}
