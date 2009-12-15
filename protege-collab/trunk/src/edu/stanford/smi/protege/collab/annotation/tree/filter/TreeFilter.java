@@ -14,6 +14,6 @@ public interface TreeFilter<X> {
 
 	Object getFilterValue();
 
-	Collection<X> getFilteredCollection(Collection<X> unfilteredCollection);
+	<Y extends X> Collection<Y> getFilteredCollection(Collection<Y> unfilteredCollection);
 
 }
