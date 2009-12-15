@@ -20,7 +20,8 @@ public class ConfigureCollabProtegePanel extends ValidatableTabComponent {
     public ConfigureCollabProtegePanel(Project project) {
     	_project = project;
     	
-        addTab("Collaborative Tabs", new ConfigureCollabTabsPanel(project));       
+        addTab("Collaborative Tabs", new ConfigureCollabTabsPanel(project));
+        addTab("Options", new ConfigureOptionsTabPanel(project));
     }
     
 }
