@@ -1,7 +1,5 @@
 package edu.stanford.smi.protege.collab.annotation.tree.filter;
 
-import java.util.Collection;
-
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.model.Cls;
@@ -17,11 +15,7 @@ public class TypeFilter extends AbstractFilter<AnnotatableThing> {
 		setFilterValue(type);
 	}
 
-	@Override
-	public Collection<AnnotatableThing> getFilteredCollection(Collection<AnnotatableThing> unfilteredCollection) {
-		throw new UnsupportedOperationException();
-	}
-
+	
 	@Override
 	public boolean isValid(AnnotatableThing object) {
 		Cls type = (Cls) getFilterValue();
