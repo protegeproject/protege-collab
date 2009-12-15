@@ -94,10 +94,10 @@ public class AnnotationsRenderer extends FrameRenderer implements Disposable {
 			setMainText(((AbstractWrappedInstance)oComp).getWrappedProtegeInstance().getBrowserText());
 		} else {
 			Frame frame = kb.getFrame(name);
-			if (name == null) {
-				setMainText(((AbstractWrappedInstance)oComp).getWrappedProtegeInstance().getBrowserText());
-			} else {
+			if (frame != null) {
 				setMainText(frame.getBrowserText());
+			} else {
+				setMainText(name + " (invalid)");
 			}
 		}				
 	}
