@@ -23,14 +23,17 @@ public class StringFilterComponent implements FilterValueComponent {
 	 */
 	public Object getValue() {
 		String value = filterValueTextField.getText(); 
-		value = value.trim();
-		return (value == null ? null : (value.length() == 0) ? null : value);
+		value = value.trim();		
+		return (value == null ? null : (value.length() == 0) ? null : "*" + value + "*");
 	}
 	
 	/* (non-Javadoc)
 	 * @see edu.stanford.smi.protege.collab.annotation.tree.gui.FilterValueComponent#setValue(java.lang.String)
 	 */
 	public void setValue(Object value) {
+		if (value == null) {
+			value = new String();
+		}
 		if (value instanceof String) {
 			filterValueTextField.setText((String) value);
 		}
