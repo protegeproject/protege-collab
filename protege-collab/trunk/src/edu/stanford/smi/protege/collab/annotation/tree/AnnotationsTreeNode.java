@@ -22,14 +22,14 @@ public class AnnotationsTreeNode extends LazyTreeNode {
         super(parent, node);
     }
 
-	public AnnotationsTreeNode(AnnotationsTreeRoot root, AnnotatableThing node, TreeFilter<AnnotatableThing> filter) {
+	public AnnotationsTreeNode(LazyTreeNode root, AnnotatableThing node, TreeFilter<AnnotatableThing> filter) {
 		this(root, node);
 		this.filter = filter;
 	}
 
 	@Override
 	protected LazyTreeNode createNode(Object o) {
-		return new AnnotationsTreeNode(this, (AnnotatableThing) o);
+		return new AnnotationsTreeNode(this, (AnnotatableThing) o, filter);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class AnnotationsTreeNode extends LazyTreeNode {
 		if (filter == null) {
 			return allChildren;
 		}
-		return filter.getFilteredCollection(allChildren);
+		return (Collection<AnnotatableThing>) filter.getFilteredCollection(allChildren);
 	}
 
 	private AnnotatableThing getAnnotatableThing() {
