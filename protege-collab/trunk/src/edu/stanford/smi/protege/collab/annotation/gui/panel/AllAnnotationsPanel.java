@@ -12,8 +12,6 @@ import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsIcons;
 import edu.stanford.smi.protege.collab.annotation.tree.AnnotationsTreeRoot;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
-import edu.stanford.smi.protege.collab.annotation.tree.filter.UnsatisfiableFilter;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.model.Cls;
@@ -41,28 +39,14 @@ public class AllAnnotationsPanel extends AbstractAnnotationsTabPanel {
 			return;
 		}
 
-		/*
-		 * TODO: This method is not efficient in client-server.
-		 * The top level discussions can be retrieved from the 
-		 * Ontology Annotation cache. The ontology components with
-		 * annotations will cause calls to the server - which should
-		 * be avoided as much as possible. 
-		 */
 		Collection<AnnotatableThing> annotationsRoots = new ArrayList<AnnotatableThing>();
-		annotationsRoots.addAll(ChAOUtil.getTopLevelDiscussionThreads(getKnowledgeBase()));
+		annotationsRoots.addAll(getOntologyAnnotationsCache().getTopOntologyAnnotations());
 		annotationsRoots.addAll(ChAOUtil.getOntologyComponentsWithAnnotations(getKnowledgeBase()));
-
-		Collection filteredRoots = ChAOUtil.getFilteredCollection(annotationsRoots, getTreeFilter());
-
-		//hack, reimplement later
-		TreeFilter filter = getTreeFilter();
-
-		if (filter != null) {
-			filter = new UnsatisfiableFilter();
-		}
-		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, filter);
-
-		getAnnotationsTree().setRoot(root);
+		
+		Collection<Annotation> filteredRoots = (Collection<Annotation>) ChAOUtil.getFilteredTopLevelNode(getChaoKb(), annotationsRoots, getTreeFilter());
+			
+		AnnotationsTreeRoot root = new AnnotationsTreeRoot(filteredRoots, getTreeFilter());
+		getAnnotationsTree().setRoot(root);		
 	}
 
 	@Override
