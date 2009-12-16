@@ -1,7 +1,123 @@
-; Tue Dec 15 12:10:22 PST 2009
+; Wed Dec 16 08:56:44 PST 2009
 ; 
 ;+ (version "3.4.2")
-;+ (build "Build 557")
+;+ (build "Build 560")
+
+([annotation_collaborativeNewspaper_ProjectKB_Class41] of  String
+
+	(name "AnnotationStatus")
+	(string_value "description"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class42] of  String
+
+	(name "Annotation")
+	(string_value "subject"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class43] of  String
+
+	(name "Timestamp")
+	(string_value "date"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class44] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class45] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class46] of  String
+
+	(name "Vote")
+	(string_value "subject"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class47] of  String
+
+	(name "Change")
+	(string_value "context"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class48] of  String
+
+	(name "LinguisticEntity")
+	(string_value "label{+%28}language{%29}"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class49] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class5] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [annotation_collaborativeNewspaper_ProjectKB_Class6])
+	(widget_class_name "org.protege.owl.mm.ssm.ui.SpreadSheetMasterTab"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class50] of  String
+
+	(name "Ontology_Component")
+	(string_value "currentName"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class51] of  String
+
+	(name "ChangeStatus")
+	(string_value "description"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class52] of  String
+
+	(name "User")
+	(string_value "name"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class53] of  String
+
+	(name "Status")
+	(string_value "description"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class54] of  String
+
+	(name "Proposal")
+	(string_value "subject"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class55] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class56] of  Map_Entry
+
+	(key "annotation_proj_exists")
+	(key_class "java.lang.String")
+	(value "yes")
+	(value_class "java.lang.String"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class57] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class58] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class6] of  Property_List
+)
+
+([annotation_collaborativeNewspaper_ProjectKB_Class7] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [annotation_collaborativeNewspaper_ProjectKB_Class8])
+	(widget_class_name "org.protege.owl.axiome.ui.AxiomeTab"))
+
+([annotation_collaborativeNewspaper_ProjectKB_Class8] of  Property_List
+)
 
 ([annotation_ICD_ProjectKB_Class10112] of  Widget
 
@@ -87,31 +203,22 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[changes_ProjectKB_Class60778]
-		[changes_ProjectKB_Class60779]
-		[changes_ProjectKB_Class60780]
-		[changes_ProjectKB_Class60781]
-		[changes_ProjectKB_Class60782]
-		[changes_ProjectKB_Class60783]
-		[changes_ProjectKB_Class60784]
-		[changes_ProjectKB_Class60785]
-		[changes_ProjectKB_Class60786]
-		[changes_ProjectKB_Class60787]
-		[changes_ProjectKB_Class60788]
-		[changes_ProjectKB_Class60789]
-		[changes_ProjectKB_Class60790]
-		[changes_ProjectKB_Class60791]))
+		[annotation_collaborativeNewspaper_ProjectKB_Class41]
+		[annotation_collaborativeNewspaper_ProjectKB_Class42]
+		[annotation_collaborativeNewspaper_ProjectKB_Class43]
+		[annotation_collaborativeNewspaper_ProjectKB_Class44]
+		[annotation_collaborativeNewspaper_ProjectKB_Class45]
+		[annotation_collaborativeNewspaper_ProjectKB_Class46]
+		[annotation_collaborativeNewspaper_ProjectKB_Class47]
+		[annotation_collaborativeNewspaper_ProjectKB_Class48]
+		[annotation_collaborativeNewspaper_ProjectKB_Class49]
+		[annotation_collaborativeNewspaper_ProjectKB_Class50]
+		[annotation_collaborativeNewspaper_ProjectKB_Class51]
+		[annotation_collaborativeNewspaper_ProjectKB_Class52]
+		[annotation_collaborativeNewspaper_ProjectKB_Class53]
+		[annotation_collaborativeNewspaper_ProjectKB_Class54]))
 
 ([changes_ProjectKB_Class10] of  Property_List
-)
-
-([changes_ProjectKB_Class10005] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [changes_ProjectKB_Class10006])
-	(widget_class_name "edu.stanford.smi.protege.ui.internalKB.InternalKBTab"))
-
-([changes_ProjectKB_Class10006] of  Property_List
 )
 
 ([changes_ProjectKB_Class10007] of  Widget
@@ -3619,104 +3726,6 @@
 	(boolean_value FALSE)
 	(name "readOnly_configured"))
 
-([changes_ProjectKB_Class60778] of  String
-
-	(name "AnnotationStatus")
-	(string_value "description"))
-
-([changes_ProjectKB_Class60779] of  String
-
-	(name "Annotation")
-	(string_value "subject"))
-
-([changes_ProjectKB_Class60780] of  String
-
-	(name "Timestamp")
-	(string_value "date"))
-
-([changes_ProjectKB_Class60781] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([changes_ProjectKB_Class60782] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([changes_ProjectKB_Class60783] of  String
-
-	(name "Vote")
-	(string_value "subject"))
-
-([changes_ProjectKB_Class60784] of  String
-
-	(name "Change")
-	(string_value "context"))
-
-([changes_ProjectKB_Class60785] of  String
-
-	(name "LinguisticEntity")
-	(string_value "label{+%28}language{%29}"))
-
-([changes_ProjectKB_Class60786] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([changes_ProjectKB_Class60787] of  String
-
-	(name "Ontology_Component")
-	(string_value "currentName"))
-
-([changes_ProjectKB_Class60788] of  String
-
-	(name "ChangeStatus")
-	(string_value "description"))
-
-([changes_ProjectKB_Class60789] of  String
-
-	(name "User")
-	(string_value "name"))
-
-([changes_ProjectKB_Class60790] of  String
-
-	(name "Status")
-	(string_value "description"))
-
-([changes_ProjectKB_Class60791] of  String
-
-	(name "Proposal")
-	(string_value "subject"))
-
-([changes_ProjectKB_Class60792] of  Map_Entry
-
-	(key "add_name_on_instance_form")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([changes_ProjectKB_Class60793] of  Map_Entry
-
-	(key "annotation_proj_exists")
-	(key_class "java.lang.String")
-	(value "yes")
-	(value_class "java.lang.String"))
-
-([changes_ProjectKB_Class60794] of  Map_Entry
-
-	(key "change_tracking_active")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([changes_ProjectKB_Class60795] of  Map_Entry
-
-	(key "suppress_instance_counting")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
 ([changes_ProjectKB_Class660] of  Property_List
 
 	(properties
@@ -4088,10 +4097,10 @@
 ([changes_ProjectKB_Instance_10131] of  Map
 
 	(entries
-		[changes_ProjectKB_Class60792]
-		[changes_ProjectKB_Class60793]
-		[changes_ProjectKB_Class60794]
-		[changes_ProjectKB_Class60795]))
+		[annotation_collaborativeNewspaper_ProjectKB_Class55]
+		[annotation_collaborativeNewspaper_ProjectKB_Class56]
+		[annotation_collaborativeNewspaper_ProjectKB_Class57]
+		[annotation_collaborativeNewspaper_ProjectKB_Class58]))
 
 ([changes_ProjectKB_Instance_120] of  Property_List
 
@@ -6892,6 +6901,9 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
+([KB_538928_Class4] of  Map
+)
+
 ([KB_690954_Instance_0] of  String
 
 	(name "renaming_namespaces"))
@@ -7279,9 +7291,6 @@
 	(x 0)
 	(y 120))
 
-([KB_842941_Class4] of  Map
-)
-
 ([KB_994297_Instance_0] of  String
 
 	(name "factory_class_name")
@@ -7333,8 +7342,8 @@
 
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
-		[changes_ProjectKB_Instance_16]
 		[changes_ProjectKB_Class50585]
+		[changes_ProjectKB_Instance_16]
 		[changes_ProjectKB_Instance_51308]
 		[PAL_FORM_WIDGET]
 		[changes_ProjectKB_Instance_40056]
