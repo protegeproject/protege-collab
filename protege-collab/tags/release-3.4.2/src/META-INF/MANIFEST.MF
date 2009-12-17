@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: 1.5.0_01 (Sun Microsystems Inc.)
+
+Name: edu.stanford.smi.protege.collab.projectPlugin.ProtegeCollabGUIProjectPlugin.class
+Project-Plugin: True
+
