@@ -1,8 +1,6 @@
 package edu.stanford.smi.protege.collab.changes;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import edu.stanford.bmir.protegex.chao.annotation.api.AnnotatableThing;
 import edu.stanford.bmir.protegex.chao.annotation.api.Annotation;
@@ -19,6 +17,7 @@ import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protegex.server_changes.OntologyComponentCache;
+import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
 public class ChangesKbFrameListener extends FrameAdapter {
 
@@ -64,7 +63,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
 
 
     private void treatArchived(Annotation annotation) {
-    	HasAnnotationCache.archiveStatusChanged(domainKb.getProject(), annotation, getOntologyComp(annotation, new HashSet<AnnotatableThing>()));		
+    	HasAnnotationCache.archiveStatusChanged(domainKb.getProject(), annotation, ServerChangesUtil.getAnnotatedOntologyComponents(annotation));		
 	}
     
     private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
@@ -91,9 +90,8 @@ public class ChangesKbFrameListener extends FrameAdapter {
         }
     }
 
-    private void handleAnnotationAdded(Annotation annotation) {
-        Set<AnnotatableThing> visited = new HashSet<AnnotatableThing>();
-        Collection<Ontology_Component> annotatedOcs = getOntologyComp(annotation, visited);
+    private void handleAnnotationAdded(Annotation annotation) {       
+        Collection<Ontology_Component> annotatedOcs = ServerChangesUtil.getAnnotatedOntologyComponents(annotation);
         for (Ontology_Component oc : annotatedOcs) {
             String key = oc.getCurrentName();
             if (key != null) {
@@ -101,22 +99,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
             }
         }
     }
-
-    private Collection<Ontology_Component> getOntologyComp(Annotation annotation, Set<AnnotatableThing> visited) {
-        Collection<AnnotatableThing> annotedThings = annotation.getAnnotates();
-        Set<Ontology_Component> annotatedOcs = new HashSet<Ontology_Component>();
-        if (!visited.contains(annotation)) {
-            visited.add(annotation);
-            for (AnnotatableThing annotatableThing : annotedThings) {
-                if (annotatableThing.canAs(Ontology_Component.class)) {
-                    annotatedOcs.add(annotatableThing.as(Ontology_Component.class));
-                } else if (annotatableThing.canAs(Annotation.class)) {
-                    annotatedOcs.addAll(getOntologyComp(annotatableThing.as(Annotation.class), visited));
-                }
-            }
-        }
-        return annotatedOcs;
-    }
+   
 
     private void updateCaches(Ontology_Component ontoComp, KnowledgeBase changesKb) {
         String currentName = ontoComp.getCurrentName();
