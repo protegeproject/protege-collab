@@ -17,7 +17,6 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.bmir.protegex.chao.annotation.api.impl.DefaultAnnotatableThing;
 import edu.stanford.bmir.protegex.chao.change.api.Change;
 import edu.stanford.bmir.protegex.chao.change.api.ChangeFactory;
-import edu.stanford.bmir.protegex.chao.change.api.Composite_Change;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.bmir.protegex.chao.util.AnnotatableThingComparator;
@@ -45,7 +44,7 @@ import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
 /**
  * @author Tania Tudorache <tudorache@stanford.edu>
- * 
+ *
  */
 public class ChAOUtil {
 
@@ -86,21 +85,19 @@ public class ChAOUtil {
         if (allChanges == null || allChanges.size() == 0) {
             return allChanges;
         }
-
-        Collection<Change> toRemove = new ArrayList<Change>();
-        for (Change changeInstance : allChanges) {
-            Composite_Change cc = OntologyJavaMappingUtil.as(changeInstance, Composite_Change.class);
-            if (cc != null) {
-                toRemove.addAll(cc.getSubChanges());
+        //TODO: check logic - we may filter too much
+        for (Iterator<Change> iterator = allChanges.iterator(); iterator.hasNext();) {
+            Change change = iterator.next();
+            if (change.hasPartOfCompositeChange()) {
+                iterator.remove();
             }
         }
-        allChanges.removeAll(toRemove);
         return allChanges;
     }
 
     public static Collection<Annotation> getTopLevelAnnotationInstances(Frame frame) {
-        Collection<Annotation> allAnnotations = getAnnotationInstances(frame);        
-       
+        Collection<Annotation> allAnnotations = getAnnotationInstances(frame);
+
         /*
         if (allAnnotations == null) {
             return null;
@@ -220,28 +217,28 @@ public class ChAOUtil {
         }
         return annot;
     }
-    
+
     public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(KnowledgeBase kb, TreeFilter<AnnotatableThing> filter) {
     	return getFilteredTopLevelNode(ChAOKbManager.getChAOKb(kb), getTopLevelAnnotationInstances(kb), filter);
     }
-    
+
     public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(Frame frame, TreeFilter<AnnotatableThing> filter) {
     	Ontology_Component oc = getOntologyComponent(frame);
     	if (oc == null) {
     		return new ArrayList<AnnotatableThing>();
-    	}    	    	
-    	KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(frame.getKnowledgeBase());    	  	
-    	Collection<Annotation> unfilteredRoots = oc.getAssociatedAnnotations();    	
+    	}
+    	KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(frame.getKnowledgeBase());
+    	Collection<Annotation> unfilteredRoots = oc.getAssociatedAnnotations();
     	return getFilteredTopLevelNode(chaoKb, unfilteredRoots, filter);
     }
-    
 
-    public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(KnowledgeBase chaoKb, Collection<? extends AnnotatableThing> unfilteredRoots, TreeFilter<AnnotatableThing> filter) {       
+
+    public static Collection<? extends AnnotatableThing> getFilteredTopLevelNode(KnowledgeBase chaoKb, Collection<? extends AnnotatableThing> unfilteredRoots, TreeFilter<AnnotatableThing> filter) {
     	if (filter == null) {
             return unfilteredRoots;
         }
-    	Slot associatedAnnotationsSlot = new AnnotationFactory(chaoKb).getAssociatedAnnotationsSlot();  
-    	
+    	Slot associatedAnnotationsSlot = new AnnotationFactory(chaoKb).getAssociatedAnnotationsSlot();
+
     	Collection<AnnotatableThing> allAnnotations = new HashSet<AnnotatableThing>();
         //optimization for client-server
     	for (AnnotatableThing annotation : unfilteredRoots) {
@@ -258,18 +255,18 @@ public class ChAOUtil {
 				}
 			}
         }
-    	
+
     	Collection<AnnotatableThing> toRemove = new HashSet<AnnotatableThing>();
-    	for (Iterator<AnnotatableThing> iterator = allAnnotations.iterator(); iterator.hasNext();) {
-			AnnotatableThing at = (AnnotatableThing) iterator.next();
-			toRemove.addAll(at.getAssociatedAnnotations());			
+    	for (AnnotatableThing annotatableThing : allAnnotations) {
+			AnnotatableThing at = annotatableThing;
+			toRemove.addAll(at.getAssociatedAnnotations());
 		}
-    	
-    	allAnnotations.removeAll(toRemove); 
-    	
+
+    	allAnnotations.removeAll(toRemove);
+
     	allAnnotations = new ArrayList<AnnotatableThing>(allAnnotations);
     	Collections.sort((List<AnnotatableThing>)allAnnotations, new AnnotatableThingComparator());
-        
+
         return allAnnotations;
     }
 
