@@ -38,7 +38,8 @@ import edu.stanford.smi.protege.util.StringMatcher;
  *
  */
 public class AnnotationsTreeFinder extends FrameTreeFinder implements Disposable {
-	private JTree tree;
+    private static final long serialVersionUID = -404780170757617443L;
+    private JTree tree;
 	private Slot ancestorSlot;
 
 	public AnnotationsTreeFinder(KnowledgeBase kb, JTree tree, Slot ancestorSlot) {
@@ -70,12 +71,12 @@ public class AnnotationsTreeFinder extends FrameTreeFinder implements Disposable
 
 
 	@Override
-	protected List getMatches(String text, int maxMatches) {
+	protected List<Frame> getMatches(String text, int maxMatches) {
 		if (!text.startsWith("*")) {
 			text = "*" + text;
 		}
 		Cls kbRoot = getKnowledgeBase().getRootCls();
-		Set matches = getMatchingFrames(text, maxMatches);
+		Set<Frame> matches = getMatchingFrames(text, maxMatches);
 		LazyTreeRoot root = (LazyTreeRoot) tree.getModel().getRoot();
 		Set rootNodes = new HashSet((Collection) root.getUserObject());
 		if (rootNodes.size() != 1 || !equals(CollectionUtilities.getFirstItem(rootNodes), kbRoot)) {
@@ -97,8 +98,8 @@ public class AnnotationsTreeFinder extends FrameTreeFinder implements Disposable
 				}
 			}
 		}
-		List sortedMatches = new ArrayList(matches);
-		Collections.sort(sortedMatches, new FrameComparator());
+		List<Frame> sortedMatches = new ArrayList<Frame>(matches);
+		Collections.sort(sortedMatches, new FrameComparator<Frame>());
 		return sortedMatches;
 	}
 
