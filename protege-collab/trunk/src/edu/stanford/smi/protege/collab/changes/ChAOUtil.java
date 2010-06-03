@@ -20,6 +20,7 @@ import edu.stanford.bmir.protegex.chao.change.api.ChangeFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.OntologyComponentFactory;
 import edu.stanford.bmir.protegex.chao.ontologycomp.api.Ontology_Component;
 import edu.stanford.bmir.protegex.chao.util.AnnotatableThingComparator;
+import edu.stanford.bmir.protegex.chao.util.ChangeDateComparator;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.code.generator.wrapping.OntologyJavaMappingUtil;
 import edu.stanford.smi.protege.collab.annotation.tree.filter.TreeFilter;
@@ -92,7 +93,10 @@ public class ChAOUtil {
                 iterator.remove();
             }
         }
-        return allChanges;
+        KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(frame.getKnowledgeBase());
+        List<Change> allChangesList = new ArrayList<Change>(allChanges);
+        Collections.sort(allChangesList, new ReverseChangeDateComparator(chaoKb));
+        return allChangesList;
     }
 
     public static Collection<Annotation> getTopLevelAnnotationInstances(Frame frame) {
@@ -319,5 +323,18 @@ public class ChAOUtil {
         AnnotationFactory factory = new AnnotationFactory(getChangesKb(kb));
         factory.fillDefaultValues(annotation);
     }
+
+
+    static class ReverseChangeDateComparator extends ChangeDateComparator {
+        public ReverseChangeDateComparator(KnowledgeBase chaoKb) {
+            super(chaoKb);
+        }
+
+        @Override
+        public int compare(Change o1, Change o2) {
+            return super.compare(o2, o1);
+        }
+    }
+
 
 }
