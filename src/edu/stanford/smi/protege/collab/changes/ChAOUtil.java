@@ -82,6 +82,8 @@ public class ChAOUtil {
     }
 
     public static Collection<Change> getTopLevelChanges(Frame frame) {
+       //TODO: changes might not be aggregated it. need to ask the server  if it is in a transaction
+
         Collection<Change> allChanges = getChanges(frame);
         if (allChanges == null || allChanges.size() == 0) {
             return allChanges;
