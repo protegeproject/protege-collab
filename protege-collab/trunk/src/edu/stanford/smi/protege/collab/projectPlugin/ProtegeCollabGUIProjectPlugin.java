@@ -26,6 +26,8 @@ import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.event.ClsAdapter;
 import edu.stanford.smi.protege.event.ClsEvent;
 import edu.stanford.smi.protege.event.ClsListener;
+import edu.stanford.smi.protege.event.ProjectAdapter;
+import edu.stanford.smi.protege.event.ProjectListener;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Project;
@@ -55,6 +57,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
     private Action enableCollabPanelAction;
     private JCheckBoxMenuItem enableCollabPanelCheckBox;
     private ClsListener clsListener; //used to update the annotation cache
+    private ProjectListener chaoPrjListener; //clean up if chao closes
 
     @Override
     public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
@@ -160,48 +163,70 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
                 UIUtil.adjustAnnotationBrowserPattern(kb);
             }
         }
+
+        UIUtil.setCollaborationPanelEnabled(kb.getProject(), true);
+        attachChaoProjectListener(kb);
     }
 
-    private void disposeCollaborationPanel(KnowledgeBase kb) {
+    private void disposeCollaborationPanel() {
         if (annotationsDisplayComponent == null) {
             return;
         }
 
         ProjectView view = ProjectManager.getProjectManager().getCurrentProjectView();
+        KnowledgeBase kb = view.getProject().getKnowledgeBase();
 
-        //detach project view listener if present
-        if (view != null && projectViewListener != null) {
-            view.removeProjectViewListener(projectViewListener);
-        }
-        HasAnnotationCache.clearCache();
-
-        JComponent splitPane = (JComponent) annotationsDisplayComponent.getParent();
-        JComponent parent = null;
-        if (splitPane != null) {
-            parent = (JComponent) splitPane.getParent();
-            if (parent != null) {
-                parent.remove(splitPane);
-                parent.add(view, BorderLayout.CENTER);
-                parent.revalidate();
+        //remove Chao Prj listener
+        try {
+            KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(kb);
+            if (chaoPrjListener != null && chaoKb != null) {
+                chaoKb.getProject().removeProjectListener(chaoPrjListener);
             }
+        } catch (Exception e) {
+            Log.getLogger().log(Level.WARNING, "Error at removing ChAO Kb listener in Collaborative Protege", e);
         }
 
-        //remove the annotations components
-        if (annotationsDisplayComponent != null) {
-            ComponentUtilities.dispose(annotationsDisplayComponent);
-            annotationsDisplayComponent = null;
+        try {
+            //detach project view listener if present
+            if (view != null && projectViewListener != null) {
+                view.removeProjectViewListener(projectViewListener);
+            }
+            HasAnnotationCache.clearCache();
+
+            JComponent splitPane = (JComponent) annotationsDisplayComponent.getParent();
+            JComponent parent = null;
+            if (splitPane != null) {
+                parent = (JComponent) splitPane.getParent();
+                if (parent != null) {
+                    parent.remove(splitPane);
+                    parent.add(view, BorderLayout.CENTER);
+                    parent.revalidate();
+                }
+            }
+
+            //remove the annotations components
+            if (annotationsDisplayComponent != null) {
+                ComponentUtilities.dispose(annotationsDisplayComponent);
+                annotationsDisplayComponent = null;
+            }
+        } catch (Exception e) {
+            Log.getLogger().log(Level.WARNING, "Error at disposing the collaboration panel", e);
         }
     }
 
-    private void disableCollaborationPanel(KnowledgeBase kb) {
+    private void disableCollaborationPanel(KnowledgeBase kb, boolean reloadUI) {
         Log.getLogger().info("Stopped Collaborative Protege on " + new Date());
         JComponent mainPanel = ProjectManager.getProjectManager().getMainPanel();
         mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        disposeCollaborationPanel(kb);
-        ProjectManager.getProjectManager().reloadUI(true);
+        disposeCollaborationPanel();
+        if (reloadUI) {
+            ProjectManager.getProjectManager().reloadUI(true);
+        }
 
         mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        UIUtil.setCollaborationPanelEnabled(kb.getProject(), false);
+        enableCollabPanelCheckBox.setSelected(false);
     }
 
     private void attachProjectViewListener(ProjectView view) {
@@ -255,6 +280,26 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         return clsListener;
     }
 
+    protected void attachChaoProjectListener(KnowledgeBase kb) {
+        chaoPrjListener = getChaoPrjListener();
+        KnowledgeBase chaoKb = ChAOKbManager.getChAOKb(kb);
+        if (chaoKb != null) {
+            chaoKb.getProject().addProjectListener(getChaoPrjListener());
+        }
+    }
+
+    protected ProjectListener getChaoPrjListener() {
+        if (chaoPrjListener == null) {
+            chaoPrjListener = new ProjectAdapter() {
+                @Override
+                public void projectClosed(edu.stanford.smi.protege.event.ProjectEvent event) {
+                    disableCollaborationPanel(ProjectManager.getProjectManager().getCurrentProject().getKnowledgeBase(), true);
+                };
+            };
+        }
+        return chaoPrjListener;
+    }
+
     private void insertCollabMenu(KnowledgeBase kb, ProjectMenuBar menuBar) {
         collabMenu = new JMenu("Collaboration");
         enableCollabPanelCheckBox = new JCheckBoxMenuItem(getEnableCollabPanelAction(kb));
@@ -262,7 +307,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         collabMenu.add(enableCollabPanelCheckBox);
         ComponentFactory.addMenuItemNoIcon(collabMenu, new DisplayHtml("Collaboration User's Guide", USER_GUIDE_HTML));
         collabMenu.addSeparator();
-        collabMenu.add(new JMenuItem(new ConfigureCollabProtegeAction(kb, this))); //kind of funky		
+        collabMenu.add(new JMenuItem(new ConfigureCollabProtegeAction(kb, this))); //kind of funky
         menuBar.add(collabMenu);
     }
 
@@ -271,11 +316,10 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
             enableCollabPanelAction = new AbstractAction("Show Collaboration Panel") {
                 public void actionPerformed(ActionEvent arg0) {
                     boolean toEnable = enableCollabPanelCheckBox.isSelected();
-                    UIUtil.setCollaborationPanelEnabled(kb.getProject(), toEnable);
                     if (toEnable) {
                         enableCollaborationPanel(kb);
                     } else {
-                        disableCollaborationPanel(kb);
+                        disableCollaborationPanel(kb, true);
                     }
                 }
             };
@@ -319,7 +363,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         enableCollabPanelCheckBox = null;
         mainMenuBar.remove(collabMenu);
         collabMenu = null;
-        disposeCollaborationPanel(view.getProject().getKnowledgeBase());
+        disposeCollaborationPanel();
     }
 
     @Override
