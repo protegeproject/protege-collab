@@ -23,7 +23,6 @@ import edu.stanford.smi.protege.model.Frame;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.model.Slot;
-import edu.stanford.smi.protege.storage.database.DatabaseKnowledgeBaseFactory;
 import edu.stanford.smi.protege.util.Disposable;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.ProtegeJob;
@@ -55,8 +54,8 @@ public class OntologyAnnotationsCache implements Disposable {
 					frame.removeFrameListener(annotationListener);
 				}
 			}
-		 };
-
+		 };		 
+		 
 		 chaoKbListener = new KnowledgeBaseAdapter() {
 			@Override
 			public void instanceCreated(KnowledgeBaseEvent event) {
@@ -67,18 +66,18 @@ public class OntologyAnnotationsCache implements Disposable {
 				topOntologyAnnotations.add(factory.getAnnotation(inst.getName()));
 				inst.addFrameListener(annotationListener);
 			}
-
+			
 			@Override
 			public void instanceDeleted(KnowledgeBaseEvent event) {
 				Cls annotationCls = factory.getAnnotationClass();
 				Instance inst = (Instance) event.getFrame();
-				//if (!inst.hasType(annotationCls)) { return; }
+				//if (!inst.hasType(annotationCls)) { return; }				
 				topOntologyAnnotations.remove(new DefaultAnnotation(inst));
 				inst.removeFrameListener(annotationListener);
 			}
-
+			
 		};
-
+		
 		chaoKb.addKnowledgeBaseListener(chaoKbListener);
 	}
 
@@ -91,16 +90,16 @@ public class OntologyAnnotationsCache implements Disposable {
 		 } catch (Throwable t) {
 			 Log.getLogger().log(Level.WARNING, "Could not get top ontology annotations from server", t);
 			 return;
-		 }
+		 }		
 		 topOntologyAnnotations.addAll(topOntAnnots);
 	 }
-
+	
 	public Collection<Annotation> getTopOntologyAnnotations() {
 		return topOntologyAnnotations;
 	}
-
-
-	static class GetTopOntologyAnnotations extends ProtegeJob {
+	
+	
+	static class GetTopOntologyAnnotations extends ProtegeJob {	
 		private static final long serialVersionUID = -8544986624668899601L;
 
 		public GetTopOntologyAnnotations(KnowledgeBase chaoKb) {
@@ -109,40 +108,20 @@ public class OntologyAnnotationsCache implements Disposable {
 
 		@Override
 		public Object run() throws ProtegeException {
-		    List<Annotation> topAnnotations = null;
-
-		    if (getKnowledgeBase().getKnowledgeBaseFactory() instanceof DatabaseKnowledgeBaseFactory) {
-		        try {
-                    topAnnotations = KBUtil.getTopLevelAnnotationsFromDb(getKnowledgeBase());
-                } catch (Exception e) {
-                    Log.getLogger().log(Level.WARNING, "Error at trying to cache the ontology annotations using direct DB access.", e);
-                }
-		    }
-
-		    if (topAnnotations == null) {
-		        topAnnotations = getTopAnnotations();
-		    }
-
-		    return topAnnotations;
+			List<Annotation> topAnnotations = new ArrayList<Annotation>();
+			AnnotationFactory fact = new AnnotationFactory(getKnowledgeBase());
+			Collection<Annotation> allAnnotations = fact.getAllAnnotationObjects(true);
+			for (Annotation annotation : allAnnotations) {
+				Collection<AnnotatableThing> annotates = annotation.getAnnotates();
+				if (annotates == null || annotates.size() == 0) {
+					topAnnotations.add(annotation);
+				}
+			}
+			Collections.sort(topAnnotations, new AnnotatableThingComparator());
+			return topAnnotations;
 		}
-
-		private List<Annotation> getTopAnnotations() {
-	        List<Annotation> topAnnotations = new ArrayList<Annotation>();
-	        AnnotationFactory fact = new AnnotationFactory(getKnowledgeBase());
-	        Collection<Annotation> allAnnotations = fact.getAllAnnotationObjects(true);
-	        for (Annotation annotation : allAnnotations) {
-	            Collection<AnnotatableThing> annotates = annotation.getAnnotates();
-	            if (annotates == null || annotates.size() == 0) {
-	                topAnnotations.add(annotation);
-	            }
-	        }
-	        Collections.sort(topAnnotations, new AnnotatableThingComparator());
-	        return topAnnotations;
-	    }
 	}
-
-
-
+	
 	public void dispose() {
 		chaoKb.removeKnowledgeBaseListener(chaoKbListener);
 		topOntologyAnnotations.clear();
