@@ -353,6 +353,7 @@ public class HasAnnotationCache {
     }
 
     static class AnnotationCount implements Serializable, Localizable {
+        private static final long serialVersionUID = 5151194083841731739L;
         private Integer annCount;
         private Integer childrenAnnCount;
 
@@ -383,6 +384,7 @@ public class HasAnnotationCache {
     }
 
     static class DirectSuperclassAddedHandler extends ProtegeJob {
+        private static final long serialVersionUID = -8916715020396223761L;
         private String clsName;
         private String superclsName;
 
@@ -426,6 +428,7 @@ public class HasAnnotationCache {
     }
 
     static class DirectSuperclassRemovedHandler extends ProtegeJob {
+        private static final long serialVersionUID = -1469489385651464282L;
         private String clsName;
         private String superclsName;
 
