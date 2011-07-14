@@ -93,7 +93,9 @@ public class SearchPanel extends AbstractAnnotationsTabPanel {
 		if (viewAnnotatedEntityAction == null) {
 			viewAnnotatedEntityAction = new AllowableAction("View annotated entity",
 					AnnotationsIcons.getOntologyAnnotationIcon(), getAnnotationsTree()) {
-						public void actionPerformed(ActionEvent arg0) {
+						private static final long serialVersionUID = -965390315427521229L;
+
+                        public void actionPerformed(ActionEvent arg0) {
 							onViewAnnotatedEntities(getSelection());
 						}
 			};
