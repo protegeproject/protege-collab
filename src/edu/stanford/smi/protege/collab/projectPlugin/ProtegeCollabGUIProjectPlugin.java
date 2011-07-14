@@ -314,6 +314,8 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
     private Action getEnableCollabPanelAction(final KnowledgeBase kb) {
         if (enableCollabPanelAction == null) {
             enableCollabPanelAction = new AbstractAction("Show Collaboration Panel") {
+                private static final long serialVersionUID = -5089945315129263729L;
+
                 public void actionPerformed(ActionEvent arg0) {
                     boolean toEnable = enableCollabPanelCheckBox.isSelected();
                     if (toEnable) {
