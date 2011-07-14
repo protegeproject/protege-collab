@@ -15,7 +15,8 @@ import edu.stanford.smi.protege.util.ValidatableTabComponent;
  */
 
 public class ConfigureCollabProtegePanel extends ValidatableTabComponent {	
-	private Project _project;
+	private static final long serialVersionUID = -2326216547414293023L;
+    private Project _project;
 	
     public ConfigureCollabProtegePanel(Project project) {
     	_project = project;

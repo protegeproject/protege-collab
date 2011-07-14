@@ -24,6 +24,7 @@ import edu.stanford.smi.protege.util.LabeledComponent;
 
 public class ConfigureCollabTabsPanel extends AbstractValidatableComponent{
 
+    private static final long serialVersionUID = -289548742528630286L;
     private JTable _table;
     private Project _project;
     private boolean _dirty;
@@ -115,6 +116,7 @@ public class ConfigureCollabTabsPanel extends AbstractValidatableComponent{
   
 
     class CollabTabEnableRenderer extends CheckBoxRenderer {
+        private static final long serialVersionUID = -5827886686392202848L;
         private final Component EMPTY;
 
         {
@@ -140,7 +142,9 @@ public class ConfigureCollabTabsPanel extends AbstractValidatableComponent{
     
     private class CollabTabNameRenderer extends DefaultRenderer {
 
-    	public void load(Object o) {            
+    	private static final long serialVersionUID = 4150000057342808526L;
+
+        public void load(Object o) {            
             Class d = (Class) o;
             setMainText(d.getSimpleName());
         }

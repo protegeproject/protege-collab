@@ -376,7 +376,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			return replyAction;
 		}
 		replyAction = new AllowableAction("Reply", null, getAnnotationsTree()) {
-		//replyAction = new AllowableAction("Reply", AnnotationsIcons.getReplyIcon(), getAnnotationsTree()) {
+		private static final long serialVersionUID = 6802487941752906119L;
+
+            //replyAction = new AllowableAction("Reply", AnnotationsIcons.getReplyIcon(), getAnnotationsTree()) {
 			public void actionPerformed(ActionEvent arg0) {
 				onReplyAnnotation();
 			}
@@ -389,7 +391,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			return viewAction;
 		}
 		viewAction = new ViewAction("View Annotation", this) {
-			@Override
+			private static final long serialVersionUID = 8289140113548575483L;
+
+            @Override
 			public void onView(Object o) {
 				if (o instanceof AnnotatableThing) {
 					onViewAnnotation((AnnotatableThing)o);
@@ -404,7 +408,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			return refreshAction;
 		}
 		refreshAction = new AllowableAction("Refresh", AnnotationsIcons.getReloadIcon(), null) {
-			public void actionPerformed(ActionEvent e) {
+			private static final long serialVersionUID = 5553653994563713244L;
+
+            public void actionPerformed(ActionEvent e) {
 				refreshDisplay();						
 			}
 		};
@@ -503,7 +509,9 @@ public abstract class AbstractAnnotationsTabPanel extends SelectableContainer {
 			return createAction;
 		}
 		createAction = new CreateAction("New Thread", null) {
-			@Override
+			private static final long serialVersionUID = 1780780969829445903L;
+
+            @Override
 			public void onCreate() {
 				onCreateAnnotation();
 			}

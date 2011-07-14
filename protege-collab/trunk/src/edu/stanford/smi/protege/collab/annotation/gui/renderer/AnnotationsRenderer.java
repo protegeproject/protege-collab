@@ -31,7 +31,8 @@ import edu.stanford.smi.protege.util.Disposable;
  */
 public class AnnotationsRenderer extends FrameRenderer implements Disposable {
 
-	private KnowledgeBase kb;
+	private static final long serialVersionUID = 7101693031994864107L;
+    private KnowledgeBase kb;
 	private KnowledgeBase chaoKb;
 	private AnnotationFactory factory;
 
