@@ -9,7 +9,6 @@ import edu.stanford.smi.protege.event.ClsEvent;
 import edu.stanford.smi.protege.event.ClsListener;
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.util.Disposable;
 import edu.stanford.smi.protege.util.Log;
 
 
@@ -21,7 +20,7 @@ import edu.stanford.smi.protege.util.Log;
  * @author ttania
  *
  */
-public class ChAOCacheUpdater implements Disposable {
+public class ChAOCacheUpdater {
 
     private KnowledgeBase kb;
 
@@ -81,11 +80,11 @@ public class ChAOCacheUpdater implements Disposable {
     }
 
     public void dispose() {
-        if (domainKbClsListener != null) {
+        if (domainKbClsListener != null && kb != null && !kb.isClosed()) { //why is the kb sometimes closed?
             try {
                 kb.removeClsListener(domainKbClsListener);
             } catch (Exception e) {
-                Log.getLogger().log(Level.WARNING, "Error at detaching class listerner for the domain kb used by the HasAnnotationCacheUpdater.", e);
+                Log.getLogger().log(Level.WARNING, "Error at detaching class listerner for the domain kb used by the ChaoCacheUpdater.", e);
             }
         }
 
@@ -95,7 +94,7 @@ public class ChAOCacheUpdater implements Disposable {
             try {
                 changesKb.removeFrameListener(chaoKbFrameListener);
             } catch (Exception e) {
-                Log.getLogger().log(Level.WARNING, "Error at detaching ChAO frame listerner used by the HasAnnotationCacheUpdater.", e);
+                Log.getLogger().log(Level.WARNING, "Error at detaching ChAO frame listerner used by the ChaoCacheUpdater.", e);
             }
         }
     }
