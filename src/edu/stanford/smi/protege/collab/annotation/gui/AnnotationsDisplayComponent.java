@@ -17,9 +17,7 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.code.generator.wrapping.AbstractWrappedInstance;
 import edu.stanford.smi.protege.collab.annotation.gui.panel.AbstractAnnotationsTabPanel;
 import edu.stanford.smi.protege.collab.changes.ChAOUtil;
-import edu.stanford.smi.protege.collab.changes.ChangesKbFrameListener;
 import edu.stanford.smi.protege.collab.changes.ClassChangeListener;
-import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
 import edu.stanford.smi.protege.collab.util.OntologyAnnotationsCache;
 import edu.stanford.smi.protege.collab.util.UIUtil;
 import edu.stanford.smi.protege.event.FrameEvent;
@@ -41,11 +39,11 @@ import edu.stanford.smi.protege.widget.TabWidget;
 /**
  * Main class for displaying the collaboration component. It contains the logic
  * for refreshing the tabs when the Protege Tab is switched, listeners for
- * changes in the ChAO Kb, tree selection listeners for changes in the classes
+ * changes in the ChAO KB, tree selection listeners for changes in the classes
  * tree.
- * 
+ *
  * @author Tania Tudorache <tudorache@stanford.edu>
- * 
+ *
  */
 public class AnnotationsDisplayComponent extends SelectableContainer {
 
@@ -61,16 +59,16 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
 
     private ClassChangeListener classChangeListener;
     private SelectionListener clsTreeSelectionListener;
-    private ChangesKbFrameListener changesKbFrameListener;
+
     private ChangeListener protegeTabChangeListener;
     private ChangeListener collabTabChangeListener;
     private SelectionListener annotTreeSelectionListener;
-    
+
     private OntologyAnnotationsCache ontologyAnnotationsCache;
 
     public AnnotationsDisplayComponent(KnowledgeBase kb) {
         this.domainKb = kb;
-        
+
         ontologyAnnotationsCache = new OntologyAnnotationsCache(ChAOKbManager.getChAOKb(kb));
 
         annotationsTabHolder = createAnnotationsTabHolder();
@@ -93,12 +91,9 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
         attachAnnotationTreeSelectionListener();
         annotationsTabHolder.getTabbedPane().addChangeListener(getCollabTabChangeListener());
         attachProtegeTabTreeListener();
-        attachChangeKbListeners();
 
         add(topBottomSplitPane);
-        
-        HasAnnotationCache.fillHasAnnotationCache(domainKb);       
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 refreshDisplay();
@@ -109,13 +104,6 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
     /*
      * Listeners
      */
-
-    protected void attachChangeKbListeners() {
-        KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
-
-        changesKbFrameListener = new ChangesKbFrameListener(domainKb);
-        changesKb.addFrameListener(changesKbFrameListener);
-    }
 
     protected void attachAnnotationTreeSelectionListener() {
         for (AbstractAnnotationsTabPanel annotationPanel : annotationsTabHolder.getTabs()) {
@@ -374,21 +362,8 @@ public class AnnotationsDisplayComponent extends SelectableContainer {
         }
 
         /*
-         * ChAO Kb related listeners
+         * Clear the ChAO caches
          */
-        KnowledgeBase changesKb = ChAOUtil.getChangesKb(domainKb);
-        if (changesKb == null) {
-            Log.getLogger().warning("Cannot dispose properly the annotations component because changes kb is null");
-        } else {
-            try {
-                changesKb.removeFrameListener(changesKbFrameListener);
-            } catch (Exception e) {
-                Log.getLogger().warning("Error at disposing changes ontology kb listener");
-            }
-            //clear caches        
-            HasAnnotationCache.clearCache();
-        }
-        
         ontologyAnnotationsCache.dispose();
 
         super.dispose();
