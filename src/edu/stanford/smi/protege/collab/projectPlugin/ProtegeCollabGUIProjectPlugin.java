@@ -341,7 +341,9 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
     @Override
     public void beforeClose(Project p) {
-        chaoCacheUpdater.dispose();
+        if (chaoCacheUpdater != null) {
+            chaoCacheUpdater.dispose();
+        }
         //should be safe here, because this is in the Protege Client UI, and there is only one project loaded at a time
         HasAnnotationCache.clearCache();
     }
