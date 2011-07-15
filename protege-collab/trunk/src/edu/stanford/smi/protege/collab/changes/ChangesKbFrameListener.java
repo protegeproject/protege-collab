@@ -19,6 +19,13 @@ import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protegex.server_changes.OntologyComponentCache;
 import edu.stanford.smi.protegex.server_changes.ServerChangesUtil;
 
+/**
+ * Listener that updates the {@link HasAnnotationCache} that keeps the
+ * notes count, and the {@link OntologyComponentCache}.
+ *
+ * @author ttania
+ *
+ */
 public class ChangesKbFrameListener extends FrameAdapter {
 
     private KnowledgeBase domainKb;
@@ -34,13 +41,12 @@ public class ChangesKbFrameListener extends FrameAdapter {
         AnnotationFactory factory = new AnnotationFactory(frame.getKnowledgeBase());
         if (((Instance) frame).hasType(factory.getAnnotationClass())) {
         	Annotation annotation = OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(), (Instance) frame, Annotation.class);
-        	if (slot.equals(factory.getAnnotatesSlot())) {        
+        	if (slot.equals(factory.getAnnotatesSlot())) {
         		treatAnnotation(annotation, slot);
         	} else if (slot.equals(factory.getArchivedSlot())) {
         		treatArchived(annotation);
         	}
-        } else if (((Instance) frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase())
-                .getOntology_ClassClass())) {
+        } else if (((Instance) frame).hasType(new OntologyComponentFactory(frame.getKnowledgeBase()).getOntology_ClassClass())) {
             treatOntologyComponent(OntologyJavaMappingUtil.getSpecificObject(frame.getKnowledgeBase(),
                     (Instance) frame, Ontology_Component.class), slot);
         }
@@ -63,9 +69,9 @@ public class ChangesKbFrameListener extends FrameAdapter {
 
 
     private void treatArchived(Annotation annotation) {
-    	HasAnnotationCache.archiveStatusChanged(domainKb.getProject(), annotation, ServerChangesUtil.getAnnotatedOntologyComponents(annotation));		
+    	HasAnnotationCache.archiveStatusChanged(domainKb.getProject(), annotation, ServerChangesUtil.getAnnotatedOntologyComponents(annotation));
 	}
-    
+
     private void updateCaches(Annotation annotation, KnowledgeBase changesKb) {
         Collection<AnnotatableThing> annotatesColl = annotation.getAnnotates();
 
@@ -90,7 +96,7 @@ public class ChangesKbFrameListener extends FrameAdapter {
         }
     }
 
-    private void handleAnnotationAdded(Annotation annotation) {       
+    private void handleAnnotationAdded(Annotation annotation) {
         Collection<Ontology_Component> annotatedOcs = ServerChangesUtil.getAnnotatedOntologyComponents(annotation);
         for (Ontology_Component oc : annotatedOcs) {
             String key = oc.getCurrentName();
@@ -99,18 +105,16 @@ public class ChangesKbFrameListener extends FrameAdapter {
             }
         }
     }
-   
+
 
     private void updateCaches(Ontology_Component ontoComp, KnowledgeBase changesKb) {
         String currentName = ontoComp.getCurrentName();
-
         if (currentName == null) {
             //Log.getLogger().warning("Cannot find current name for " + ontoComp);
             return;
         }
-
         Frame domainFrame = domainKb.getFrame(currentName);
-        OntologyComponentCache.put(domainFrame, ontoComp); 
+        OntologyComponentCache.put(domainFrame, ontoComp);
     }
 
 }
