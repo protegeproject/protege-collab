@@ -21,11 +21,9 @@ import edu.stanford.bmir.protegex.chao.annotation.api.AnnotationFactory;
 import edu.stanford.smi.protege.action.DisplayHtml;
 import edu.stanford.smi.protege.collab.annotation.gui.AnnotationsDisplayComponent;
 import edu.stanford.smi.protege.collab.annotation.gui.ConfigureCollabProtegeAction;
+import edu.stanford.smi.protege.collab.util.ChAOCacheUpdater;
 import edu.stanford.smi.protege.collab.util.HasAnnotationCache;
 import edu.stanford.smi.protege.collab.util.UIUtil;
-import edu.stanford.smi.protege.event.ClsAdapter;
-import edu.stanford.smi.protege.event.ClsEvent;
-import edu.stanford.smi.protege.event.ClsListener;
 import edu.stanford.smi.protege.event.ProjectAdapter;
 import edu.stanford.smi.protege.event.ProjectListener;
 import edu.stanford.smi.protege.model.Cls;
@@ -52,12 +50,16 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
     public static String USER_GUIDE_HTML = "http://protegewiki.stanford.edu/index.php/Collaborative_Protege";
 
     private AnnotationsDisplayComponent annotationsDisplayComponent;
-    private ProjectViewListener projectViewListener;
     private JMenu collabMenu;
     private Action enableCollabPanelAction;
     private JCheckBoxMenuItem enableCollabPanelCheckBox;
-    private ClsListener clsListener; //used to update the annotation cache
-    private ProjectListener chaoPrjListener; //clean up if chao closes
+
+    //updates the annotation count cache
+    private ChAOCacheUpdater chaoCacheUpdater;
+    //enables annotation renderers, if tabs are added/closed
+    private ProjectViewListener projectViewListener;
+    //clean up, if chao closes
+    private ProjectListener chaoPrjListener;
 
     @Override
     public void afterShow(ProjectView view, ProjectToolBar toolBar, ProjectMenuBar menuBar) {
@@ -67,7 +69,7 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         if (!UIUtil.isCollaborationPanelEnabled(kb.getProject())) {
             return;
         }
-        attachClsListener(kb);
+        chaoCacheUpdater = new ChAOCacheUpdater(kb);
         enableCollaborationPanel(kb);
     }
 
@@ -165,7 +167,11 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         }
 
         UIUtil.setCollaborationPanelEnabled(kb.getProject(), true);
+
+        HasAnnotationCache.fillHasAnnotationCache(kb);
+        chaoCacheUpdater.initialize();
         attachChaoProjectListener(kb);
+
     }
 
     private void disposeCollaborationPanel() {
@@ -243,41 +249,6 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
             }
         };
         view.addProjectViewListener(projectViewListener);
-    }
-
-    protected void attachClsListener(KnowledgeBase kb) {
-        kb.addClsListener(getClsListener());
-    }
-
-    protected ClsListener getClsListener() {
-        if (clsListener == null) {
-            clsListener = new ClsAdapter() {
-                @Override
-                public void directSuperclassAdded(ClsEvent event) {
-                    if (!event.isReplacementEvent()) {
-                        HasAnnotationCache.onDirectSuperClassAdded(event.getCls(), event.getSuperclass());
-                    }
-                }
-
-                @Override
-                public void directSuperclassRemoved(ClsEvent event) {
-                    if (!event.isReplacementEvent()) {
-                        HasAnnotationCache.onDirectSuperClassRemoved(event.getCls(), event.getSuperclass());
-                    }
-                }
-
-                @Override
-                public void directSubclassRemoved(ClsEvent event) {
-                    if (!event.isReplacementEvent()) {
-                        Cls subcls = event.getSubclass();
-                        if (subcls.isBeingDeleted()) {
-                            HasAnnotationCache.onClsDeleted(subcls, event.getCls());
-                        }
-                    }
-                }
-            };
-        }
-        return clsListener;
     }
 
     protected void attachChaoProjectListener(KnowledgeBase kb) {
@@ -370,13 +341,9 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
     @Override
     public void beforeClose(Project p) {
-        try {
-            if (clsListener != null) {
-                p.getKnowledgeBase().removeClsListener(clsListener);
-            }
-        } catch (Exception e) {
-            Log.getLogger().log(Level.WARNING, "Error at removing class listener in collab project plugin", e);
-        }
+        chaoCacheUpdater.dispose();
+        //should be safe here, because this is in the Protege Client UI, and there is only one project loaded at a time
+        HasAnnotationCache.clearCache();
     }
 
     public AnnotationsDisplayComponent getAnnotationsDisplayComponent() {
