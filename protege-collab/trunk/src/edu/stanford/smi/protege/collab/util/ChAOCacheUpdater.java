@@ -34,8 +34,11 @@ public class ChAOCacheUpdater {
     }
 
     public void initialize() {
-        attachClsListener(kb);
-        attachChAOKbListener();
+        KnowledgeBase chaoKb = ChAOUtil.getChangesKb(kb);
+        if (chaoKb != null) {
+            attachClsListener(kb);
+            attachChAOKbListener();
+        }
     }
 
     protected void attachClsListener(KnowledgeBase kb) {
