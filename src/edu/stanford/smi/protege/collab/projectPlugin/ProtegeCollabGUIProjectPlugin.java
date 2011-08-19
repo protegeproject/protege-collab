@@ -69,7 +69,6 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
         if (!UIUtil.isCollaborationPanelEnabled(kb.getProject())) {
             return;
         }
-        chaoCacheUpdater = new ChAOCacheUpdater(kb);
         enableCollaborationPanel(kb);
     }
 
@@ -168,10 +167,14 @@ public class ProtegeCollabGUIProjectPlugin extends ProjectPluginAdapter {
 
         UIUtil.setCollaborationPanelEnabled(kb.getProject(), true);
 
-        HasAnnotationCache.fillHasAnnotationCache(kb);
-        chaoCacheUpdater.initialize();
+        initCaches(kb);
         attachChaoProjectListener(kb);
+    }
 
+    private void initCaches(KnowledgeBase kb) {
+        HasAnnotationCache.fillHasAnnotationCache(kb); //annotation count cache
+        chaoCacheUpdater = new ChAOCacheUpdater(kb); //update of the annotation count cache
+        chaoCacheUpdater.initialize();
     }
 
     private void disposeCollaborationPanel() {
