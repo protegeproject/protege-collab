@@ -28,6 +28,7 @@ import edu.stanford.smi.protege.model.Localizable;
 import edu.stanford.smi.protege.model.ModelUtilities;
 import edu.stanford.smi.protege.model.Project;
 import edu.stanford.smi.protege.model.Slot;
+import edu.stanford.smi.protege.util.ApplicationProperties;
 import edu.stanford.smi.protege.util.LocalizeUtils;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.util.ProtegeJob;
@@ -45,8 +46,18 @@ public class HasAnnotationCache {
 
     //FIXME: the cache relies on several listerers form collab. Get the listeners here.
 
+    public static String PRECACHE_NOTES_COUNT_PROP ="collab.precache.notes.count";
+
     private static Map<Frame, Integer> frame2AnnCountMap = new HashMap<Frame, Integer>();
     private static Map<Frame, Integer> frame2ChildrenAnnCountMap = new HashMap<Frame, Integer>();
+
+    public static boolean isPrecacheNotesCountEnabled() {
+        return ApplicationProperties.getBooleanProperty(PRECACHE_NOTES_COUNT_PROP, true);
+    }
+
+    public static void setPrecacheNotesCount(boolean enabled) {
+        ApplicationProperties.setBoolean(PRECACHE_NOTES_COUNT_PROP, true);
+    }
 
     public static boolean hasAnnotations(Frame frame) {
         return getAnnotationCount(frame) > 0;
@@ -111,6 +122,10 @@ public class HasAnnotationCache {
 
     @SuppressWarnings("unchecked")
     public static void fillHasAnnotationCache(KnowledgeBase kb) {
+        if (!isPrecacheNotesCountEnabled()) {
+            return;
+        }
+
         Map<String, AnnotationCount> frams2AnnCount = null;
         try {
             frams2AnnCount = (Map<String, AnnotationCount>) new GetFramesWithAnnotations(kb).execute();
