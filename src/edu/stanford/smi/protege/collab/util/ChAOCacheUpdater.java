@@ -87,7 +87,11 @@ public class ChAOCacheUpdater {
             try {
                 kb.removeClsListener(domainKbClsListener);
             } catch (Exception e) {
-                Log.getLogger().log(Level.WARNING, "Error at detaching class listerner for the domain kb used by the ChaoCacheUpdater.", e);
+                if (Log.getLogger().isLoggable(Level.FINE)) {
+                    Log.getLogger().log(Level.FINE, "Error at detaching class listerner for the domain kb used by the ChaoCacheUpdater.", e);
+                } else {
+                    Log.getLogger().warning("Error at detaching class listerner for the domain kb used by the ChaoCacheUpdater. " + e.getMessage());
+                }
             }
         }
 
